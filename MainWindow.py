@@ -254,7 +254,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ws['C2'].alignment = alignmentCC
         ws['C2'].font = fontA12
 
-        ws['B3'] = "ŚWIADECTWO WZORCOWANIA ESSA"
+        ws['B3'] = "ŚWIADECTWO WZORCOWANIA"
         ws['B3'].font = fontA22
         ws['B3'].alignment = alignmentCC
 
