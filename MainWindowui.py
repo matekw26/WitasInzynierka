@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1360, 713)
+        MainWindow.resize(1382, 749)
         icon = QIcon()
         icon.addFile(u"image/logo.png", QSize(), QIcon.Normal, QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -415,116 +415,132 @@ class Ui_MainWindow(object):
         self.Swiadectwo.setObjectName(u"Swiadectwo")
         self.gridLayout_7 = QGridLayout(self.Swiadectwo)
         self.gridLayout_7.setObjectName(u"gridLayout_7")
-        self.label_28 = QLabel(self.Swiadectwo)
-        self.label_28.setObjectName(u"label_28")
+        self.generuj_swiadectwo = QPushButton(self.Swiadectwo)
+        self.generuj_swiadectwo.setObjectName(u"generuj_swiadectwo")
 
-        self.gridLayout_7.addWidget(self.label_28, 3, 6, 1, 1)
+        self.gridLayout_7.addWidget(self.generuj_swiadectwo, 15, 7, 1, 1)
 
-        self.wyniki_wzorcowania = QTableWidget(self.Swiadectwo)
-        self.wyniki_wzorcowania.setObjectName(u"wyniki_wzorcowania")
+        self.spojnosc_pomiarowa = QTextEdit(self.Swiadectwo)
+        self.spojnosc_pomiarowa.setObjectName(u"spojnosc_pomiarowa")
 
-        self.gridLayout_7.addWidget(self.wyniki_wzorcowania, 7, 0, 1, 12)
+        self.gridLayout_7.addWidget(self.spojnosc_pomiarowa, 12, 2, 1, 1)
 
-        self.label_2 = QLabel(self.Swiadectwo)
-        self.label_2.setObjectName(u"label_2")
+        self.Wybor_zglaszajacy = QComboBox(self.Swiadectwo)
+        self.Wybor_zglaszajacy.addItem("")
+        self.Wybor_zglaszajacy.addItem("")
+        self.Wybor_zglaszajacy.addItem("")
+        self.Wybor_zglaszajacy.setObjectName(u"Wybor_zglaszajacy")
 
-        self.gridLayout_7.addWidget(self.label_2, 1, 0, 1, 1)
+        self.gridLayout_7.addWidget(self.Wybor_zglaszajacy, 5, 2, 1, 1)
 
-        self.label_25 = QLabel(self.Swiadectwo)
-        self.label_25.setObjectName(u"label_25")
+        self.label_35 = QLabel(self.Swiadectwo)
+        self.label_35.setObjectName(u"label_35")
 
-        self.gridLayout_7.addWidget(self.label_25, 1, 1, 1, 1)
+        self.gridLayout_7.addWidget(self.label_35, 14, 3, 1, 1)
+
+        self.SzukajSW = QPushButton(self.Swiadectwo)
+        self.SzukajSW.setObjectName(u"SzukajSW")
+        self.SzukajSW.setMaximumSize(QSize(100, 16777215))
+
+        self.gridLayout_7.addWidget(self.SzukajSW, 15, 2, 1, 1)
+
+        self.sciezkaWynik_zapis = QLineEdit(self.Swiadectwo)
+        self.sciezkaWynik_zapis.setObjectName(u"sciezkaWynik_zapis")
+
+        self.gridLayout_7.addWidget(self.sciezkaWynik_zapis, 15, 3, 1, 1)
 
         self.label_7 = QLabel(self.Swiadectwo)
         self.label_7.setObjectName(u"label_7")
         self.label_7.setPixmap(QPixmap(u"image/tlo_poloficial.png"))
         self.label_7.setScaledContents(True)
 
-        self.gridLayout_7.addWidget(self.label_7, 0, 0, 1, 11)
+        self.gridLayout_7.addWidget(self.label_7, 0, 0, 1, 8)
+
+        self.przedmiot_wzorcowania = QTextEdit(self.Swiadectwo)
+        self.przedmiot_wzorcowania.setObjectName(u"przedmiot_wzorcowania")
+
+        self.gridLayout_7.addWidget(self.przedmiot_wzorcowania, 7, 0, 1, 1)
 
         self.Zapisz_wynik = QPushButton(self.Swiadectwo)
         self.Zapisz_wynik.setObjectName(u"Zapisz_wynik")
 
-        self.gridLayout_7.addWidget(self.Zapisz_wynik, 10, 9, 1, 1)
-
-        self.spojnosc_pomiarowa = QTextEdit(self.Swiadectwo)
-        self.spojnosc_pomiarowa.setObjectName(u"spojnosc_pomiarowa")
-
-        self.gridLayout_7.addWidget(self.spojnosc_pomiarowa, 4, 7, 2, 2)
-
-        self.niepewnosc_pomiaru = QTextEdit(self.Swiadectwo)
-        self.niepewnosc_pomiaru.setObjectName(u"niepewnosc_pomiaru")
-
-        self.gridLayout_7.addWidget(self.niepewnosc_pomiaru, 4, 9, 2, 3)
-
-        self.label_31 = QLabel(self.Swiadectwo)
-        self.label_31.setObjectName(u"label_31")
-
-        self.gridLayout_7.addWidget(self.label_31, 3, 9, 1, 1)
-
-        self.warunki_srodowiskowe = QTextEdit(self.Swiadectwo)
-        self.warunki_srodowiskowe.setObjectName(u"warunki_srodowiskowe")
-
-        self.gridLayout_7.addWidget(self.warunki_srodowiskowe, 4, 6, 2, 1)
-
-        self.generuj_swiadectwo = QPushButton(self.Swiadectwo)
-        self.generuj_swiadectwo.setObjectName(u"generuj_swiadectwo")
-
-        self.gridLayout_7.addWidget(self.generuj_swiadectwo, 10, 10, 1, 1)
-
-        self.label_26 = QLabel(self.Swiadectwo)
-        self.label_26.setObjectName(u"label_26")
-
-        self.gridLayout_7.addWidget(self.label_26, 3, 0, 1, 1)
-
-        self.ANG = QRadioButton(self.Swiadectwo)
-        self.ANG.setObjectName(u"ANG")
-
-        self.gridLayout_7.addWidget(self.ANG, 2, 3, 1, 1)
-
-        self.label_33 = QLabel(self.Swiadectwo)
-        self.label_33.setObjectName(u"label_33")
-
-        self.gridLayout_7.addWidget(self.label_33, 6, 0, 1, 1)
+        self.gridLayout_7.addWidget(self.Zapisz_wynik, 15, 6, 1, 1)
 
         self.label_30 = QLabel(self.Swiadectwo)
         self.label_30.setObjectName(u"label_30")
 
-        self.gridLayout_7.addWidget(self.label_30, 3, 7, 1, 1)
+        self.gridLayout_7.addWidget(self.label_30, 11, 2, 1, 1)
 
-        self.label_27 = QLabel(self.Swiadectwo)
-        self.label_27.setObjectName(u"label_27")
+        self.ANG = QRadioButton(self.Swiadectwo)
+        self.ANG.setObjectName(u"ANG")
 
-        self.gridLayout_7.addWidget(self.label_27, 3, 4, 1, 2)
+        self.gridLayout_7.addWidget(self.ANG, 1, 3, 2, 1)
 
-        self.metoda_wzorcowania = QTextEdit(self.Swiadectwo)
-        self.metoda_wzorcowania.setObjectName(u"metoda_wzorcowania")
+        self.warunki_srodowiskowe = QTextEdit(self.Swiadectwo)
+        self.warunki_srodowiskowe.setObjectName(u"warunki_srodowiskowe")
 
-        self.gridLayout_7.addWidget(self.metoda_wzorcowania, 4, 4, 2, 2)
+        self.gridLayout_7.addWidget(self.warunki_srodowiskowe, 12, 3, 1, 1)
+
+        self.sciezkaSW_zapis = QLineEdit(self.Swiadectwo)
+        self.sciezkaSW_zapis.setObjectName(u"sciezkaSW_zapis")
+        self.sciezkaSW_zapis.setMinimumSize(QSize(0, 0))
+
+        self.gridLayout_7.addWidget(self.sciezkaSW_zapis, 15, 0, 1, 1)
 
         self.label_34 = QLabel(self.Swiadectwo)
         self.label_34.setObjectName(u"label_34")
 
-        self.gridLayout_7.addWidget(self.label_34, 8, 0, 1, 1)
+        self.gridLayout_7.addWidget(self.label_34, 14, 0, 1, 1)
+
+        self.label_31 = QLabel(self.Swiadectwo)
+        self.label_31.setObjectName(u"label_31")
+
+        self.gridLayout_7.addWidget(self.label_31, 11, 0, 1, 1)
+
+        self.Zglaszajacy = QTextEdit(self.Swiadectwo)
+        self.Zglaszajacy.setObjectName(u"Zglaszajacy")
+
+        self.gridLayout_7.addWidget(self.Zglaszajacy, 7, 2, 1, 1)
+
+        self.label_28 = QLabel(self.Swiadectwo)
+        self.label_28.setObjectName(u"label_28")
+
+        self.gridLayout_7.addWidget(self.label_28, 11, 3, 1, 1)
+
+        self.niepewnosc_pomiaru = QTextEdit(self.Swiadectwo)
+        self.niepewnosc_pomiaru.setObjectName(u"niepewnosc_pomiaru")
+        self.niepewnosc_pomiaru.setMaximumSize(QSize(16777215, 16777215))
+
+        self.gridLayout_7.addWidget(self.niepewnosc_pomiaru, 12, 0, 1, 1)
+
+        self.label_11 = QLabel(self.Swiadectwo)
+        self.label_11.setObjectName(u"label_11")
+
+        self.gridLayout_7.addWidget(self.label_11, 4, 2, 1, 1)
 
         self.data_wzorcowania = QDateEdit(self.Swiadectwo)
         self.data_wzorcowania.setObjectName(u"data_wzorcowania")
-        self.data_wzorcowania.setDateTime(QDateTime(QDate(2023, 2, 9), QTime(22, 0, 0)))
+        self.data_wzorcowania.setDateTime(QDateTime(QDate(2023, 2, 9), QTime(21, 0, 0)))
         self.data_wzorcowania.setCalendarPopup(True)
 
-        self.gridLayout_7.addWidget(self.data_wzorcowania, 2, 0, 1, 1)
+        self.gridLayout_7.addWidget(self.data_wzorcowania, 2, 0, 2, 1)
 
-        self.numer_swiadectwa = QLineEdit(self.Swiadectwo)
-        self.numer_swiadectwa.setObjectName(u"numer_swiadectwa")
-        self.numer_swiadectwa.setClearButtonEnabled(False)
+        self.label_25 = QLabel(self.Swiadectwo)
+        self.label_25.setObjectName(u"label_25")
 
-        self.gridLayout_7.addWidget(self.numer_swiadectwa, 2, 1, 1, 1)
+        self.gridLayout_7.addWidget(self.label_25, 1, 2, 1, 1)
 
         self.odczyt_wynikow = QPushButton(self.Swiadectwo)
         self.odczyt_wynikow.setObjectName(u"odczyt_wynikow")
         self.odczyt_wynikow.setMaximumSize(QSize(16777215, 16777215))
 
-        self.gridLayout_7.addWidget(self.odczyt_wynikow, 10, 8, 1, 1)
+        self.gridLayout_7.addWidget(self.odczyt_wynikow, 15, 5, 1, 1)
+
+        self.numer_swiadectwa = QLineEdit(self.Swiadectwo)
+        self.numer_swiadectwa.setObjectName(u"numer_swiadectwa")
+        self.numer_swiadectwa.setClearButtonEnabled(False)
+
+        self.gridLayout_7.addWidget(self.numer_swiadectwa, 2, 2, 2, 1)
 
         self.SzukajWynikow = QPushButton(self.Swiadectwo)
         self.SzukajWynikow.setObjectName(u"SzukajWynikow")
@@ -534,50 +550,38 @@ class Ui_MainWindow(object):
         self.SzukajWynikow.setBaseSize(QSize(0, 0))
         self.SzukajWynikow.setAutoRepeatDelay(300)
 
-        self.gridLayout_7.addWidget(self.SzukajWynikow, 10, 7, 1, 1)
+        self.gridLayout_7.addWidget(self.SzukajWynikow, 15, 4, 1, 1)
 
-        self.label_35 = QLabel(self.Swiadectwo)
-        self.label_35.setObjectName(u"label_35")
+        self.label_2 = QLabel(self.Swiadectwo)
+        self.label_2.setObjectName(u"label_2")
 
-        self.gridLayout_7.addWidget(self.label_35, 8, 5, 1, 1)
+        self.gridLayout_7.addWidget(self.label_2, 1, 0, 1, 1)
 
-        self.SzukajSW = QPushButton(self.Swiadectwo)
-        self.SzukajSW.setObjectName(u"SzukajSW")
+        self.metoda_wzorcowania = QTextEdit(self.Swiadectwo)
+        self.metoda_wzorcowania.setObjectName(u"metoda_wzorcowania")
 
-        self.gridLayout_7.addWidget(self.SzukajSW, 10, 4, 1, 1)
+        self.gridLayout_7.addWidget(self.metoda_wzorcowania, 7, 3, 1, 1)
 
-        self.sciezkaSW_zapis = QLineEdit(self.Swiadectwo)
-        self.sciezkaSW_zapis.setObjectName(u"sciezkaSW_zapis")
+        self.label_33 = QLabel(self.Swiadectwo)
+        self.label_33.setObjectName(u"label_33")
 
-        self.gridLayout_7.addWidget(self.sciezkaSW_zapis, 10, 0, 1, 4)
+        self.gridLayout_7.addWidget(self.label_33, 1, 4, 1, 1)
 
-        self.sciezkaWynik_zapis = QLineEdit(self.Swiadectwo)
-        self.sciezkaWynik_zapis.setObjectName(u"sciezkaWynik_zapis")
+        self.wyniki_wzorcowania = QTableWidget(self.Swiadectwo)
+        self.wyniki_wzorcowania.setObjectName(u"wyniki_wzorcowania")
+        self.wyniki_wzorcowania.setMinimumSize(QSize(700, 400))
 
-        self.gridLayout_7.addWidget(self.sciezkaWynik_zapis, 10, 5, 1, 2)
+        self.gridLayout_7.addWidget(self.wyniki_wzorcowania, 2, 4, 12, 4)
 
-        self.przedmiot_wzorcowania = QTextEdit(self.Swiadectwo)
-        self.przedmiot_wzorcowania.setObjectName(u"przedmiot_wzorcowania")
+        self.label_27 = QLabel(self.Swiadectwo)
+        self.label_27.setObjectName(u"label_27")
 
-        self.gridLayout_7.addWidget(self.przedmiot_wzorcowania, 4, 0, 2, 1)
+        self.gridLayout_7.addWidget(self.label_27, 5, 3, 1, 1)
 
-        self.Zglaszajacy = QTextEdit(self.Swiadectwo)
-        self.Zglaszajacy.setObjectName(u"Zglaszajacy")
+        self.label_26 = QLabel(self.Swiadectwo)
+        self.label_26.setObjectName(u"label_26")
 
-        self.gridLayout_7.addWidget(self.Zglaszajacy, 5, 1, 1, 3)
-
-        self.Wybor_zglaszajacy = QComboBox(self.Swiadectwo)
-        self.Wybor_zglaszajacy.addItem("")
-        self.Wybor_zglaszajacy.addItem("")
-        self.Wybor_zglaszajacy.addItem("")
-        self.Wybor_zglaszajacy.setObjectName(u"Wybor_zglaszajacy")
-
-        self.gridLayout_7.addWidget(self.Wybor_zglaszajacy, 4, 1, 1, 3)
-
-        self.label_11 = QLabel(self.Swiadectwo)
-        self.label_11.setObjectName(u"label_11")
-
-        self.gridLayout_7.addWidget(self.label_11, 3, 1, 1, 1)
+        self.gridLayout_7.addWidget(self.label_26, 5, 0, 1, 1)
 
         self.tabWidget.addTab(self.Swiadectwo, "")
         self.Informacje = QWidget()
@@ -600,26 +604,26 @@ class Ui_MainWindow(object):
 
         self.tabWidget.addTab(self.Informacje, "")
 
-        self.gridLayout_8.addWidget(self.tabWidget, 0, 0, 1, 1)
+        self.gridLayout_8.addWidget(self.tabWidget, 0, 1, 1, 1)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1360, 21))
+        self.menubar.setGeometry(QRect(0, 0, 1382, 21))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
 #if QT_CONFIG(shortcut)
-        self.label_2.setBuddy(self.data_wzorcowania)
         self.label_25.setBuddy(self.numer_swiadectwa)
+        self.label_2.setBuddy(self.data_wzorcowania)
 #endif // QT_CONFIG(shortcut)
 
         self.retranslateUi(MainWindow)
         self.zamkniecie_aplikacji.clicked.connect(MainWindow.close)
         self.Wyczysc.clicked.connect(self.wartosc_kalibrator.clear)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         self.tabWidget_2.setCurrentIndex(0)
 
 
@@ -703,11 +707,7 @@ class Ui_MainWindow(object):
         self.pushButton_31.setText(QCoreApplication.translate("MainWindow", u"Kasuj Wyniki", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.R), QCoreApplication.translate("MainWindow", u"R", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Pomiary), QCoreApplication.translate("MainWindow", u"Pomiary", None))
-        self.label_28.setText(QCoreApplication.translate("MainWindow", u"Warunki \u015arodowiskowe:", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Data wzorcowania:", None))
-        self.label_25.setText(QCoreApplication.translate("MainWindow", u"Nr. \u015awiadectwa:", None))
-        self.label_7.setText("")
-        self.Zapisz_wynik.setText(QCoreApplication.translate("MainWindow", u"Zapisz wyniki", None))
+        self.generuj_swiadectwo.setText(QCoreApplication.translate("MainWindow", u"Generuj \u015awiadectwo", None))
         self.spojnosc_pomiarowa.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -716,45 +716,13 @@ class Ui_MainWindow(object):
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Wyniki wzorcowania miernika zosta\u0142y odniesione do wzorc\u00f3w pa\u0144stwowych przy wykorzystaniu multimetru wzorcowego: ...</p></body></html>", None))
-        self.niepewnosc_pomiaru.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"hr { height: 1px; border-width: 0; }\n"
-"li.unchecked::marker { content: \"\\2610\"; }\n"
-"li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Niepewno\u015b\u0107 pomiaru zosta\u0142a okre\u015blona zgodnie z dokumentem EA-4/02 M:2021. Podane warto\u015bci niepewno\u015bci stanowi\u0105 niepewno\u015bci rozszerzone przy prawdopodobie\u0144stwie rozszerzenia ok. 95 % i wsp\u00f3\u0142czynniku rozszerzenia k = 2</p></body></html>", None))
-        self.label_31.setText(QCoreApplication.translate("MainWindow", u"Niepewno\u015b\u0107 pomiaru:", None))
-        self.warunki_srodowiskowe.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"hr { height: 1px; border-width: 0; }\n"
-"li.unchecked::marker { content: \"\\2610\"; }\n"
-"li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">Temperatura (21 </span><a name=\"char-node\"></a><span style=\" font-family:'u0000'; font-size:11pt;\">\u00f7</span><span style=\" font-size:11pt;\"> 23) \u00b0C</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">Wilgotno\u015b\u0107   (42 </span><a nam"
-                        "e=\"char-node\"></a><span style=\" font-family:'u0000'; font-size:11pt;\">\u00f7</span><span style=\" font-size:11pt;\"> 47) %</span></p></body></html>", None))
-        self.generuj_swiadectwo.setText(QCoreApplication.translate("MainWindow", u"Generuj \u015awiadectwo", None))
-        self.label_26.setText(QCoreApplication.translate("MainWindow", u"Przedmiot wzorcowania:", None))
-        self.ANG.setText(QCoreApplication.translate("MainWindow", u"\u015a.W. po ang", None))
-        self.label_33.setText(QCoreApplication.translate("MainWindow", u"Wyniki wzorcowania:", None))
-        self.label_30.setText(QCoreApplication.translate("MainWindow", u"Sp\u00f3jno\u015b\u0107 pomiarowa:", None))
-        self.label_27.setText(QCoreApplication.translate("MainWindow", u"Metoda wzorcowania:", None))
-        self.metoda_wzorcowania.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"hr { height: 1px; border-width: 0; }\n"
-"li.unchecked::marker { content: \"\\2610\"; }\n"
-"li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Procedura pomiarowa PW005 wydanie 2</p></body></html>", None))
-        self.label_34.setText(QCoreApplication.translate("MainWindow", u"\u015acie\u017cka zapisu \u015bwiadectwa:", None))
-        self.numer_swiadectwa.setText(QCoreApplication.translate("MainWindow", u"9999/02/2023", None))
-        self.odczyt_wynikow.setText(QCoreApplication.translate("MainWindow", u"Odczyt wynik\u00f3w", None))
-        self.SzukajWynikow.setText(QCoreApplication.translate("MainWindow", u"Szukaj", None))
+        self.Wybor_zglaszajacy.setItemText(0, QCoreApplication.translate("MainWindow", u"Linetech", None))
+        self.Wybor_zglaszajacy.setItemText(1, QCoreApplication.translate("MainWindow", u"Hanza", None))
+        self.Wybor_zglaszajacy.setItemText(2, QCoreApplication.translate("MainWindow", u"Hitachi", None))
+
         self.label_35.setText(QCoreApplication.translate("MainWindow", u"\u015acie\u017cka zapisu wynik\u00f3w:", None))
         self.SzukajSW.setText(QCoreApplication.translate("MainWindow", u"Szukaj", None))
+        self.label_7.setText("")
         self.przedmiot_wzorcowania.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -763,6 +731,20 @@ class Ui_MainWindow(object):
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">Multimetr [MODEL], nr </span></p></body></html>", None))
+        self.Zapisz_wynik.setText(QCoreApplication.translate("MainWindow", u"Zapisz wyniki", None))
+        self.label_30.setText(QCoreApplication.translate("MainWindow", u"Sp\u00f3jno\u015b\u0107 pomiarowa:", None))
+        self.ANG.setText(QCoreApplication.translate("MainWindow", u"\u015a.W. po ang", None))
+        self.warunki_srodowiskowe.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Temperatura (21 <a name=\"char-node\"></a><span style=\" font-family:'u0000';\">\u00f7</span> 23) \u00b0C</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Wilgotno\u015b\u0107   (42 <a name=\"char-node\"></a><span style=\" font-family:'u0000';\">\u00f7</span> 47) %</p></body></html>", None))
+        self.label_34.setText(QCoreApplication.translate("MainWindow", u"\u015acie\u017cka zapisu \u015bwiadectwa:", None))
+        self.label_31.setText(QCoreApplication.translate("MainWindow", u"Niepewno\u015b\u0107 pomiaru:", None))
         self.Zglaszajacy.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -771,11 +753,32 @@ class Ui_MainWindow(object):
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Times New Roman','serif'; font-size:14pt;\">LINETECH S.A.<br />ul. Warecka 11A<br />00-034 Warszawa</span></p></body></html>", None))
-        self.Wybor_zglaszajacy.setItemText(0, QCoreApplication.translate("MainWindow", u"Linetech", None))
-        self.Wybor_zglaszajacy.setItemText(1, QCoreApplication.translate("MainWindow", u"Hanza", None))
-        self.Wybor_zglaszajacy.setItemText(2, QCoreApplication.translate("MainWindow", u"Hitachi", None))
-
+        self.label_28.setText(QCoreApplication.translate("MainWindow", u"Warunki \u015arodowiskowe:", None))
+        self.niepewnosc_pomiaru.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Niepewno\u015b\u0107 pomiaru zosta\u0142a okre\u015blona zgodnie z dokumentem EA-4/02 M:2021. Podane warto\u015bci niepewno\u015bci stanowi\u0105 niepewno\u015bci rozszerzone przy prawdopodobie\u0144stwie rozszerzenia ok. 95 % i wsp\u00f3\u0142czynniku rozszerzenia k = 2</p></body></html>", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"Zg\u0142aszaj\u0105cy", None))
+        self.label_25.setText(QCoreApplication.translate("MainWindow", u"Nr. \u015awiadectwa:", None))
+        self.odczyt_wynikow.setText(QCoreApplication.translate("MainWindow", u"Odczyt wynik\u00f3w", None))
+        self.numer_swiadectwa.setText(QCoreApplication.translate("MainWindow", u"9999/02/2023", None))
+        self.SzukajWynikow.setText(QCoreApplication.translate("MainWindow", u"Szukaj", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Data wzorcowania:", None))
+        self.metoda_wzorcowania.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Procedura pomiarowa PW005 wydanie 2</p></body></html>", None))
+        self.label_33.setText(QCoreApplication.translate("MainWindow", u"Wyniki wzorcowania:", None))
+        self.label_27.setText(QCoreApplication.translate("MainWindow", u"Metoda wzorcowania:", None))
+        self.label_26.setText(QCoreApplication.translate("MainWindow", u"Przedmiot wzorcowania:", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Swiadectwo), QCoreApplication.translate("MainWindow", u"Swiadectwo", None))
         self.label_8.setText("")
         self.textEdit.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"

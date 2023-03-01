@@ -1,7 +1,7 @@
 import sys
 from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtUiTools import QUiLoader
-from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QFileDialog, QMessageBox
+from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QFileDialog, QMessageBox, QTableWidgetItem
 from PySide6.QtCore import QDate, Qt
 from PySide6.QtGui import QCloseEvent
 from MainWindowui import Ui_MainWindow
@@ -16,6 +16,8 @@ from openpyxl.styles.alignment import Alignment
 from openpyxl.styles.differential import DifferentialStyle
 from openpyxl.formatting.rule import Rule, FormulaRule
 from openpyxl import Workbook
+from openpyxl import load_workbook
+import pandas as pd
 
 
 # 1 instalacja PySide6 ... pip install PySide6?
@@ -55,8 +57,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.sciezkaSW_zapis.setText(u"Zapis_Swiadectw_Wzorcowania/nazwa_pliku")
         self.sciezkaWynik_zapis.setText(u"Zapis_Wynikow_Wzorcowania/nazwa_pliku")
 
+
         # odczyt wynikow
         self.odczyt_wynikow.clicked.connect(self.open_file_dialog)
+        self.odczyt_wynikow.clicked.connect(self.loadExcelData)
 
         # szukaj plikow
         self.SzukajWynikow.clicked.connect(self.save_file_dialog)
@@ -122,11 +126,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 filename_without_ext, ext = os.path.splitext(path)
                 self.sciezkaSW_zapis.setText(filename_without_ext)
                 print(file_name)
-            elif sender.objectName() == "SzukajWynikow":
+            elif sender.objectName() == "SzukajWynikow" or "odczyt_wynikow":
                 path = file_name
                 filename_without_ext, ext = os.path.splitext(path)
                 self.sciezkaWynik_zapis.setText(filename_without_ext)
                 print(file_name)
+    def loadExcelData(self):
+        path = self.sciezkaWynik_zapis.text() +".xlsx"
+        df = pd.read_excel(path)
+        if df.size == 0:
+            return
+
+        df.fillna('', inplace=True)
+        self.wyniki_wzorcowania.setRowCount(df.shape[0])
+        self.wyniki_wzorcowania.setColumnCount(df.shape[1])
+        column_headers = df.iloc[3]
+        self.wyniki_wzorcowania.setHorizontalHeaderLabels(column_headers)
+        # ustawienie dopasowywania się rozmiaru kolumn
+        for i in range(self.wyniki_wzorcowania.columnCount()):
+            self.wyniki_wzorcowania.resizeColumnToContents(i)
+
+        # Wyświetlanie danych z Excela
+        for row in df.iterrows():
+            values = row[1]
+            for col_index, value in enumerate(values):
+                tableItem = QTableWidgetItem(str(value))
+                self.wyniki_wzorcowania.setItem(row[0], col_index, tableItem)
 
 
     # funkcja do zapisu
