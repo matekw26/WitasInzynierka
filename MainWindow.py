@@ -3,7 +3,7 @@ from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QFileDialog, QMessageBox, QTableWidgetItem
 from PySide6.QtCore import QDate, Qt
-from PySide6.QtGui import QCloseEvent
+from PySide6.QtGui import QCloseEvent, QPen, QColor, QStandardItem, QStandardItemModel
 from MainWindowui import Ui_MainWindow
 # from docx import Document
 # from docx.shared import Inches
@@ -17,7 +17,9 @@ from openpyxl.styles.differential import DifferentialStyle
 from openpyxl.formatting.rule import Rule, FormulaRule
 from openpyxl import Workbook
 from openpyxl import load_workbook
+from openpyxl.utils import get_column_letter
 import pandas as pd
+import numpy as np
 
 
 # 1 instalacja PySide6 ... pip install PySide6?
@@ -55,7 +57,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # podanie sciezki zapisu
         self.sciezkaSW_zapis.setText(u"Zapis_Swiadectw_Wzorcowania/nazwa_pliku")
-        self.sciezkaWynik_zapis.setText(u"Zapis_Wynikow_Wzorcowania/nazwa_pliku")
+        self.sciezkaWynik_zapis.setText(u"Zapis_Wynikow_Wzorcowania/Przyklad")
 
 
         # odczyt wynikow
@@ -75,6 +77,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # generowanie swiadectwa
         self.generuj_swiadectwo.clicked.connect(self.swiadectwo)
 
+        # zapisywanie wynikow
+        self.Zapisz_wynik.clicked.connect(self.save_to_excel)
+
+        # update tabeli
+        self.loadExcelData()
 
 
 
@@ -142,9 +149,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.wyniki_wzorcowania.setColumnCount(df.shape[1])
         column_headers = df.iloc[3]
         self.wyniki_wzorcowania.setHorizontalHeaderLabels(column_headers)
+
         # ustawienie dopasowywania się rozmiaru kolumn
         for i in range(self.wyniki_wzorcowania.columnCount()):
-            self.wyniki_wzorcowania.resizeColumnToContents(i)
+             self.wyniki_wzorcowania.resizeColumnToContents(i)
 
         # Wyświetlanie danych z Excela
         for row in df.iterrows():
@@ -153,9 +161,127 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 tableItem = QTableWidgetItem(str(value))
                 self.wyniki_wzorcowania.setItem(row[0], col_index, tableItem)
 
+        # Ustawienie sumy kolumn 2 i 3 w kolumnie 4
+        self.wyniki_wzorcowania.itemChanged.connect(self.update_tablewidget)
+
+        # self.update_tablewidget()
+        self.wyniki_wzorcowania.setStyleSheet("QTableView::item { border: 0px solid black; }")
+
+    def update_tablewidget(self, item):
+        # Obliczanie poprakwi
+        row = item.row()
+        col = item.column()
+        try:
+            if col == 2 or col == 3:
+                value1 = float(self.wyniki_wzorcowania.item(row, 2).text())
+                value2 = float(self.wyniki_wzorcowania.item(row, 3).text())
+                result = np.around(value1 - value2, decimals=5)
+                self.wyniki_wzorcowania.item(row, 4).setText(str(result))
+        except ValueError:
+            pass
+        except AttributeError:
+            pass
+
+        # for row in range(self.wyniki_wzorcowania.rowCount()):
+        #     try:
+        #         item1 = self.wyniki_wzorcowania.item(row, 2)
+        #         item2 = self.wyniki_wzorcowania.item(row, 3)
+        #         if item1.text() or item2.text() != "":
+        #             value_1 = float(self.wyniki_wzorcowania.item(row, 2).text())
+        #             value_2 = float(self.wyniki_wzorcowania.item(row, 3).text())
+        #             result = value_1 + value_2
+        #             item = QTableWidgetItem()
+        #             item.setData(Qt.EditRole, result)
+        #             self.wyniki_wzorcowania.setItem(row, 4, item)
+        #     except ValueError:
+        #         pass
+
+    def save_to_excel(self):
+
+        # Tworzenie nowego arkusza w pliku Excel
+        wb = openpyxl.Workbook()
+        ws = wb.active
+
+        # ustawianie stylu obramowania dla komórek
+        border_style = Side(border_style='thin', color='000000')
+        border = Border(left=border_style, right=border_style, top=border_style, bottom=border_style)
+        border1 = Border(left=None, right=None, top=None, bottom=None)
+
+        alignmentCC = Alignment(wrap_text=True, horizontal='center', vertical='center')
+
+
+        # Pobieranie danych z QTableWidget i zapisywanie ich do arkusza
+        for row in range(self.wyniki_wzorcowania.rowCount()):
+            for col in range(self.wyniki_wzorcowania.columnCount()):
+                item = self.wyniki_wzorcowania.item(row, col)
+                if item is not None:
+                    ws.cell(row=row + 2, column=col + 1, value=item.text())
+
+        # # ustawienie obramowania dla komórki
+        # for row in range(self.wyniki_wzorcowania.rowCount()):
+        #     for col in range(self.wyniki_wzorcowania.columnCount()):
+        #         item = self.wyniki_wzorcowania.item(row, col)
+        #         # print(item.text())
+        #         if item.text() != "":
+        #             cell = ws.cell(row=row + 2, column=col + 1)
+        #             cell.border = border
+        #             cell.alignment = Alignment(wrapText=True)
+        #             cell.alignment = alignmentCC
+        #
+        #
+        # # Dopasowanie szerokości kolumn do zawartości
+        # for col in range(self.wyniki_wzorcowania.columnCount()):
+        #     column_letter = get_column_letter(col + 1)
+        #     column_dimensions = ws.column_dimensions[column_letter]
+        #     max_length = 0
+        #     for cell in ws[column_letter]:
+        #         try:
+        #             cell_value = str(cell.value)
+        #         except:
+        #             cell_value = ""
+        #         if len(cell_value) > max_length:
+        #             max_length = len(cell_value)
+        #             print(max_length)
+        #     if max_length < 30:
+        #         adjusted_width = (max_length + 2)
+        #         column_dimensions.width = adjusted_width
+
+        # ustawienie obramowania dla komórki i dopasowanie szerokosci kolumn
+        for row in range(self.wyniki_wzorcowania.rowCount()):
+            for col in range(self.wyniki_wzorcowania.columnCount()):
+                column_letter = get_column_letter(col + 1)
+                column_dimensions = ws.column_dimensions[column_letter]
+                max_length = 0
+                for cell in ws[column_letter]:
+                    try:
+                        cell_value = str(cell.value)
+                    except:
+                        cell_value = ""
+                    if len(cell_value) > max_length:
+                        max_length = len(cell_value)
+                        # print(max_length)
+                if max_length < 30:
+                    adjusted_width = (max_length + 2)
+                    column_dimensions.width = adjusted_width
+                item = self.wyniki_wzorcowania.item(row, col)
+                 # print(item.text())
+                if item.text() != "":
+                    cell1 = ws.cell(row=row + 2, column=col + 1)
+                    cell1.border = border
+                    cell1.alignment = Alignment(wrapText=True)
+                    cell1.alignment = alignmentCC
+
+        ws.column_dimensions['C'].width = 12
+        ws.column_dimensions['D'].width = 13
+        ws.column_dimensions['F'].width = 14
+
+
+        self.zapis_pliku(self.sciezkaWynik_zapis.text(), wb)
+
 
     # funkcja do zapisu
     def save_file_dialog(self):
+
         options = QFileDialog.Options()
         self.saveFileDialog.setDirectory(self.sciezkaSW_zapis.text())
         fileName, _ = self.saveFileDialog.getSaveFileName(self, "Save File",
@@ -196,6 +322,37 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             event.accept()
         else:
             event.ignore()
+
+    def zapis_pliku(self, path, wb):
+
+        # Zapisanie pliku
+        if os.path.exists(path + ".xlsx"):
+            # Wyświetlenie okna dialogowego z pytaniem o nadpisanie pliku
+            msg_box = QMessageBox()
+            msg_box.setText("Plik już istnieje. Czy chcesz go nadpisać?")
+            msg_box.setWindowTitle("Nadpisać plik?")
+            msg_box.setIcon(QMessageBox.Question)
+            msg_box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+            msg_box.setDefaultButton(QMessageBox.No)
+            # Obsługa wyboru użytkownika
+            choice = msg_box.exec()
+            if choice == QMessageBox.Yes:
+                try:
+                    os.remove(path + ".xlsx")
+                    print("Plik już istnieje, nadpisywanie...")
+                    wb.save(path + ".xlsx")
+                    self.open_folder(path)
+                except PermissionError as e:
+                    msg = QMessageBox()
+                    msg.setIcon(QMessageBox.Critical)
+                    msg.setText("Błąd zapisu pliku")
+                    msg.setInformativeText(str(e))
+                    msg.setWindowTitle("Błąd")
+                    msg.exec()
+        else:
+            print("Plik nie istnieje, zapisywanie...")
+            wb.save(path + ".xlsx")
+            self.open_folder(path)
 
 
     # generowanie świadectwa
@@ -337,34 +494,37 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ws['B15'].alignment = alignmentCC
         ws['B15'].font = fontA10
 
-        # Zapisanie pliku
-        if os.path.exists(self.sciezkaSW_zapis.text() + ".xlsx"):
-            # Wyświetlenie okna dialogowego z pytaniem o nadpisanie pliku
-            msg_box = QMessageBox()
-            msg_box.setText("Plik już istnieje. Czy chcesz go nadpisać?")
-            msg_box.setWindowTitle("Nadpisać plik?")
-            msg_box.setIcon(QMessageBox.Question)
-            msg_box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
-            msg_box.setDefaultButton(QMessageBox.No)
-            # Obsługa wyboru użytkownika
-            choice = msg_box.exec()
-            if choice == QMessageBox.Yes:
-                try:
-                    os.remove(self.sciezkaSW_zapis.text() + ".xlsx")
-                    print("Plik już istnieje, nadpisywanie...")
-                    wb.save(self.sciezkaSW_zapis.text() + ".xlsx")
-                    self.open_folder(self.sciezkaSW_zapis.text())
-                except PermissionError as e:
-                    msg = QMessageBox()
-                    msg.setIcon(QMessageBox.Critical)
-                    msg.setText("Błąd zapisu pliku")
-                    msg.setInformativeText(str(e))
-                    msg.setWindowTitle("Błąd")
-                    msg.exec()
-        else:
-            print("Plik nie istnieje, zapisywanie...")
-            wb.save(self.sciezkaSW_zapis.text() + ".xlsx")
-            self.open_folder(self.sciezkaSW_zapis.text())
+        # zapis pliku
+        self.zapis_pliku(self.sciezkaSW_zapis.text(), wb)
+
+        # # Zapisanie pliku
+        # if os.path.exists(self.sciezkaSW_zapis.text() + ".xlsx"):
+        #     # Wyświetlenie okna dialogowego z pytaniem o nadpisanie pliku
+        #     msg_box = QMessageBox()
+        #     msg_box.setText("Plik już istnieje. Czy chcesz go nadpisać?")
+        #     msg_box.setWindowTitle("Nadpisać plik?")
+        #     msg_box.setIcon(QMessageBox.Question)
+        #     msg_box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+        #     msg_box.setDefaultButton(QMessageBox.No)
+        #     # Obsługa wyboru użytkownika
+        #     choice = msg_box.exec()
+        #     if choice == QMessageBox.Yes:
+        #         try:
+        #             os.remove(self.sciezkaSW_zapis.text() + ".xlsx")
+        #             print("Plik już istnieje, nadpisywanie...")
+        #             wb.save(self.sciezkaSW_zapis.text() + ".xlsx")
+        #             self.open_folder(self.sciezkaSW_zapis.text())
+        #         except PermissionError as e:
+        #             msg = QMessageBox()
+        #             msg.setIcon(QMessageBox.Critical)
+        #             msg.setText("Błąd zapisu pliku")
+        #             msg.setInformativeText(str(e))
+        #             msg.setWindowTitle("Błąd")
+        #             msg.exec()
+        # else:
+        #     print("Plik nie istnieje, zapisywanie...")
+        #     wb.save(self.sciezkaSW_zapis.text() + ".xlsx")
+        #     self.open_folder(self.sciezkaSW_zapis.text())
 
 
 
