@@ -22,7 +22,7 @@ import pandas as pd
 import numpy as np
 
 
-# 1 instalacja PySide6 ... pip install PySide6?
+# 1 instalacja PySide6 ... pip install PySide6
 # 2 instalacja docx do Worda pip install python-docx... nie przyda sie chyba
 # 3 aktualizacja gui pyside6-uic mainwindow.ui -o MainWindowui.py
 # 4 instalacja Excela pip install openpyxl
@@ -58,15 +58,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # podanie sciezki zapisu
         self.sciezkaSW_zapis.setText(u"Zapis_Swiadectw_Wzorcowania/nazwa_pliku")
         self.sciezkaWynik_zapis.setText(u"Zapis_Wynikow_Wzorcowania/Przyklad")
+        self.sciezka_Model.setText(u"Modele/Przyklad")
 
 
         # odczyt wynikow
         self.odczyt_wynikow.clicked.connect(self.open_file_dialog)
-        self.odczyt_wynikow.clicked.connect(self.loadExcelData)
+        # self.odczyt_wynikow.clicked.connect(self.loadExcelData2(self.sciezkaWynik_zapis.text() + ".xlsx", self.wyniki_wzorcowania))
+
+        self.SzukajModelu.clicked.connect(self.open_file_dialog)
+        # self.SzukajModelu.clicked.connect(self.loadExcelData2(self.sciezkaModel.text() + ".xlsx" + self.wynikiDCV))
 
         # szukaj plikow
         self.SzukajWynikow.clicked.connect(self.save_file_dialog)
         self.SzukajSW.clicked.connect(self.save_file_dialog)
+
 
         # zamkniecie aplikacji
         self.zamkniecie_aplikacji.clicked.connect(QApplication.instance().quit)
@@ -81,7 +86,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.Zapisz_wynik.clicked.connect(self.save_to_excel)
 
         # update tabeli
-        self.loadExcelData()
+        # self.loadExcelData()
+        # self.loadExcelData2(self.sciezkaWynik_zapis.text() +".xlsx", self.wyniki_wzorcowania)
 
 
 
@@ -133,50 +139,87 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 filename_without_ext, ext = os.path.splitext(path)
                 self.sciezkaSW_zapis.setText(filename_without_ext)
                 print(file_name)
+            elif sender.objectName() == "SzukajModelu":
+                path = file_name
+                filename_without_ext, ext = os.path.splitext(path)
+                self.sciezka_Model.setText(filename_without_ext)
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCV)
+                print(file_name)
             elif sender.objectName() == "SzukajWynikow" or "odczyt_wynikow":
                 path = file_name
                 filename_without_ext, ext = os.path.splitext(path)
                 self.sciezkaWynik_zapis.setText(filename_without_ext)
+                self.loadExcelData2(self.sciezkaWynik_zapis.text() + ".xlsx", self.wyniki_wzorcowania)
                 print(file_name)
-    def loadExcelData(self):
-        path = self.sciezkaWynik_zapis.text() +".xlsx"
+
+
+    # def loadExcelData(self):
+    #     path = self.sciezkaWynik_zapis.text() +".xlsx"
+    #     df = pd.read_excel(path)
+    #     if df.size == 0:
+    #         return
+    #
+    #     df.fillna('', inplace=True)
+    #     self.wyniki_wzorcowania.setRowCount(df.shape[0])
+    #     self.wyniki_wzorcowania.setColumnCount(df.shape[1])
+    #     column_headers = df.iloc[3]
+    #     self.wyniki_wzorcowania.setHorizontalHeaderLabels(column_headers)
+    #
+    #     # ustawienie dopasowywania się rozmiaru kolumn
+    #     for i in range(self.wyniki_wzorcowania.columnCount()):
+    #          self.wyniki_wzorcowania.resizeColumnToContents(i)
+    #
+    #     # Wyświetlanie danych z Excela
+    #     for row in df.iterrows():
+    #         values = row[1]
+    #         for col_index, value in enumerate(values):
+    #             tableItem = QTableWidgetItem(str(value))
+    #             self.wyniki_wzorcowania.setItem(row[0], col_index, tableItem)
+    #
+    #     # Ustawienie poprakwi kolumn 2 i 3 w kolumnie 4
+    #     self.wyniki_wzorcowania.itemChanged.connect(self.update_tablewidget)
+    #
+    #     # self.update_tablewidget()
+    #     self.wyniki_wzorcowania.setStyleSheet("QTableView::item { border: 0px solid black; }")
+
+    def loadExcelData2(self, path, table):
         df = pd.read_excel(path)
         if df.size == 0:
             return
 
         df.fillna('', inplace=True)
-        self.wyniki_wzorcowania.setRowCount(df.shape[0])
-        self.wyniki_wzorcowania.setColumnCount(df.shape[1])
+        table.setRowCount(df.shape[0])
+        table.setColumnCount(df.shape[1])
         column_headers = df.iloc[3]
-        self.wyniki_wzorcowania.setHorizontalHeaderLabels(column_headers)
+        table.setHorizontalHeaderLabels(column_headers)
 
         # ustawienie dopasowywania się rozmiaru kolumn
-        for i in range(self.wyniki_wzorcowania.columnCount()):
-             self.wyniki_wzorcowania.resizeColumnToContents(i)
+        for i in range(table.columnCount()):
+             table.resizeColumnToContents(i)
 
         # Wyświetlanie danych z Excela
         for row in df.iterrows():
             values = row[1]
             for col_index, value in enumerate(values):
                 tableItem = QTableWidgetItem(str(value))
-                self.wyniki_wzorcowania.setItem(row[0], col_index, tableItem)
+                table.setItem(row[0], col_index, tableItem)
 
-        # Ustawienie sumy kolumn 2 i 3 w kolumnie 4
-        self.wyniki_wzorcowania.itemChanged.connect(self.update_tablewidget)
+        # Ustawienie poprakwi kolumn 2 i 3 w kolumnie 4
+        table.itemChanged.connect(lambda item: self.update_tablewidget(item, table2=table))
 
         # self.update_tablewidget()
-        self.wyniki_wzorcowania.setStyleSheet("QTableView::item { border: 0px solid black; }")
+        table.setStyleSheet("QTableView::item { border: 0px solid black; }")
 
-    def update_tablewidget(self, item):
+    def update_tablewidget(self, item, table2):
         # Obliczanie poprakwi
         row = item.row()
         col = item.column()
         try:
             if col == 2 or col == 3:
-                value1 = float(self.wyniki_wzorcowania.item(row, 2).text())
-                value2 = float(self.wyniki_wzorcowania.item(row, 3).text())
+                value1 = float(table2.item(row, 2).text())
+                value2 = float(table2.item(row, 3).text())
                 result = np.around(value1 - value2, decimals=5)
-                self.wyniki_wzorcowania.item(row, 4).setText(str(result))
+                table2.item(row, 4).setText(str(result))
         except ValueError:
             pass
         except AttributeError:
@@ -205,7 +248,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # ustawianie stylu obramowania dla komórek
         border_style = Side(border_style='thin', color='000000')
         border = Border(left=border_style, right=border_style, top=border_style, bottom=border_style)
-        border1 = Border(left=None, right=None, top=None, bottom=None)
 
         alignmentCC = Alignment(wrap_text=True, horizontal='center', vertical='center')
 
@@ -275,6 +317,57 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ws.column_dimensions['D'].width = 13
         ws.column_dimensions['F'].width = 14
 
+
+        self.zapis_pliku(self.sciezkaWynik_zapis.text(), wb)
+
+    def saveadd_to_excel(self):
+
+        # Otwieranie arkusza w pliku Excel
+        wb = openpyxl.load_workbook('nazwa_pliku.xlsx')
+        ws = wb['Sheet']
+
+        # ustawianie stylu obramowania dla komórek
+        border_style = Side(border_style='thin', color='000000')
+        border = Border(left=border_style, right=border_style, top=border_style, bottom=border_style)
+
+        alignmentCC = Alignment(wrap_text=True, horizontal='center', vertical='center')
+
+        # Pobieranie danych z QTableWidget i zapisywanie ich do arkusza
+        for row in range(self.wyniki_wzorcowania.rowCount()):
+            for col in range(self.wyniki_wzorcowania.columnCount()):
+                item = self.wyniki_wzorcowania.item(row, col)
+                if item is not None:
+                    ws.cell(row=row + 32, column=col + 31, value=item.text())
+
+
+        # ustawienie obramowania dla komórki i dopasowanie szerokosci kolumn
+        for row in range(self.wyniki_wzorcowania.rowCount()):
+            for col in range(self.wyniki_wzorcowania.columnCount()):
+                column_letter = get_column_letter(col + 1)
+                column_dimensions = ws.column_dimensions[column_letter]
+                max_length = 0
+                for cell in ws[column_letter]:
+                    try:
+                        cell_value = str(cell.value)
+                    except:
+                        cell_value = ""
+                    if len(cell_value) > max_length:
+                        max_length = len(cell_value)
+                        # print(max_length)
+                if max_length < 30:
+                    adjusted_width = (max_length + 2)
+                    column_dimensions.width = adjusted_width
+                item = self.wyniki_wzorcowania.item(row, col)
+                 # print(item.text())
+                if item.text() != "":
+                    cell1 = ws.cell(row=row + 2, column=col + 1)
+                    cell1.border = border
+                    cell1.alignment = Alignment(wrapText=True)
+                    cell1.alignment = alignmentCC
+
+        ws.column_dimensions['C'].width = 12
+        ws.column_dimensions['D'].width = 13
+        ws.column_dimensions['F'].width = 14
 
         self.zapis_pliku(self.sciezkaWynik_zapis.text(), wb)
 
