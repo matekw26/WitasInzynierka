@@ -29,17 +29,17 @@
         <string>Pomiary</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="1" column="8">
-         <widget class="QCheckBox" name="check_r">
-          <property name="text">
-           <string>R</string>
-          </property>
-         </widget>
-        </item>
         <item row="3" column="1">
          <widget class="QDoubleSpinBox" name="wartosc_kalibrator">
           <property name="maximum">
            <double>1001.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_9">
+          <property name="text">
+           <string>Ustaw wartość:</string>
           </property>
          </widget>
         </item>
@@ -48,117 +48,9 @@
           <property name="text">
            <string>ACV</string>
           </property>
-         </widget>
-        </item>
-        <item row="3" column="23">
-         <widget class="QPushButton" name="pushButton_6">
-          <property name="text">
-           <string>Reset</string>
+          <property name="checked">
+           <bool>true</bool>
           </property>
-         </widget>
-        </item>
-        <item row="3" column="24">
-         <widget class="QPushButton" name="pushButton_19">
-          <property name="text">
-           <string>Help</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="18" colspan="7">
-         <widget class="QLineEdit" name="sciezka_Model"/>
-        </item>
-        <item row="1" column="4">
-         <widget class="QCheckBox" name="check_dci">
-          <property name="text">
-           <string>DCI</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="6" colspan="3">
-         <widget class="QPushButton" name="Wyczysc">
-          <property name="text">
-           <string>Wyczyść</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="10">
-         <widget class="QSpinBox" name="zakresV">
-          <property name="minimumSize">
-           <size>
-            <width>60</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximum">
-           <number>1000</number>
-          </property>
-          <property name="value">
-           <number>250</number>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QComboBox" name="comboBox">
-          <item>
-           <property name="text">
-            <string>Fluke 1</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Fluke 2</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Fluke 3</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-        <item row="1" column="3">
-         <widget class="QCheckBox" name="check_dcv">
-          <property name="text">
-           <string>DCV</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="16">
-         <widget class="QPushButton" name="Stworz">
-          <property name="text">
-           <string>Stwórz</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="9">
-         <widget class="QLabel" name="label_10">
-          <property name="text">
-           <string>Odczytana wartość:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
-         <widget class="QComboBox" name="ustawienie_kalibrator">
-          <item>
-           <property name="text">
-            <string>mV</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>V</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>mA</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>A</string>
-           </property>
-          </item>
          </widget>
         </item>
         <item row="2" column="0" colspan="26">
@@ -396,34 +288,102 @@
           </widget>
          </widget>
         </item>
-        <item row="3" column="4" colspan="2">
-         <widget class="QPushButton" name="Nastaw">
+        <item row="1" column="3">
+         <widget class="QCheckBox" name="check_dcv">
           <property name="text">
-           <string>Nastaw</string>
+           <string>DCV</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
-        <item row="1" column="11">
-         <widget class="QLabel" name="label_14">
+        <item row="3" column="10" colspan="9">
+         <widget class="QLineEdit" name="odczyt_kalibrator">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="inputMask">
+           <string/>
+          </property>
           <property name="text">
-           <string>V</string>
+           <string/>
+          </property>
+          <property name="dragEnabled">
+           <bool>false</bool>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
-        <item row="1" column="15">
-         <widget class="QLabel" name="label_17">
+        <item row="1" column="7">
+         <widget class="QCheckBox" name="check_aci">
+          <property name="text">
+           <string>ACI</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="comboBox">
+          <item>
+           <property name="text">
+            <string>Fluke 1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Fluke 2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Fluke 3</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <widget class="QCheckBox" name="check_dci">
+          <property name="text">
+           <string>DCI</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="8">
+         <widget class="QCheckBox" name="check_r">
           <property name="text">
            <string>R</string>
           </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
-        <item row="3" column="25">
-         <widget class="QPushButton" name="zamkniecie_aplikacji">
-          <property name="toolTipDuration">
-           <number>8</number>
-          </property>
+        <item row="1" column="13">
+         <widget class="QLabel" name="label_15">
           <property name="text">
-           <string>Wyjście</string>
+           <string>A</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_12">
+          <property name="text">
+           <string>Lub Wybierz</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="9">
+         <widget class="QLabel" name="label_10">
+          <property name="text">
+           <string>Odczytana wartość:</string>
           </property>
          </widget>
         </item>
@@ -443,17 +403,24 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="13">
-         <widget class="QLabel" name="label_15">
-          <property name="text">
-           <string>A</string>
-          </property>
+        <item row="3" column="3">
+         <widget class="QComboBox" name="AC_DC">
+          <item>
+           <property name="text">
+            <string>DC</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>AC</string>
+           </property>
+          </item>
          </widget>
         </item>
-        <item row="1" column="7">
-         <widget class="QCheckBox" name="check_aci">
+        <item row="3" column="4" colspan="2">
+         <widget class="QPushButton" name="Nastaw">
           <property name="text">
-           <string>ACI</string>
+           <string>Nastaw</string>
           </property>
          </widget>
         </item>
@@ -476,50 +443,25 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="label_12">
+        <item row="3" column="23">
+         <widget class="QPushButton" name="pushButton_19">
           <property name="text">
-           <string>Lub Wybierz</string>
+           <string>Help</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="17">
-         <widget class="QLabel" name="label_16">
-          <property name="font">
-           <font>
-            <pointsize>9</pointsize>
-           </font>
-          </property>
-          <property name="layoutDirection">
-           <enum>Qt::LeftToRight</enum>
-          </property>
+        <item row="1" column="9">
+         <widget class="QLabel" name="label_13">
           <property name="text">
-           <string>Lub Szukaj:</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           <string>Podaj zakresy:</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_9">
+        <item row="1" column="15">
+         <widget class="QLabel" name="label_17">
           <property name="text">
-           <string>Ustaw wartość:</string>
+           <string>R</string>
           </property>
-         </widget>
-        </item>
-        <item row="3" column="3">
-         <widget class="QComboBox" name="AC_DC">
-          <item>
-           <property name="text">
-            <string>DC</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>AC</string>
-           </property>
-          </item>
          </widget>
         </item>
         <item row="0" column="0" colspan="26">
@@ -535,20 +477,13 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_6">
-          <property name="text">
-           <string>Wybierz model:</string>
+        <item row="3" column="25">
+         <widget class="QPushButton" name="zamkniecie_aplikacji">
+          <property name="toolTipDuration">
+           <number>8</number>
           </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="9">
-         <widget class="QLabel" name="label_13">
           <property name="text">
-           <string>Podaj zakresy:</string>
+           <string>Wyjście</string>
           </property>
          </widget>
         </item>
@@ -559,24 +494,86 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="10" colspan="10">
-         <widget class="QLineEdit" name="odczyt_kalibrator">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="inputMask">
-           <string/>
-          </property>
+        <item row="3" column="22">
+         <widget class="QPushButton" name="pushButton_6">
           <property name="text">
-           <string/>
-          </property>
-          <property name="dragEnabled">
-           <bool>false</bool>
-          </property>
-          <property name="readOnly">
-           <bool>true</bool>
+           <string>Reset</string>
           </property>
          </widget>
+        </item>
+        <item row="1" column="11">
+         <widget class="QLabel" name="label_14">
+          <property name="text">
+           <string>V</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QComboBox" name="ustawienie_kalibrator">
+          <item>
+           <property name="text">
+            <string>mV</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>V</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>mA</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>A</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Wybierz model:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="6" colspan="3">
+         <widget class="QPushButton" name="Wyczysc">
+          <property name="text">
+           <string>Wyczyść</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="24">
+         <widget class="QPushButton" name="Stworz">
+          <property name="text">
+           <string>Stwórz</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="10">
+         <widget class="QSpinBox" name="zakresV">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximum">
+           <number>1000</number>
+          </property>
+          <property name="value">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="16" colspan="8">
+         <widget class="QLineEdit" name="sciezka_Model"/>
         </item>
        </layout>
       </widget>
@@ -628,7 +625,7 @@
          <widget class="QDateEdit" name="data_wzorcowania">
           <property name="dateTime">
            <datetime>
-            <hour>20</hour>
+            <hour>18</hour>
             <minute>0</minute>
             <second>0</second>
             <year>2023</year>

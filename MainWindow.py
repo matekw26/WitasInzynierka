@@ -20,6 +20,7 @@ from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter
 import pandas as pd
 import numpy as np
+import xlsxwriter
 
 
 # 1 instalacja PySide6 ... pip install PySide6
@@ -27,6 +28,7 @@ import numpy as np
 # 3 aktualizacja gui pyside6-uic mainwindow.ui -o MainWindowui.py
 # 4 instalacja Excela pip install openpyxl
 # 5 Import obrazu do excela pip install Pillow
+# 6 generowanie excela pip install xlsxwriter
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -84,6 +86,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # zapisywanie wynikow
         self.Zapisz_wynik.clicked.connect(self.save_to_excel)
+
+        # Tworzenie excela
+        self.Stworz.clicked.connect(self.generate_excel)
 
         # update tabeli
         # self.loadExcelData()
@@ -370,6 +375,62 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ws.column_dimensions['F'].width = 14
 
         self.zapis_pliku(self.sciezkaWynik_zapis.text(), wb)
+
+    def generate_excel(self):
+
+        wb = Workbook()
+        ws = wb.active
+
+        col_headers = ['Zakres', 'Wartość \n napięcia \n odniesienia',
+                       'Zmierzona \n wartość \n napięcia', 'Poprawka', 'Niepewność \n pomiaru']
+        row_headers = ['mV', '600', '', '', '', 'V', '6', str(self.zakresV.text())]
+
+        # ustawianie stylu obramowania dla komórek
+        border_style = Side(border_style='thin', color='000000')
+        border = Border(left=border_style, right=border_style, top=border_style, bottom=border_style)
+
+        # ustawianie czcionki i pozycji tekstu
+        alignmentCC = Alignment(wrap_text=True, horizontal='center', vertical='center')
+        fontA10 = Font(name='Arial', size=10)
+
+        if self.check_dcv.isChecked():
+            for i, col in enumerate(col_headers):
+                ws.cell(5, i + 2, col)
+                cell = ws.cell(row=5, column=i+2)
+                cell.border = border
+                cell.font = fontA10
+                cell.alignment = alignmentCC
+            for j, row in enumerate(row_headers):
+                ws.cell(j+6, 2, row)
+                cell = ws.cell(row=j+6, column=2)
+                cell.border = border
+
+        if self.check_acv.isChecked():
+            for i, col in enumerate(col_headers):
+                ws.cell(35, i + 2, col)
+                cell = ws.cell(row=35, column=i + 2)
+                cell.border = border
+                cell.font = fontA10
+                cell.alignment = alignmentCC
+            for j, row in enumerate(row_headers):
+                ws.cell(j + 36, 2, row)
+                cell = ws.cell(row=j+36, column=2)
+                cell.border = border
+
+
+
+
+        # ws.column_dimensions['A'].width = 1
+        ws.column_dimensions['B'].width = 8
+        ws.column_dimensions['C'].width = 13
+        ws.column_dimensions['D'].width = 12
+        ws.column_dimensions['E'].width = 10
+        ws.column_dimensions['F'].width = 12
+
+        self.zapis_pliku(self.sciezka_Model.text(), wb)
+
+        wb.close()
+
 
 
     # funkcja do zapisu

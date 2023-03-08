@@ -40,86 +40,22 @@ class Ui_MainWindow(object):
         self.Pomiary.setObjectName(u"Pomiary")
         self.gridLayout = QGridLayout(self.Pomiary)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.check_r = QCheckBox(self.Pomiary)
-        self.check_r.setObjectName(u"check_r")
-
-        self.gridLayout.addWidget(self.check_r, 1, 8, 1, 1)
-
         self.wartosc_kalibrator = QDoubleSpinBox(self.Pomiary)
         self.wartosc_kalibrator.setObjectName(u"wartosc_kalibrator")
         self.wartosc_kalibrator.setMaximum(1001.000000000000000)
 
         self.gridLayout.addWidget(self.wartosc_kalibrator, 3, 1, 1, 1)
 
+        self.label_9 = QLabel(self.Pomiary)
+        self.label_9.setObjectName(u"label_9")
+
+        self.gridLayout.addWidget(self.label_9, 3, 0, 1, 1)
+
         self.check_acv = QCheckBox(self.Pomiary)
         self.check_acv.setObjectName(u"check_acv")
+        self.check_acv.setChecked(True)
 
         self.gridLayout.addWidget(self.check_acv, 1, 5, 1, 2)
-
-        self.pushButton_6 = QPushButton(self.Pomiary)
-        self.pushButton_6.setObjectName(u"pushButton_6")
-
-        self.gridLayout.addWidget(self.pushButton_6, 3, 23, 1, 1)
-
-        self.pushButton_19 = QPushButton(self.Pomiary)
-        self.pushButton_19.setObjectName(u"pushButton_19")
-
-        self.gridLayout.addWidget(self.pushButton_19, 3, 24, 1, 1)
-
-        self.sciezka_Model = QLineEdit(self.Pomiary)
-        self.sciezka_Model.setObjectName(u"sciezka_Model")
-
-        self.gridLayout.addWidget(self.sciezka_Model, 1, 18, 1, 7)
-
-        self.check_dci = QCheckBox(self.Pomiary)
-        self.check_dci.setObjectName(u"check_dci")
-
-        self.gridLayout.addWidget(self.check_dci, 1, 4, 1, 1)
-
-        self.Wyczysc = QPushButton(self.Pomiary)
-        self.Wyczysc.setObjectName(u"Wyczysc")
-
-        self.gridLayout.addWidget(self.Wyczysc, 3, 6, 1, 3)
-
-        self.zakresV = QSpinBox(self.Pomiary)
-        self.zakresV.setObjectName(u"zakresV")
-        self.zakresV.setMinimumSize(QSize(60, 0))
-        self.zakresV.setMaximum(1000)
-        self.zakresV.setValue(250)
-
-        self.gridLayout.addWidget(self.zakresV, 1, 10, 1, 1)
-
-        self.comboBox = QComboBox(self.Pomiary)
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.setObjectName(u"comboBox")
-
-        self.gridLayout.addWidget(self.comboBox, 1, 1, 1, 1)
-
-        self.check_dcv = QCheckBox(self.Pomiary)
-        self.check_dcv.setObjectName(u"check_dcv")
-
-        self.gridLayout.addWidget(self.check_dcv, 1, 3, 1, 1)
-
-        self.Stworz = QPushButton(self.Pomiary)
-        self.Stworz.setObjectName(u"Stworz")
-
-        self.gridLayout.addWidget(self.Stworz, 1, 16, 1, 1)
-
-        self.label_10 = QLabel(self.Pomiary)
-        self.label_10.setObjectName(u"label_10")
-
-        self.gridLayout.addWidget(self.label_10, 3, 9, 1, 1)
-
-        self.ustawienie_kalibrator = QComboBox(self.Pomiary)
-        self.ustawienie_kalibrator.addItem("")
-        self.ustawienie_kalibrator.addItem("")
-        self.ustawienie_kalibrator.addItem("")
-        self.ustawienie_kalibrator.addItem("")
-        self.ustawienie_kalibrator.setObjectName(u"ustawienie_kalibrator")
-
-        self.gridLayout.addWidget(self.ustawienie_kalibrator, 3, 2, 1, 1)
 
         self.tabWidget_2 = QTabWidget(self.Pomiary)
         self.tabWidget_2.setObjectName(u"tabWidget_2")
@@ -294,26 +230,60 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.tabWidget_2, 2, 0, 1, 26)
 
-        self.Nastaw = QPushButton(self.Pomiary)
-        self.Nastaw.setObjectName(u"Nastaw")
+        self.check_dcv = QCheckBox(self.Pomiary)
+        self.check_dcv.setObjectName(u"check_dcv")
+        self.check_dcv.setChecked(True)
 
-        self.gridLayout.addWidget(self.Nastaw, 3, 4, 1, 2)
+        self.gridLayout.addWidget(self.check_dcv, 1, 3, 1, 1)
 
-        self.label_14 = QLabel(self.Pomiary)
-        self.label_14.setObjectName(u"label_14")
+        self.odczyt_kalibrator = QLineEdit(self.Pomiary)
+        self.odczyt_kalibrator.setObjectName(u"odczyt_kalibrator")
+        self.odczyt_kalibrator.setEnabled(True)
+        self.odczyt_kalibrator.setDragEnabled(False)
+        self.odczyt_kalibrator.setReadOnly(True)
 
-        self.gridLayout.addWidget(self.label_14, 1, 11, 1, 1)
+        self.gridLayout.addWidget(self.odczyt_kalibrator, 3, 10, 1, 9)
 
-        self.label_17 = QLabel(self.Pomiary)
-        self.label_17.setObjectName(u"label_17")
+        self.check_aci = QCheckBox(self.Pomiary)
+        self.check_aci.setObjectName(u"check_aci")
+        self.check_aci.setChecked(True)
 
-        self.gridLayout.addWidget(self.label_17, 1, 15, 1, 1)
+        self.gridLayout.addWidget(self.check_aci, 1, 7, 1, 1)
 
-        self.zamkniecie_aplikacji = QPushButton(self.Pomiary)
-        self.zamkniecie_aplikacji.setObjectName(u"zamkniecie_aplikacji")
-        self.zamkniecie_aplikacji.setToolTipDuration(8)
+        self.comboBox = QComboBox(self.Pomiary)
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
+        self.comboBox.setObjectName(u"comboBox")
 
-        self.gridLayout.addWidget(self.zamkniecie_aplikacji, 3, 25, 1, 1)
+        self.gridLayout.addWidget(self.comboBox, 1, 1, 1, 1)
+
+        self.check_dci = QCheckBox(self.Pomiary)
+        self.check_dci.setObjectName(u"check_dci")
+        self.check_dci.setChecked(True)
+
+        self.gridLayout.addWidget(self.check_dci, 1, 4, 1, 1)
+
+        self.check_r = QCheckBox(self.Pomiary)
+        self.check_r.setObjectName(u"check_r")
+        self.check_r.setChecked(True)
+
+        self.gridLayout.addWidget(self.check_r, 1, 8, 1, 1)
+
+        self.label_15 = QLabel(self.Pomiary)
+        self.label_15.setObjectName(u"label_15")
+
+        self.gridLayout.addWidget(self.label_15, 1, 13, 1, 1)
+
+        self.label_12 = QLabel(self.Pomiary)
+        self.label_12.setObjectName(u"label_12")
+
+        self.gridLayout.addWidget(self.label_12, 1, 2, 1, 1)
+
+        self.label_10 = QLabel(self.Pomiary)
+        self.label_10.setObjectName(u"label_10")
+
+        self.gridLayout.addWidget(self.label_10, 3, 9, 1, 1)
 
         self.zakresA = QSpinBox(self.Pomiary)
         self.zakresA.setObjectName(u"zakresA")
@@ -323,15 +293,17 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.zakresA, 1, 12, 1, 1)
 
-        self.label_15 = QLabel(self.Pomiary)
-        self.label_15.setObjectName(u"label_15")
+        self.AC_DC = QComboBox(self.Pomiary)
+        self.AC_DC.addItem("")
+        self.AC_DC.addItem("")
+        self.AC_DC.setObjectName(u"AC_DC")
 
-        self.gridLayout.addWidget(self.label_15, 1, 13, 1, 1)
+        self.gridLayout.addWidget(self.AC_DC, 3, 3, 1, 1)
 
-        self.check_aci = QCheckBox(self.Pomiary)
-        self.check_aci.setObjectName(u"check_aci")
+        self.Nastaw = QPushButton(self.Pomiary)
+        self.Nastaw.setObjectName(u"Nastaw")
 
-        self.gridLayout.addWidget(self.check_aci, 1, 7, 1, 1)
+        self.gridLayout.addWidget(self.Nastaw, 3, 4, 1, 2)
 
         self.zakresR = QSpinBox(self.Pomiary)
         self.zakresR.setObjectName(u"zakresR")
@@ -342,32 +314,20 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.zakresR, 1, 14, 1, 1)
 
-        self.label_12 = QLabel(self.Pomiary)
-        self.label_12.setObjectName(u"label_12")
+        self.pushButton_19 = QPushButton(self.Pomiary)
+        self.pushButton_19.setObjectName(u"pushButton_19")
 
-        self.gridLayout.addWidget(self.label_12, 1, 2, 1, 1)
+        self.gridLayout.addWidget(self.pushButton_19, 3, 23, 1, 1)
 
-        self.label_16 = QLabel(self.Pomiary)
-        self.label_16.setObjectName(u"label_16")
-        font = QFont()
-        font.setPointSize(9)
-        self.label_16.setFont(font)
-        self.label_16.setLayoutDirection(Qt.LeftToRight)
-        self.label_16.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.label_13 = QLabel(self.Pomiary)
+        self.label_13.setObjectName(u"label_13")
 
-        self.gridLayout.addWidget(self.label_16, 1, 17, 1, 1)
+        self.gridLayout.addWidget(self.label_13, 1, 9, 1, 1)
 
-        self.label_9 = QLabel(self.Pomiary)
-        self.label_9.setObjectName(u"label_9")
+        self.label_17 = QLabel(self.Pomiary)
+        self.label_17.setObjectName(u"label_17")
 
-        self.gridLayout.addWidget(self.label_9, 3, 0, 1, 1)
-
-        self.AC_DC = QComboBox(self.Pomiary)
-        self.AC_DC.addItem("")
-        self.AC_DC.addItem("")
-        self.AC_DC.setObjectName(u"AC_DC")
-
-        self.gridLayout.addWidget(self.AC_DC, 3, 3, 1, 1)
+        self.gridLayout.addWidget(self.label_17, 1, 15, 1, 1)
 
         self.label = QLabel(self.Pomiary)
         self.label.setObjectName(u"label")
@@ -376,29 +336,64 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.label, 0, 0, 1, 26)
 
-        self.label_6 = QLabel(self.Pomiary)
-        self.label_6.setObjectName(u"label_6")
-        self.label_6.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.zamkniecie_aplikacji = QPushButton(self.Pomiary)
+        self.zamkniecie_aplikacji.setObjectName(u"zamkniecie_aplikacji")
+        self.zamkniecie_aplikacji.setToolTipDuration(8)
 
-        self.gridLayout.addWidget(self.label_6, 1, 0, 1, 1)
-
-        self.label_13 = QLabel(self.Pomiary)
-        self.label_13.setObjectName(u"label_13")
-
-        self.gridLayout.addWidget(self.label_13, 1, 9, 1, 1)
+        self.gridLayout.addWidget(self.zamkniecie_aplikacji, 3, 25, 1, 1)
 
         self.SzukajModelu = QPushButton(self.Pomiary)
         self.SzukajModelu.setObjectName(u"SzukajModelu")
 
         self.gridLayout.addWidget(self.SzukajModelu, 1, 25, 1, 1)
 
-        self.odczyt_kalibrator = QLineEdit(self.Pomiary)
-        self.odczyt_kalibrator.setObjectName(u"odczyt_kalibrator")
-        self.odczyt_kalibrator.setEnabled(True)
-        self.odczyt_kalibrator.setDragEnabled(False)
-        self.odczyt_kalibrator.setReadOnly(True)
+        self.pushButton_6 = QPushButton(self.Pomiary)
+        self.pushButton_6.setObjectName(u"pushButton_6")
 
-        self.gridLayout.addWidget(self.odczyt_kalibrator, 3, 10, 1, 10)
+        self.gridLayout.addWidget(self.pushButton_6, 3, 22, 1, 1)
+
+        self.label_14 = QLabel(self.Pomiary)
+        self.label_14.setObjectName(u"label_14")
+
+        self.gridLayout.addWidget(self.label_14, 1, 11, 1, 1)
+
+        self.ustawienie_kalibrator = QComboBox(self.Pomiary)
+        self.ustawienie_kalibrator.addItem("")
+        self.ustawienie_kalibrator.addItem("")
+        self.ustawienie_kalibrator.addItem("")
+        self.ustawienie_kalibrator.addItem("")
+        self.ustawienie_kalibrator.setObjectName(u"ustawienie_kalibrator")
+
+        self.gridLayout.addWidget(self.ustawienie_kalibrator, 3, 2, 1, 1)
+
+        self.label_6 = QLabel(self.Pomiary)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.gridLayout.addWidget(self.label_6, 1, 0, 1, 1)
+
+        self.Wyczysc = QPushButton(self.Pomiary)
+        self.Wyczysc.setObjectName(u"Wyczysc")
+
+        self.gridLayout.addWidget(self.Wyczysc, 3, 6, 1, 3)
+
+        self.Stworz = QPushButton(self.Pomiary)
+        self.Stworz.setObjectName(u"Stworz")
+
+        self.gridLayout.addWidget(self.Stworz, 1, 24, 1, 1)
+
+        self.zakresV = QSpinBox(self.Pomiary)
+        self.zakresV.setObjectName(u"zakresV")
+        self.zakresV.setMinimumSize(QSize(60, 0))
+        self.zakresV.setMaximum(1000)
+        self.zakresV.setValue(250)
+
+        self.gridLayout.addWidget(self.zakresV, 1, 10, 1, 1)
+
+        self.sciezka_Model = QLineEdit(self.Pomiary)
+        self.sciezka_Model.setObjectName(u"sciezka_Model")
+
+        self.gridLayout.addWidget(self.sciezka_Model, 1, 16, 1, 8)
 
         self.tabWidget.addTab(self.Pomiary, "")
         self.Swiadectwo = QWidget()
@@ -427,7 +422,7 @@ class Ui_MainWindow(object):
 
         self.data_wzorcowania = QDateEdit(self.Swiadectwo)
         self.data_wzorcowania.setObjectName(u"data_wzorcowania")
-        self.data_wzorcowania.setDateTime(QDateTime(QDate(2023, 2, 9), QTime(20, 0, 0)))
+        self.data_wzorcowania.setDateTime(QDateTime(QDate(2023, 2, 9), QTime(18, 0, 0)))
         self.data_wzorcowania.setCalendarPopup(True)
 
         self.gridLayout_7.addWidget(self.data_wzorcowania, 2, 0, 2, 1)
@@ -622,24 +617,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MultiMeasure", None))
-        self.check_r.setText(QCoreApplication.translate("MainWindow", u"R", None))
+        self.label_9.setText(QCoreApplication.translate("MainWindow", u"Ustaw warto\u015b\u0107:", None))
         self.check_acv.setText(QCoreApplication.translate("MainWindow", u"ACV", None))
-        self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
-        self.pushButton_19.setText(QCoreApplication.translate("MainWindow", u"Help", None))
-        self.check_dci.setText(QCoreApplication.translate("MainWindow", u"DCI", None))
-        self.Wyczysc.setText(QCoreApplication.translate("MainWindow", u"Wyczy\u015b\u0107", None))
-        self.comboBox.setItemText(0, QCoreApplication.translate("MainWindow", u"Fluke 1", None))
-        self.comboBox.setItemText(1, QCoreApplication.translate("MainWindow", u"Fluke 2", None))
-        self.comboBox.setItemText(2, QCoreApplication.translate("MainWindow", u"Fluke 3", None))
-
-        self.check_dcv.setText(QCoreApplication.translate("MainWindow", u"DCV", None))
-        self.Stworz.setText(QCoreApplication.translate("MainWindow", u"Stw\u00f3rz", None))
-        self.label_10.setText(QCoreApplication.translate("MainWindow", u"Odczytana warto\u015b\u0107:", None))
-        self.ustawienie_kalibrator.setItemText(0, QCoreApplication.translate("MainWindow", u"mV", None))
-        self.ustawienie_kalibrator.setItemText(1, QCoreApplication.translate("MainWindow", u"V", None))
-        self.ustawienie_kalibrator.setItemText(2, QCoreApplication.translate("MainWindow", u"mA", None))
-        self.ustawienie_kalibrator.setItemText(3, QCoreApplication.translate("MainWindow", u"A", None))
-
         self.pushButton_21.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
         self.label_3.setText("")
         self.pushButton_20.setText(QCoreApplication.translate("MainWindow", u"Next", None))
@@ -667,24 +646,39 @@ class Ui_MainWindow(object):
         self.pushButton_31.setText(QCoreApplication.translate("MainWindow", u"Kasuj Wyniki", None))
         self.pushButton_32.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.R), QCoreApplication.translate("MainWindow", u"R", None))
-        self.Nastaw.setText(QCoreApplication.translate("MainWindow", u"Nastaw", None))
-        self.label_14.setText(QCoreApplication.translate("MainWindow", u"V", None))
-        self.label_17.setText(QCoreApplication.translate("MainWindow", u"R", None))
-        self.zamkniecie_aplikacji.setText(QCoreApplication.translate("MainWindow", u"Wyj\u015bcie", None))
-        self.label_15.setText(QCoreApplication.translate("MainWindow", u"A", None))
+        self.check_dcv.setText(QCoreApplication.translate("MainWindow", u"DCV", None))
+        self.odczyt_kalibrator.setInputMask("")
+        self.odczyt_kalibrator.setText("")
         self.check_aci.setText(QCoreApplication.translate("MainWindow", u"ACI", None))
+        self.comboBox.setItemText(0, QCoreApplication.translate("MainWindow", u"Fluke 1", None))
+        self.comboBox.setItemText(1, QCoreApplication.translate("MainWindow", u"Fluke 2", None))
+        self.comboBox.setItemText(2, QCoreApplication.translate("MainWindow", u"Fluke 3", None))
+
+        self.check_dci.setText(QCoreApplication.translate("MainWindow", u"DCI", None))
+        self.check_r.setText(QCoreApplication.translate("MainWindow", u"R", None))
+        self.label_15.setText(QCoreApplication.translate("MainWindow", u"A", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"Lub Wybierz", None))
-        self.label_16.setText(QCoreApplication.translate("MainWindow", u"Lub Szukaj:", None))
-        self.label_9.setText(QCoreApplication.translate("MainWindow", u"Ustaw warto\u015b\u0107:", None))
+        self.label_10.setText(QCoreApplication.translate("MainWindow", u"Odczytana warto\u015b\u0107:", None))
         self.AC_DC.setItemText(0, QCoreApplication.translate("MainWindow", u"DC", None))
         self.AC_DC.setItemText(1, QCoreApplication.translate("MainWindow", u"AC", None))
 
-        self.label.setText("")
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Wybierz model:", None))
+        self.Nastaw.setText(QCoreApplication.translate("MainWindow", u"Nastaw", None))
+        self.pushButton_19.setText(QCoreApplication.translate("MainWindow", u"Help", None))
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Podaj zakresy:", None))
+        self.label_17.setText(QCoreApplication.translate("MainWindow", u"R", None))
+        self.label.setText("")
+        self.zamkniecie_aplikacji.setText(QCoreApplication.translate("MainWindow", u"Wyj\u015bcie", None))
         self.SzukajModelu.setText(QCoreApplication.translate("MainWindow", u"Szukaj", None))
-        self.odczyt_kalibrator.setInputMask("")
-        self.odczyt_kalibrator.setText("")
+        self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
+        self.label_14.setText(QCoreApplication.translate("MainWindow", u"V", None))
+        self.ustawienie_kalibrator.setItemText(0, QCoreApplication.translate("MainWindow", u"mV", None))
+        self.ustawienie_kalibrator.setItemText(1, QCoreApplication.translate("MainWindow", u"V", None))
+        self.ustawienie_kalibrator.setItemText(2, QCoreApplication.translate("MainWindow", u"mA", None))
+        self.ustawienie_kalibrator.setItemText(3, QCoreApplication.translate("MainWindow", u"A", None))
+
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Wybierz model:", None))
+        self.Wyczysc.setText(QCoreApplication.translate("MainWindow", u"Wyczy\u015b\u0107", None))
+        self.Stworz.setText(QCoreApplication.translate("MainWindow", u"Stw\u00f3rz", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Pomiary), QCoreApplication.translate("MainWindow", u"Pomiary", None))
         self.Wybor_zglaszajacy.setItemText(0, QCoreApplication.translate("MainWindow", u"Linetech", None))
         self.Wybor_zglaszajacy.setItemText(1, QCoreApplication.translate("MainWindow", u"Hanza", None))
