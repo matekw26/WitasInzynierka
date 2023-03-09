@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1423</width>
-    <height>749</height>
+    <width>1528</width>
+    <height>779</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,31 +29,53 @@
         <string>Pomiary</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="3" column="1">
-         <widget class="QDoubleSpinBox" name="wartosc_kalibrator">
+        <item row="6" column="24" colspan="2">
+         <widget class="QLabel" name="label_10">
+          <property name="text">
+           <string>Odczytana wartość:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="27" colspan="2">
+         <widget class="QPushButton" name="pushButton_6">
+          <property name="text">
+           <string>Reset</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="23">
+         <widget class="QSpinBox" name="ilR">
+          <property name="maximumSize">
+           <size>
+            <width>30</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="maximum">
-           <double>1001.000000000000000</double>
+           <number>10</number>
+          </property>
+          <property name="value">
+           <number>6</number>
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_9">
+        <item row="6" column="7" colspan="2">
+         <widget class="QPushButton" name="Wyczysc">
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="text">
-           <string>Ustaw wartość:</string>
+           <string>Wyczyść</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="5" colspan="2">
-         <widget class="QCheckBox" name="check_acv">
-          <property name="text">
-           <string>ACV</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
+        <item row="1" column="25" rowspan="3" colspan="3">
+         <widget class="QLineEdit" name="sciezka_Model"/>
         </item>
-        <item row="2" column="0" colspan="26">
+        <item row="5" column="0" colspan="32">
          <widget class="QTabWidget" name="tabWidget_2">
           <property name="currentIndex">
            <number>0</number>
@@ -288,17 +310,92 @@
           </widget>
          </widget>
         </item>
-        <item row="1" column="3">
-         <widget class="QCheckBox" name="check_dcv">
+        <item row="6" column="0">
+         <widget class="QLabel" name="label_9">
+          <property name="minimumSize">
+           <size>
+            <width>90</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="text">
-           <string>DCV</string>
+           <string>Ustaw wartość:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="29" colspan="2">
+         <widget class="QPushButton" name="pushButton_19">
+          <property name="text">
+           <string>Help</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="17">
+         <widget class="QSpinBox" name="ilACV">
+          <property name="maximumSize">
+           <size>
+            <width>30</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="maximum">
+           <number>10</number>
+          </property>
+          <property name="value">
+           <number>2</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="16">
+         <widget class="QCheckBox" name="check_acv">
+          <property name="text">
+           <string>ACV</string>
           </property>
           <property name="checked">
            <bool>true</bool>
           </property>
          </widget>
         </item>
-        <item row="3" column="10" colspan="9">
+        <item row="1" column="19">
+         <widget class="QCheckBox" name="check_aci">
+          <property name="text">
+           <string>ACI</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="7">
+         <widget class="QSpinBox" name="ilDCV">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>30</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="maximum">
+           <number>10</number>
+          </property>
+          <property name="value">
+           <number>5</number>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QDoubleSpinBox" name="wartosc_kalibrator">
+          <property name="maximum">
+           <double>1001.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="26">
          <widget class="QLineEdit" name="odczyt_kalibrator">
           <property name="enabled">
            <bool>true</bool>
@@ -317,94 +414,21 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="7">
-         <widget class="QCheckBox" name="check_aci">
+        <item row="1" column="28" rowspan="3" colspan="2">
+         <widget class="QPushButton" name="Stworz">
           <property name="text">
-           <string>ACI</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
+           <string>Stwórz</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QComboBox" name="comboBox">
-          <item>
-           <property name="text">
-            <string>Fluke 1</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Fluke 2</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Fluke 3</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-        <item row="1" column="4">
-         <widget class="QCheckBox" name="check_dci">
-          <property name="text">
-           <string>DCI</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="8">
-         <widget class="QCheckBox" name="check_r">
-          <property name="text">
-           <string>R</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="13">
-         <widget class="QLabel" name="label_15">
-          <property name="text">
-           <string>A</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="label_12">
-          <property name="text">
-           <string>Lub Wybierz</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="9">
-         <widget class="QLabel" name="label_10">
-          <property name="text">
-           <string>Odczytana wartość:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="12">
-         <widget class="QSpinBox" name="zakresA">
-          <property name="minimumSize">
+        <item row="6" column="4">
+         <widget class="QComboBox" name="AC_DC">
+          <property name="maximumSize">
            <size>
-            <width>60</width>
-            <height>0</height>
+            <width>50</width>
+            <height>16777215</height>
            </size>
           </property>
-          <property name="maximum">
-           <number>1000</number>
-          </property>
-          <property name="value">
-           <number>10</number>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="3">
-         <widget class="QComboBox" name="AC_DC">
           <item>
            <property name="text">
             <string>DC</string>
@@ -417,54 +441,122 @@
           </item>
          </widget>
         </item>
-        <item row="3" column="4" colspan="2">
+        <item row="6" column="31">
+         <widget class="QPushButton" name="zamkniecie_aplikacji">
+          <property name="toolTipDuration">
+           <number>8</number>
+          </property>
+          <property name="text">
+           <string>Wyjście</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="5">
          <widget class="QPushButton" name="Nastaw">
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="text">
            <string>Nastaw</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="14">
-         <widget class="QSpinBox" name="zakresR">
-          <property name="minimumSize">
+        <item row="1" column="10" colspan="3">
+         <widget class="QCheckBox" name="check_dci">
+          <property name="text">
+           <string>DCI</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="20">
+         <widget class="QSpinBox" name="ilACI">
+          <property name="maximumSize">
            <size>
-            <width>60</width>
-            <height>0</height>
+            <width>30</width>
+            <height>16777215</height>
            </size>
           </property>
           <property name="maximum">
-           <number>500000000</number>
-          </property>
-          <property name="value">
-           <number>200000000</number>
-          </property>
-          <property name="displayIntegerBase">
            <number>10</number>
           </property>
-         </widget>
-        </item>
-        <item row="3" column="23">
-         <widget class="QPushButton" name="pushButton_19">
-          <property name="text">
-           <string>Help</string>
+          <property name="value">
+           <number>3</number>
           </property>
          </widget>
         </item>
-        <item row="1" column="9">
-         <widget class="QLabel" name="label_13">
-          <property name="text">
-           <string>Podaj zakresy:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="15">
-         <widget class="QLabel" name="label_17">
+        <item row="1" column="22">
+         <widget class="QCheckBox" name="check_r">
           <property name="text">
            <string>R</string>
           </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
-        <item row="0" column="0" colspan="26">
+        <item row="1" column="30" rowspan="3" colspan="2">
+         <widget class="QPushButton" name="SzukajModelu">
+          <property name="text">
+           <string>Szukaj</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3" colspan="2">
+         <widget class="QLabel" name="label_12">
+          <property name="text">
+           <string>Lub Wybierz</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="5">
+         <widget class="QCheckBox" name="check_dcv">
+          <property name="text">
+           <string>DCV</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_6">
+          <property name="minimumSize">
+           <size>
+            <width>90</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Wybierz model:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="14">
+         <widget class="QSpinBox" name="ilDCI">
+          <property name="maximumSize">
+           <size>
+            <width>30</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="maximum">
+           <number>10</number>
+          </property>
+          <property name="value">
+           <number>4</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="32">
          <widget class="QLabel" name="label">
           <property name="text">
            <string/>
@@ -477,38 +569,7 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="25">
-         <widget class="QPushButton" name="zamkniecie_aplikacji">
-          <property name="toolTipDuration">
-           <number>8</number>
-          </property>
-          <property name="text">
-           <string>Wyjście</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="25">
-         <widget class="QPushButton" name="SzukajModelu">
-          <property name="text">
-           <string>Szukaj</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="22">
-         <widget class="QPushButton" name="pushButton_6">
-          <property name="text">
-           <string>Reset</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="11">
-         <widget class="QLabel" name="label_14">
-          <property name="text">
-           <string>V</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
+        <item row="6" column="2" colspan="2">
          <widget class="QComboBox" name="ustawienie_kalibrator">
           <item>
            <property name="text">
@@ -532,32 +593,27 @@
           </item>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_6">
-          <property name="text">
-           <string>Wybierz model:</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
+        <item row="1" column="1" colspan="2">
+         <widget class="QComboBox" name="comboBox">
+          <item>
+           <property name="text">
+            <string>Fluke 1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Fluke 2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Fluke 3</string>
+           </property>
+          </item>
          </widget>
         </item>
-        <item row="3" column="6" colspan="3">
-         <widget class="QPushButton" name="Wyczysc">
-          <property name="text">
-           <string>Wyczyść</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="24">
-         <widget class="QPushButton" name="Stworz">
-          <property name="text">
-           <string>Stwórz</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="10">
-         <widget class="QSpinBox" name="zakresV">
+        <item row="2" column="22" colspan="2">
+         <widget class="QSpinBox" name="zakresR">
           <property name="minimumSize">
            <size>
             <width>60</width>
@@ -565,15 +621,191 @@
            </size>
           </property>
           <property name="maximum">
-           <number>1000</number>
+           <number>500000000</number>
           </property>
           <property name="value">
-           <number>250</number>
+           <number>200000000</number>
+          </property>
+          <property name="displayIntegerBase">
+           <number>10</number>
           </property>
          </widget>
         </item>
-        <item row="1" column="16" colspan="8">
-         <widget class="QLineEdit" name="sciezka_Model"/>
+        <item row="2" column="20">
+         <widget class="QDoubleSpinBox" name="zakresACI_2">
+          <property name="maximumSize">
+           <size>
+            <width>50</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="maximum">
+           <double>1000.000000000000000</double>
+          </property>
+          <property name="value">
+           <double>0.400000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="19">
+         <widget class="QSpinBox" name="zakresACI">
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximum">
+           <number>1000</number>
+          </property>
+          <property name="value">
+           <number>10</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="21">
+         <widget class="QLabel" name="label_54">
+          <property name="text">
+           <string>A</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="17">
+         <widget class="QDoubleSpinBox" name="zakresACV_">
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>16777210</height>
+           </size>
+          </property>
+          <property name="maximum">
+           <double>1000.000000000000000</double>
+          </property>
+          <property name="value">
+           <double>400.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="18" rowspan="2">
+         <widget class="QLabel" name="label_53">
+          <property name="text">
+           <string>V</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="24" rowspan="2">
+         <widget class="QLabel" name="label_17">
+          <property name="text">
+           <string>R</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="16">
+         <widget class="QSpinBox" name="zakresACV">
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximum">
+           <number>1000</number>
+          </property>
+          <property name="value">
+           <number>750</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="5">
+         <widget class="QSpinBox" name="zakresDCV">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>50</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="maximum">
+           <number>1000</number>
+          </property>
+          <property name="value">
+           <number>1000</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="7">
+         <widget class="QDoubleSpinBox" name="zakresDCV_2">
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="maximum">
+           <double>1000.000000000000000</double>
+          </property>
+          <property name="value">
+           <double>400.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="10" colspan="3">
+         <widget class="QSpinBox" name="zakresDCI">
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximum">
+           <number>1000</number>
+          </property>
+          <property name="value">
+           <number>10</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="14">
+         <widget class="QDoubleSpinBox" name="zakresDCI_2">
+          <property name="maximumSize">
+           <size>
+            <width>50</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="maximum">
+           <double>1000.000000000000000</double>
+          </property>
+          <property name="value">
+           <double>0.400000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="8" rowspan="2" colspan="2">
+         <widget class="QLabel" name="label_14">
+          <property name="text">
+           <string>V</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="15" rowspan="2">
+         <widget class="QLabel" name="label_15">
+          <property name="text">
+           <string>A</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3" colspan="2">
+         <widget class="QLabel" name="label_13">
+          <property name="text">
+           <string>Podaj zakresy:</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -625,7 +857,7 @@
          <widget class="QDateEdit" name="data_wzorcowania">
           <property name="dateTime">
            <datetime>
-            <hour>18</hour>
+            <hour>17</hour>
             <minute>0</minute>
             <second>0</second>
             <year>2023</year>
@@ -974,7 +1206,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1423</width>
+     <width>1528</width>
      <height>21</height>
     </rect>
    </property>
