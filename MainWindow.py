@@ -65,10 +65,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # odczyt wynikow
         self.odczyt_wynikow.clicked.connect(self.open_file_dialog)
-        # self.odczyt_wynikow.clicked.connect(self.loadExcelData2(self.sciezkaWynik_zapis.text() + ".xlsx", self.wyniki_wzorcowania))
-
         self.SzukajModelu.clicked.connect(self.open_file_dialog)
-        # self.SzukajModelu.clicked.connect(self.loadExcelData2(self.sciezkaModel.text() + ".xlsx" + self.wynikiDCV))
 
         # szukaj plikow
         self.SzukajWynikow.clicked.connect(self.save_file_dialog)
@@ -91,9 +88,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.Stworz.clicked.connect(self.generate_excel)
 
         # update tabeli
-        # self.loadExcelData()
-        # self.loadExcelData2(self.sciezkaWynik_zapis.text() +".xlsx", self.wyniki_wzorcowania)
-
+        # self.loadExcelData(self.sciezkaWynik_zapis.text() +".xlsx", self.wyniki_wzorcowania)
 
 
 
@@ -148,46 +143,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 path = file_name
                 filename_without_ext, ext = os.path.splitext(path)
                 self.sciezka_Model.setText(filename_without_ext)
-                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCV)
+                self.loadExcelData(self.sciezka_Model.text() + ".xlsx", self.wynikiDCV)
                 print(file_name)
             elif sender.objectName() == "SzukajWynikow" or "odczyt_wynikow":
                 path = file_name
                 filename_without_ext, ext = os.path.splitext(path)
                 self.sciezkaWynik_zapis.setText(filename_without_ext)
-                self.loadExcelData2(self.sciezkaWynik_zapis.text() + ".xlsx", self.wyniki_wzorcowania)
+                self.loadExcelData(self.sciezkaWynik_zapis.text() + ".xlsx", self.wyniki_wzorcowania)
                 print(file_name)
 
 
-    # def loadExcelData(self):
-    #     path = self.sciezkaWynik_zapis.text() +".xlsx"
-    #     df = pd.read_excel(path)
-    #     if df.size == 0:
-    #         return
-    #
-    #     df.fillna('', inplace=True)
-    #     self.wyniki_wzorcowania.setRowCount(df.shape[0])
-    #     self.wyniki_wzorcowania.setColumnCount(df.shape[1])
-    #     column_headers = df.iloc[3]
-    #     self.wyniki_wzorcowania.setHorizontalHeaderLabels(column_headers)
-    #
-    #     # ustawienie dopasowywania się rozmiaru kolumn
-    #     for i in range(self.wyniki_wzorcowania.columnCount()):
-    #          self.wyniki_wzorcowania.resizeColumnToContents(i)
-    #
-    #     # Wyświetlanie danych z Excela
-    #     for row in df.iterrows():
-    #         values = row[1]
-    #         for col_index, value in enumerate(values):
-    #             tableItem = QTableWidgetItem(str(value))
-    #             self.wyniki_wzorcowania.setItem(row[0], col_index, tableItem)
-    #
-    #     # Ustawienie poprakwi kolumn 2 i 3 w kolumnie 4
-    #     self.wyniki_wzorcowania.itemChanged.connect(self.update_tablewidget)
-    #
-    #     # self.update_tablewidget()
-    #     self.wyniki_wzorcowania.setStyleSheet("QTableView::item { border: 0px solid black; }")
-
-    def loadExcelData2(self, path, table):
+    def loadExcelData(self, path, table):
         df = pd.read_excel(path)
         if df.size == 0:
             return
@@ -230,19 +196,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         except AttributeError:
             pass
 
-        # for row in range(self.wyniki_wzorcowania.rowCount()):
-        #     try:
-        #         item1 = self.wyniki_wzorcowania.item(row, 2)
-        #         item2 = self.wyniki_wzorcowania.item(row, 3)
-        #         if item1.text() or item2.text() != "":
-        #             value_1 = float(self.wyniki_wzorcowania.item(row, 2).text())
-        #             value_2 = float(self.wyniki_wzorcowania.item(row, 3).text())
-        #             result = value_1 + value_2
-        #             item = QTableWidgetItem()
-        #             item.setData(Qt.EditRole, result)
-        #             self.wyniki_wzorcowania.setItem(row, 4, item)
-        #     except ValueError:
-        #         pass
 
     def save_to_excel(self):
 
@@ -264,34 +217,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if item is not None:
                     ws.cell(row=row + 2, column=col + 1, value=item.text())
 
-        # # ustawienie obramowania dla komórki
-        # for row in range(self.wyniki_wzorcowania.rowCount()):
-        #     for col in range(self.wyniki_wzorcowania.columnCount()):
-        #         item = self.wyniki_wzorcowania.item(row, col)
-        #         # print(item.text())
-        #         if item.text() != "":
-        #             cell = ws.cell(row=row + 2, column=col + 1)
-        #             cell.border = border
-        #             cell.alignment = Alignment(wrapText=True)
-        #             cell.alignment = alignmentCC
-        #
-        #
-        # # Dopasowanie szerokości kolumn do zawartości
-        # for col in range(self.wyniki_wzorcowania.columnCount()):
-        #     column_letter = get_column_letter(col + 1)
-        #     column_dimensions = ws.column_dimensions[column_letter]
-        #     max_length = 0
-        #     for cell in ws[column_letter]:
-        #         try:
-        #             cell_value = str(cell.value)
-        #         except:
-        #             cell_value = ""
-        #         if len(cell_value) > max_length:
-        #             max_length = len(cell_value)
-        #             print(max_length)
-        #     if max_length < 30:
-        #         adjusted_width = (max_length + 2)
-        #         column_dimensions.width = adjusted_width
 
         # ustawienie obramowania dla komórki i dopasowanie szerokosci kolumn
         for row in range(self.wyniki_wzorcowania.rowCount()):
@@ -325,179 +250,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.zapis_pliku(self.sciezkaWynik_zapis.text(), wb)
 
-    # def saveadd_to_excel(self):
-    #
-    #     # Otwieranie arkusza w pliku Excel
-    #     wb = openpyxl.load_workbook('nazwa_pliku.xlsx')
-    #     ws = wb['Sheet']
-    #
-    #     # ustawianie stylu obramowania dla komórek
-    #     border_style = Side(border_style='thin', color='000000')
-    #     border = Border(left=border_style, right=border_style, top=border_style, bottom=border_style)
-    #
-    #     alignmentCC = Alignment(wrap_text=True, horizontal='center', vertical='center')
-    #
-    #     # Pobieranie danych z QTableWidget i zapisywanie ich do arkusza
-    #     for row in range(self.wyniki_wzorcowania.rowCount()):
-    #         for col in range(self.wyniki_wzorcowania.columnCount()):
-    #             item = self.wyniki_wzorcowania.item(row, col)
-    #             if item is not None:
-    #                 ws.cell(row=row + 32, column=col + 31, value=item.text())
-    #
-    #
-    #     # ustawienie obramowania dla komórki i dopasowanie szerokosci kolumn
-    #     for row in range(self.wyniki_wzorcowania.rowCount()):
-    #         for col in range(self.wyniki_wzorcowania.columnCount()):
-    #             column_letter = get_column_letter(col + 1)
-    #             column_dimensions = ws.column_dimensions[column_letter]
-    #             max_length = 0
-    #             for cell in ws[column_letter]:
-    #                 try:
-    #                     cell_value = str(cell.value)
-    #                 except:
-    #                     cell_value = ""
-    #                 if len(cell_value) > max_length:
-    #                     max_length = len(cell_value)
-    #                     # print(max_length)
-    #             if max_length < 30:
-    #                 adjusted_width = (max_length + 2)
-    #                 column_dimensions.width = adjusted_width
-    #             item = self.wyniki_wzorcowania.item(row, col)
-    #              # print(item.text())
-    #             if item.text() != "":
-    #                 cell1 = ws.cell(row=row + 2, column=col + 1)
-    #                 cell1.border = border
-    #                 cell1.alignment = Alignment(wrapText=True)
-    #                 cell1.alignment = alignmentCC
-    #
-    #     ws.column_dimensions['C'].width = 12
-    #     ws.column_dimensions['D'].width = 13
-    #     ws.column_dimensions['F'].width = 14
-    #
-    #     self.zapis_pliku(self.sciezkaWynik_zapis.text(), wb)
-
     def generate_excel(self):
 
         wb = Workbook()
         ws = wb.active
 
-        col_headers = ['Zakres', 'Wartość napięcia odniesienia',
-                       'Zmierzona wartość napięcia', 'Poprawka', 'Niepewność pomiaru']
-        row_headers = ['mV', str(float(self.zakresDCV_2.value())), '', '', '', 'V',
-                       str(float(self.zakresDCV_2.value())/100), '', '', '',
-                       str(float(self.zakresDCV_2.value())/10), '', '', '',
-                       str(self.zakresDCV_2.value()), '', '', '',
-                       str(self.zakresDCV.text()), '', '', '']
-
-        # ustawianie stylu obramowania dla komórek
-        border_style = Side(border_style='thin', color='000000')
-        border = Border(left=border_style, right=border_style, top=border_style, bottom=border_style)
-
-        # ustawianie czcionki i pozycji tekstu
-        alignmentCC = Alignment(wrap_text=True, horizontal='center', vertical='center')
-        fontA10 = Font(name='Arial', size=10)
-
-        if self.check_dcv.isChecked():
-            for i, col in enumerate(col_headers):
-                ws.cell(5, i + 2, col)
-                cell = ws.cell(row=5, column=i+2)
-                cell.border = border
-                cell.font = fontA10
-                cell.alignment = alignmentCC
-            # for j, row in enumerate(row_headers):
-            #     ws.cell(j+6, 2, row)
-            #     cell = ws.cell(row=j+6, column=2)
-            #     cell.border = border
-            if 6 > self.ilDCV.value() > 2:
-                row_range = self.ilDCV.value() * 4 + 2
-                for row in range(row_range):
-                    if row == 0:
-                        ws.cell(row + 6, 2, 'mV')
-                    elif row == 5:
-                        ws.cell(row + 6, 2, 'V')
-                    elif row < row_range - 16:
-                        ws.cell(row + 6, 2, self.zakresDCV_2.value())
-                    elif row < row_range - 12:
-                        ws.cell(row + 6, 2, self.zakresDCV_2.value()/100)
-                    elif row < row_range - 8:
-                        ws.cell(row + 6, 2, self.zakresDCV_2.value()/10)
-                    elif row < row_range - 4:
-                        ws.cell(row + 6, 2, self.zakresDCV_2.value())
-                    elif row < row_range:
-                        ws.cell(row + 6, 2, self.zakresDCV.value())
-                    cell = ws.cell(row=row+6, column=2)
-                    cell.border = border
-                    cell.alignment = alignmentCC
-                ws.merge_cells("B7:B10")
-                ws.merge_cells("B6:F6")
-                ws.merge_cells("B11:F11")
-                for row in range(row_range + 3):
-                    if row > 11 and row % 4 == 0:
-                        print(row)
-                        ws.merge_cells(f"B{row}:B{row + 3}")
-
-            elif self.ilDCV.value() <= 2:
-                row_range = self.ilDCV.value() * 4 + 1
-                for row in range(row_range):
-                    if row == 0:
-                        ws.cell(row + 6, 2, 'V')
-                    elif row < row_range - 4:
-                        ws.cell(row + 6, 2, self.zakresDCV_2.value())
-                    elif row < row_range:
-                        ws.cell(row + 6, 2, self.zakresDCV.value())
-                    cell = ws.cell(row=row+6, column=2)
-                    cell.border = border
-                    cell.alignment = alignmentCC
-                ws.merge_cells("B6:F6")
-                ws.merge_cells("B7:B10")
-                ws.merge_cells("B11:B14")
-
-            elif self.ilDCV.value() > 5:
-                row_range = self.ilDCV.value() * 4 + 2
-                for row in range(row_range):
-                    if row == 0:
-                        ws.cell(row + 6, 2, 'mV')
-                    elif row == 9:
-                        ws.cell(row + 6, 2, 'V')
-                    elif row < row_range - 25:
-                        ws.cell(row + 6, 2, self.zakresDCV_2.value()/100)
-                    elif row < row_range - 21:
-                        ws.cell(row + 6, 2, self.zakresDCV_2.value()/10)
-                    elif row < row_range - 19:
-                        ws.cell(row + 6, 2, self.zakresDCV_2.value())
-                    elif row < row_range - 12:
-                        ws.cell(row + 6, 2, self.zakresDCV_2.value() / 100)
-                    elif row < row_range - 8:
-                        ws.cell(row + 6, 2, self.zakresDCV_2.value() / 10)
-                    elif row < row_range - 4:
-                        ws.cell(row + 6, 2, self.zakresDCV_2.value())
-                    elif row < row_range:
-                        ws.cell(row + 6, 2, self.zakresDCV.value())
-                    cell = ws.cell(row=row + 6, column=2)
-                    cell.border = border
-                    cell.alignment = alignmentCC
-                ws.merge_cells("B7:B10")
-                ws.merge_cells("B11:B14")
-                ws.merge_cells("B6:F6")
-                ws.merge_cells("B15:F15")
-                for row in range(row_range + 3):
-                    if row > 15 and row % 4 == 0:
-                        print(row)
-                        ws.merge_cells(f"B{row}:B{row + 3}")
-
-
-        # if self.check_acv.isChecked():
-        #     for i, col in enumerate(col_headers):
-        #         ws.cell(35, i + 2, col)
-        #         cell = ws.cell(row=35, column=i + 2)
-        #         cell.border = border
-        #         cell.font = fontA10
-        #         cell.alignment = alignmentCC
-        #     for j, row in enumerate(row_headers):
-        #         ws.cell(j + 36, 2, row)
-        #         cell = ws.cell(row=j+36, column=2)
-        #         cell.border = border
-
+        self.creat_excel(ws, self.check_dcv, self.ilDCV.value(),
+                          self.zakresDCV.value(), self.zakresDCV_2.value())
+        self.creat_excel(ws, self.check_acv, self.ilACV.value(),
+                         self.zakresACV.value(), self.zakresACV_2.value())
+        self.creat_excel(ws, self.check_dci, self.ilDCI.value(),
+                         self.zakresDCI.value(), self.zakresDCI_2.value())
+        self.creat_excel(ws, self.check_aci, self.ilACI.value(),
+                         self.zakresACI.value(), self.zakresACI_2.value())
+       #  self.creat_excel(ws, self.check_r, self.ilR.value(),
+       #                   self.zakresR.value(), self.zakresR.value())
 
 
 
@@ -511,6 +278,126 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.zapis_pliku(self.sciezka_Model.text(), wb)
 
         wb.close()
+
+    def creat_excel(self, ws, checked, ile, zakres1, zakres2):
+
+        col_headers = ['Zakres', 'Wartość napięcia odniesienia',
+                       'Zmierzona wartość napięcia', 'Poprawka', 'Niepewność pomiaru']
+
+        # ustawianie stylu obramowania dla komórek
+        border_style = Side(border_style='thin', color='000000')
+        border = Border(left=border_style, right=border_style, top=border_style, bottom=border_style)
+
+        # ustawianie czcionki i pozycji tekstu
+        alignmentCC = Alignment(wrap_text=True, horizontal='center', vertical='center')
+        fontA10 = Font(name='Arial', size=10)
+
+        if checked.isChecked():
+            x = 0
+            if checked == self.check_dcv:
+                x = 0
+            elif checked == self.check_acv:
+                x = 30
+            elif checked == self.check_dci:
+                x = 60
+            elif checked == self.check_aci:
+                x = 90
+            elif checked == self.check_r:
+                x = 120
+
+            for i, col in enumerate(col_headers):
+                ws.cell(5+x, i + 2, col)
+                cell = ws.cell(row=5+x, column=i+2)
+                cell.border = border
+                cell.font = fontA10
+                cell.alignment = alignmentCC
+
+            if 6 > ile > 2:
+                row_range = ile * 4 + 2
+                for row in range(row_range):
+                    row = row + x
+                    if row == 0 + x:
+                        ws.cell(row + 6, 2, 'mV')
+                    elif row == 5 + x:
+                        ws.cell(row + 6, 2, 'V')
+                    elif row < row_range - 16 + x:
+                        ws.cell(row + 6, 2, zakres2)
+                    elif row < row_range - 12 + x:
+                        ws.cell(row + 6, 2, zakres2/100)
+                    elif row < row_range - 8 + x:
+                        ws.cell(row + 6, 2, zakres2/10)
+                    elif row < row_range - 4 + x:
+                        ws.cell(row + 6, 2, zakres2)
+                    elif row < row_range + x:
+                        ws.cell(row + 6, 2, zakres1)
+                    for col in range(2, 7):
+                        cell = ws.cell(row=row+6, column=col)
+                        cell.border = border
+                        cell.alignment = alignmentCC
+                ws.merge_cells(f"B{7 + x }:B{10 + x}")
+                ws.merge_cells(f"B{6 + x }:F{6 + x}")
+                ws.merge_cells(f"B{11 + x }:F{11 + x}")
+                for row in range(row_range + 3):
+                    row = row + x
+                    if (((40 > row > 11 + x) or (70 < row < 90)) and row % 4 == 0) or \
+                       (row > 101 and (row-102) % 4 == 0) or \
+                       (60 > row > 40 and (row-42) % 4 == 0):
+                        ws.merge_cells(f"B{row}:B{row + 3}")
+
+            elif ile <= 2:
+                row_range = ile * 4 + 1
+                for row in range(row_range):
+                    row = row + x
+                    if row == 0 + x:
+                        ws.cell(row + 6, 2, 'V')
+                    elif row < row_range - 4 + x:
+                        ws.cell(row + 6, 2, zakres2)
+                    elif row < row_range + x:
+                        ws.cell(row + 6, 2, zakres1)
+                    for col in range(2, 7):
+                        cell = ws.cell(row=row+6, column=col)
+                        cell.border = border
+                        cell.alignment = alignmentCC
+                ws.merge_cells(f"B{6 + x}:F{6 + x}")
+                ws.merge_cells(f"B{7 + x}:B{10 + x}")
+                ws.merge_cells(f"B{11 + x}:B{14 + x}")
+
+            elif ile > 5:
+                row_range = ile * 4 + 2
+                for row in range(row_range):
+                    row = row + x
+                    if row == 0 + x:
+                        ws.cell(row + 6, 2, 'mV')
+                    elif row == 9 + x:
+                        ws.cell(row + 6, 2, 'V')
+                    elif row < row_range - 25 + x:
+                        ws.cell(row + 6, 2, zakres2/100)
+                    elif row < row_range - 21 + x:
+                        ws.cell(row + 6, 2, zakres2/10)
+                    elif row < row_range - 19 + x:
+                        ws.cell(row + 6, 2, zakres2)
+                    elif row < row_range - 12 + x:
+                        ws.cell(row + 6, 2, zakres2 / 100)
+                    elif row < row_range - 8 + x:
+                        ws.cell(row + 6, 2, zakres2 / 10)
+                    elif row < row_range - 4 + x:
+                        ws.cell(row + 6, 2, zakres2)
+                    elif row < row_range + x:
+                        ws.cell(row + 6, 2, zakres1)
+                    for col in range(2, 7):
+                        cell = ws.cell(row=row + 6, column=col)
+                        cell.border = border
+                        cell.alignment = alignmentCC
+                ws.merge_cells(f"B{7 + x}:B{10 + x}")
+                ws.merge_cells(f"B{6 + x}:F{6 + x}")
+                ws.merge_cells(f"B{11 + x}:B{14 + x}")
+                ws.merge_cells(f"B{15 + x}:F{15 + x}")
+                for row in range(row_range + 3):
+                    row = row + x
+                    if (((45 > row > 15 + x) or (75 < row < 90)) and row % 4 == 0) or \
+                       (60 > row > 45 and (row-42) % 4 == 0) or \
+                       (row > 105 and (row-102) % 4 == 0):
+                        ws.merge_cells(f"B{row}:B{row + 3}")
 
 
 
@@ -731,35 +618,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # zapis pliku
         self.zapis_pliku(self.sciezkaSW_zapis.text(), wb)
-
-        # # Zapisanie pliku
-        # if os.path.exists(self.sciezkaSW_zapis.text() + ".xlsx"):
-        #     # Wyświetlenie okna dialogowego z pytaniem o nadpisanie pliku
-        #     msg_box = QMessageBox()
-        #     msg_box.setText("Plik już istnieje. Czy chcesz go nadpisać?")
-        #     msg_box.setWindowTitle("Nadpisać plik?")
-        #     msg_box.setIcon(QMessageBox.Question)
-        #     msg_box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
-        #     msg_box.setDefaultButton(QMessageBox.No)
-        #     # Obsługa wyboru użytkownika
-        #     choice = msg_box.exec()
-        #     if choice == QMessageBox.Yes:
-        #         try:
-        #             os.remove(self.sciezkaSW_zapis.text() + ".xlsx")
-        #             print("Plik już istnieje, nadpisywanie...")
-        #             wb.save(self.sciezkaSW_zapis.text() + ".xlsx")
-        #             self.open_folder(self.sciezkaSW_zapis.text())
-        #         except PermissionError as e:
-        #             msg = QMessageBox()
-        #             msg.setIcon(QMessageBox.Critical)
-        #             msg.setText("Błąd zapisu pliku")
-        #             msg.setInformativeText(str(e))
-        #             msg.setWindowTitle("Błąd")
-        #             msg.exec()
-        # else:
-        #     print("Plik nie istnieje, zapisywanie...")
-        #     wb.save(self.sciezkaSW_zapis.text() + ".xlsx")
-        #     self.open_folder(self.sciezkaSW_zapis.text())
 
 
 

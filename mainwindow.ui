@@ -671,7 +671,7 @@
          </widget>
         </item>
         <item row="2" column="17">
-         <widget class="QDoubleSpinBox" name="zakresACV_">
+         <widget class="QDoubleSpinBox" name="zakresACV_2">
           <property name="maximumSize">
            <size>
             <width>60</width>

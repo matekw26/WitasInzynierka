@@ -426,13 +426,13 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.label_54, 2, 21, 1, 1)
 
-        self.zakresACV_ = QDoubleSpinBox(self.Pomiary)
-        self.zakresACV_.setObjectName(u"zakresACV_")
-        self.zakresACV_.setMaximumSize(QSize(60, 16777210))
-        self.zakresACV_.setMaximum(1000.000000000000000)
-        self.zakresACV_.setValue(400.000000000000000)
+        self.zakresACV_2 = QDoubleSpinBox(self.Pomiary)
+        self.zakresACV_2.setObjectName(u"zakresACV_2")
+        self.zakresACV_2.setMaximumSize(QSize(60, 16777210))
+        self.zakresACV_2.setMaximum(1000.000000000000000)
+        self.zakresACV_2.setValue(400.000000000000000)
 
-        self.gridLayout.addWidget(self.zakresACV_, 2, 17, 1, 1)
+        self.gridLayout.addWidget(self.zakresACV_2, 2, 17, 1, 1)
 
         self.label_53 = QLabel(self.Pomiary)
         self.label_53.setObjectName(u"label_53")
