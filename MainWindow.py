@@ -143,7 +143,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 path = file_name
                 filename_without_ext, ext = os.path.splitext(path)
                 self.sciezka_Model.setText(filename_without_ext)
-                self.loadExcelData(self.sciezka_Model.text() + ".xlsx", self.wynikiDCV)
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCV)
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACV)
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCI)
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACI)
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiR)
                 print(file_name)
             elif sender.objectName() == "SzukajWynikow" or "odczyt_wynikow":
                 path = file_name
@@ -152,15 +156,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.loadExcelData(self.sciezkaWynik_zapis.text() + ".xlsx", self.wyniki_wzorcowania)
                 print(file_name)
 
-
     def loadExcelData(self, path, table):
         df = pd.read_excel(path)
         if df.size == 0:
             return
 
         df.fillna('', inplace=True)
-        table.setRowCount(df.shape[0])
-        table.setColumnCount(df.shape[1])
+        table.setRowCount(df.shape[0]+5)
+        table.setColumnCount(df.shape[1]+2)
         column_headers = df.iloc[3]
         table.setHorizontalHeaderLabels(column_headers)
 
@@ -174,6 +177,62 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             for col_index, value in enumerate(values):
                 tableItem = QTableWidgetItem(str(value))
                 table.setItem(row[0], col_index, tableItem)
+
+        # Ustawienie poprakwi kolumn 2 i 3 w kolumnie 4
+        table.itemChanged.connect(lambda item: self.update_tablewidget(item, table2=table))
+
+        # self.update_tablewidget()
+        table.setStyleSheet("QTableView::item { border: 0px solid black; }")
+
+    def loadExcelData2(self, path, table):
+        df = pd.read_excel(path)
+        if df.size == 0:
+            return
+
+        x = 0
+        y = 32
+        if table == self.wynikiDCV:
+            x = 2
+            y = 32
+        elif table == self.wynikiACV:
+            x = 32
+            y = 62
+        elif table == self.wynikiDCI:
+            x = 62
+            y = 92
+        elif table == self.wynikiACI:
+            x = 92
+            y = 122
+        elif table == self.wynikiR:
+            x = 122
+            y = 152
+
+        df.fillna('', inplace=True)
+        # table.setRowCount(df.shape[0]+5)
+        table.setRowCount(50)
+        table.setColumnCount(df.shape[1]+2)
+        column_headers = df.iloc[3]
+        table.setHorizontalHeaderLabels(column_headers)
+
+        # ustawienie dopasowywania się rozmiaru kolumn
+        for i in range(table.columnCount()):
+             table.resizeColumnToContents(i)
+
+
+        # # Wyświetlanie danych z Excela
+        # for row in df.iterrows():
+        #     values = row[1]
+        #     for col_index, value in enumerate(values):
+        #         tableItem = QTableWidgetItem(str(value))
+        #         table.setItem(row[0], col_index, tableItem)
+
+        # Wyświetlanie danych z Excela
+        for row in df.iterrows():
+            if x < row[0] < y:
+                values = row[1]
+                for col_index, value in enumerate(values):
+                    tableItem = QTableWidgetItem(str(value))
+                    table.setItem(row[0] - x, col_index, tableItem)
 
         # Ustawienie poprakwi kolumn 2 i 3 w kolumnie 4
         table.itemChanged.connect(lambda item: self.update_tablewidget(item, table2=table))
@@ -209,13 +268,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         alignmentCC = Alignment(wrap_text=True, horizontal='center', vertical='center')
 
-
         # Pobieranie danych z QTableWidget i zapisywanie ich do arkusza
         for row in range(self.wyniki_wzorcowania.rowCount()):
             for col in range(self.wyniki_wzorcowania.columnCount()):
                 item = self.wyniki_wzorcowania.item(row, col)
                 if item is not None:
                     ws.cell(row=row + 2, column=col + 1, value=item.text())
+                    # if item.text() != "":
+                    #     cell1 = ws.cell(row=row + 2, column=col + 1)
+                    #     cell1.border = border
+                    #     cell1.alignment = Alignment(wrapText=True)
+                    #     cell1.alignment = alignmentCC
 
 
         # ustawienie obramowania dla komórki i dopasowanie szerokosci kolumn
@@ -236,12 +299,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     adjusted_width = (max_length + 2)
                     column_dimensions.width = adjusted_width
                 item = self.wyniki_wzorcowania.item(row, col)
-                 # print(item.text())
-                if item.text() != "":
-                    cell1 = ws.cell(row=row + 2, column=col + 1)
-                    cell1.border = border
-                    cell1.alignment = Alignment(wrapText=True)
-                    cell1.alignment = alignmentCC
+                if item is not None:
+                    if item.text() != "":
+                        cell1 = ws.cell(row=row + 2, column=col + 1)
+                        cell1.border = border
+                        cell1.alignment = Alignment(wrapText=True)
+                        cell1.alignment = alignmentCC
 
         ws.column_dimensions['C'].width = 12
         ws.column_dimensions['D'].width = 13
@@ -263,8 +326,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                          self.zakresDCI.value(), self.zakresDCI_2.value())
         self.creat_excel(ws, self.check_aci, self.ilACI.value(),
                          self.zakresACI.value(), self.zakresACI_2.value())
-       #  self.creat_excel(ws, self.check_r, self.ilR.value(),
-       #                   self.zakresR.value(), self.zakresR.value())
+        self.creat_excel(ws, self.check_r, self.ilR.value(),
+                         self.zakresR.value(), self.zakresR.value())
 
 
 
@@ -278,6 +341,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.zapis_pliku(self.sciezka_Model.text(), wb)
 
         wb.close()
+
+        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCV)
+        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACV)
+        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCI)
+        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACI)
+        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiR)
 
     def creat_excel(self, ws, checked, ile, zakres1, zakres2):
 
@@ -314,35 +383,80 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if 6 > ile > 2:
                 row_range = ile * 4 + 2
-                for row in range(row_range):
-                    row = row + x
-                    if row == 0 + x:
-                        ws.cell(row + 6, 2, 'mV')
-                    elif row == 5 + x:
-                        ws.cell(row + 6, 2, 'V')
-                    elif row < row_range - 16 + x:
-                        ws.cell(row + 6, 2, zakres2)
-                    elif row < row_range - 12 + x:
-                        ws.cell(row + 6, 2, zakres2/100)
-                    elif row < row_range - 8 + x:
-                        ws.cell(row + 6, 2, zakres2/10)
-                    elif row < row_range - 4 + x:
-                        ws.cell(row + 6, 2, zakres2)
-                    elif row < row_range + x:
-                        ws.cell(row + 6, 2, zakres1)
-                    for col in range(2, 7):
-                        cell = ws.cell(row=row+6, column=col)
-                        cell.border = border
-                        cell.alignment = alignmentCC
-                ws.merge_cells(f"B{7 + x }:B{10 + x}")
-                ws.merge_cells(f"B{6 + x }:F{6 + x}")
-                ws.merge_cells(f"B{11 + x }:F{11 + x}")
-                for row in range(row_range + 3):
-                    row = row + x
-                    if (((40 > row > 11 + x) or (70 < row < 90)) and row % 4 == 0) or \
-                       (row > 101 and (row-102) % 4 == 0) or \
-                       (60 > row > 40 and (row-42) % 4 == 0):
-                        ws.merge_cells(f"B{row}:B{row + 3}")
+                if checked != self.check_r:
+                    for row in range(row_range):
+                        row = row + x
+                        if row == 0 + x:
+                            if checked == self.check_dcv or checked == self.check_acv:
+                                ws.cell(row + 6, 2, 'mV')
+                            elif checked == self.check_dci or checked == self.check_aci:
+                                ws.cell(row + 6, 2, 'mA')
+                        elif row == 5 + x:
+                            if checked == self.check_dcv or checked == self.check_acv:
+                                ws.cell(row + 6, 2, 'V')
+                            elif checked == self.check_dci or checked == self.check_aci:
+                                ws.cell(row + 6, 2, 'A')
+                        elif row < row_range - 16 + x:
+                            ws.cell(row + 6, 2, zakres2)
+                        elif row < row_range - 12 + x:
+                            ws.cell(row + 6, 2, zakres2/100)
+                        elif row < row_range - 8 + x:
+                            ws.cell(row + 6, 2, zakres2/10)
+                        elif row < row_range - 4 + x:
+                            ws.cell(row + 6, 2, zakres2)
+                        elif row < row_range + x:
+                            ws.cell(row + 6, 2, zakres1)
+                        for col in range(2, 7):
+                            cell = ws.cell(row=row+6, column=col)
+                            cell.border = border
+                            cell.alignment = alignmentCC
+                    ws.merge_cells(f"B{7 + x }:B{10 + x}")
+                    ws.merge_cells(f"B{6 + x }:F{6 + x}")
+                    ws.merge_cells(f"B{11 + x }:F{11 + x}")
+                    for row in range(row_range + 3):
+                        row = row + x
+                        if (((40 > row > 11 + x) or (70 < row < 90)) and row % 4 == 0) or \
+                           (row > 101 and (row-102) % 4 == 0) or \
+                           (60 > row > 40 and (row-42) % 4 == 0):
+                            ws.merge_cells(f"B{row}:B{row + 3}")
+
+                elif checked == self.check_r:
+                    row_range = ile * 2 + 3
+                    for row in range(row_range):
+                        row = row + x
+                        if row == 0 + x:
+                            ws.cell(row + 6, 2, '\u03A9')
+                        elif row == 3 + x:
+                            ws.cell(row + 6, 2, 'k\u03A9')
+                        elif row == 10 + x:
+                            ws.cell(row + 6, 2, 'M\u03A9')
+                        elif row < row_range + x - 12:
+                            ws.cell(row + 6, 2, zakres1 / 10000000)
+                        elif row < row_range + x - 10:
+                            ws.cell(row + 6, 2, zakres1 / 1000000)
+                        elif row < row_range - 8 + x:
+                            ws.cell(row + 6, 2, zakres2/100000000)
+                        elif row < row_range - 6 + x:
+                            ws.cell(row + 6, 2, zakres2/10000000)
+                        elif row < row_range - 4 + x:
+                            ws.cell(row + 6, 2, zakres2/1000000)
+                        elif row < row_range - 2 + x:
+                            ws.cell(row + 6, 2, zakres2/10000000)
+                        elif row < row_range + x:
+                            ws.cell(row + 6, 2, zakres1/1000000)
+                        for col in range(2, 7):
+                            cell = ws.cell(row=row+6, column=col)
+                            cell.border = border
+                            cell.alignment = alignmentCC
+                    ws.merge_cells(f"B{6 + x }:F{6 + x}")
+                    ws.merge_cells(f"B{9 + x}:F{9 + x}")
+                    ws.merge_cells(f"B{16 + x}:F{16 + x}")
+                    ws.merge_cells(f"B{7 + x}:B{8 + x}")
+                    ws.merge_cells(f"B{17 + x}:B{18 + x}")
+                    for row in range(row_range + 3):
+                        row = row + x
+                        if 136 > row > 129 and row % 2 == 0:
+                            ws.merge_cells(f"B{row}:B{row + 1}")
 
             elif ile <= 2:
                 row_range = ile * 4 + 1
@@ -363,42 +477,77 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 ws.merge_cells(f"B{11 + x}:B{14 + x}")
 
             elif ile > 5:
-                row_range = ile * 4 + 2
-                for row in range(row_range):
-                    row = row + x
-                    if row == 0 + x:
-                        ws.cell(row + 6, 2, 'mV')
-                    elif row == 9 + x:
-                        ws.cell(row + 6, 2, 'V')
-                    elif row < row_range - 25 + x:
-                        ws.cell(row + 6, 2, zakres2/100)
-                    elif row < row_range - 21 + x:
-                        ws.cell(row + 6, 2, zakres2/10)
-                    elif row < row_range - 19 + x:
-                        ws.cell(row + 6, 2, zakres2)
-                    elif row < row_range - 12 + x:
-                        ws.cell(row + 6, 2, zakres2 / 100)
-                    elif row < row_range - 8 + x:
-                        ws.cell(row + 6, 2, zakres2 / 10)
-                    elif row < row_range - 4 + x:
-                        ws.cell(row + 6, 2, zakres2)
-                    elif row < row_range + x:
-                        ws.cell(row + 6, 2, zakres1)
-                    for col in range(2, 7):
-                        cell = ws.cell(row=row + 6, column=col)
-                        cell.border = border
-                        cell.alignment = alignmentCC
-                ws.merge_cells(f"B{7 + x}:B{10 + x}")
-                ws.merge_cells(f"B{6 + x}:F{6 + x}")
-                ws.merge_cells(f"B{11 + x}:B{14 + x}")
-                ws.merge_cells(f"B{15 + x}:F{15 + x}")
-                for row in range(row_range + 3):
-                    row = row + x
-                    if (((45 > row > 15 + x) or (75 < row < 90)) and row % 4 == 0) or \
-                       (60 > row > 45 and (row-42) % 4 == 0) or \
-                       (row > 105 and (row-102) % 4 == 0):
-                        ws.merge_cells(f"B{row}:B{row + 3}")
+                if checked != self.check_r:
+                    row_range = ile * 4 + 2
+                    for row in range(row_range):
+                        row = row + x
+                        if row == 0 + x:
+                            ws.cell(row + 6, 2, 'mV')
+                        elif row == 9 + x:
+                            ws.cell(row + 6, 2, 'V')
+                        elif row < row_range - 25 + x:
+                            ws.cell(row + 6, 2, zakres2/100)
+                        elif row < row_range - 21 + x:
+                            ws.cell(row + 6, 2, zakres2/10)
+                        elif row < row_range - 19 + x:
+                            ws.cell(row + 6, 2, zakres2)
+                        elif row < row_range - 12 + x:
+                            ws.cell(row + 6, 2, zakres2 / 100)
+                        elif row < row_range - 8 + x:
+                            ws.cell(row + 6, 2, zakres2 / 10)
+                        elif row < row_range - 4 + x:
+                            ws.cell(row + 6, 2, zakres2)
+                        elif row < row_range + x:
+                            ws.cell(row + 6, 2, zakres1)
+                        for col in range(2, 7):
+                            cell = ws.cell(row=row + 6, column=col)
+                            cell.border = border
+                            cell.alignment = alignmentCC
+                    ws.merge_cells(f"B{7 + x}:B{10 + x}")
+                    ws.merge_cells(f"B{6 + x}:F{6 + x}")
+                    ws.merge_cells(f"B{11 + x}:B{14 + x}")
+                    ws.merge_cells(f"B{15 + x}:F{15 + x}")
+                    for row in range(row_range + 3):
+                        row = row + x
+                        if (((45 > row > 15 + x) or (75 < row < 90)) and row % 4 == 0) or \
+                           (60 > row > 45 and (row-42) % 4 == 0) or \
+                           (row > 105 and (row-102) % 4 == 0):
+                            ws.merge_cells(f"B{row}:B{row + 3}")
 
+                elif checked == self.check_r:
+                    row_range = ile * 2 + 3
+                    for row in range(row_range):
+                        row = row + x
+                        if row == 0 + x:
+                            ws.cell(row + 6, 2, '\u03A9')
+                        elif row == 3 + x:
+                            ws.cell(row + 6, 2, 'k\u03A9')
+                        elif row == 10 + x:
+                            ws.cell(row + 6, 2, 'M\u03A9')
+                        elif row < row_range - 8 + x:
+                            ws.cell(row + 6, 2, zakres2 / 1000000)
+                        elif row < row_range - 6 + x:
+                            ws.cell(row + 6, 2, zakres2 / 100000000)
+                        elif row < row_range - 4 + x:
+                            ws.cell(row + 6, 2, zakres2 / 10000000)
+                        elif row < row_range - 2 + x:
+                            ws.cell(row + 6, 2, zakres2 / 1000000)
+                        elif row < row_range + x:
+                            ws.cell(row + 6, 2, zakres1 / 1000000)
+                        for col in range(2, 7):
+                            cell = ws.cell(row=row + 6, column=col)
+                            cell.border = border
+                            cell.alignment = alignmentCC
+                    ws.merge_cells(f"B{6 + x}:F{6 + x}")
+                    ws.merge_cells(f"B{9 + x}:F{9 + x}")
+                    ws.merge_cells(f"B{16 + x}:F{16 + x}")
+                    ws.merge_cells(f"B{7 + x}:B{8 + x}")
+                    ws.merge_cells(f"B{17 + x}:B{18 + x}")
+                    ws.merge_cells(f"B{19 + x}:B{20 + x}")
+                    for row in range(row_range + 3):
+                        row = row + x
+                        if 136 > row > 129 and row % 2 == 0:
+                            ws.merge_cells(f"B{row}:B{row + 1}")
 
 
     # funkcja do zapisu
@@ -596,7 +745,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ws['C13'] = self.niepewnosc_pomiaru.toPlainText()
         ws['C14'] = "Podano na kolejnych stronach niniejszego świadectwa"
         ws['B15'] = "                                               Robert Greń"
-
 
 
         # iteracja po wierszach i kolumnach, zmiana stylu komórek
