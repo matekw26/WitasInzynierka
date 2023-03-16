@@ -824,16 +824,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 endy = 0
                 y = 4 * (3 - end)
 
-                print(f"Y: {y}")
-                print(f" END: {end}")
-
                 if (ile <= 4) and (zakres2 / 100 >= 1) or \
                         (ile == 3) and (zakres2 / 10 >= 1) or \
                         (ile <= 2) and (zakres2 > 1) and (zakres2 < 10):
                     row_range = ile * 4 + 1
                     for row in range(row_range + 3):
                         row = row + x
-                        if (row - (x + 7) >= 0) and (row - (x + 7)) % 4 == 0 and end < 3:
+                        if (row - (x + 7) >= 0) and (row - (x + 7)) % 4 == 0 and end < 3 or \
+                                (row - (x + 7) >= 0) and (row - (x + 7)) % 4 == 0 and ile == 4 and end <= 3:
                             end += 1
                             ws.merge_cells(f"B{row}:B{row + 3}")
                 elif (5 <= ile <= 7) and (zakres2 < 1) or \
@@ -865,7 +863,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                 row % 4 == 0 and end >= 3 or \
                                 row > (6 + x + y) and (row > 101 and (row-102) % 4 == 0) and end >= 3 or \
                                 (60 > row > 45 and (row - 42) % 4 == 0) and end >= 3:
-                            print(f"Trzecie {row}")
                             ws.merge_cells(f"B{row}:B{row + 3}")
 
             elif checked == self.check_r:
