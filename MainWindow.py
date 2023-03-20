@@ -143,11 +143,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 path = file_name
                 filename_without_ext, ext = os.path.splitext(path)
                 self.sciezka_Model.setText(filename_without_ext)
-                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCV)
-                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACV)
-                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCI)
-                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACI)
-                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiR)
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCV, 0)
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACV, 1)
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCI, 2)
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACI, 3)
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiR, 4)
                 print(file_name)
             elif sender.objectName() == "SzukajWynikow" or "odczyt_wynikow":
                 path = file_name
@@ -184,32 +184,36 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # self.update_tablewidget()
         table.setStyleSheet("QTableView::item { border: 0px solid black; }")
 
-    def loadExcelData2(self, path, table):
-        df = pd.read_excel(path)
+    def loadExcelData2(self, path, table, sheet):
+
+        df = pd.read_excel(path, sheet_name=sheet)
         if df.size == 0:
             return
 
-        x = 0
-        y = 32
-        if table == self.wynikiDCV:
-            x = 2
-            y = 32
-        elif table == self.wynikiACV:
-            x = 32
-            y = 62
-        elif table == self.wynikiDCI:
-            x = 62
-            y = 92
-        elif table == self.wynikiACI:
-            x = 92
-            y = 122
-        elif table == self.wynikiR:
-            x = 122
-            y = 152
+
+        # x = 0
+        # y = 32
+        # if table == self.wynikiDCV:
+        #     x = 2
+        #     y = 32
+        # elif table == self.wynikiACV:
+        #     x = 32
+        #     y = 62
+        # elif table == self.wynikiDCI:
+        #     x = 62
+        #     y = 92
+        # elif table == self.wynikiACI:
+        #     x = 92
+        #     y = 122
+        # elif table == self.wynikiR:
+        #     x = 122
+        #     y = 152
+
+        print(df)
 
         df.fillna('', inplace=True)
         # table.setRowCount(df.shape[0]+5)
-        table.setRowCount(50)
+        table.setRowCount(70)
         table.setColumnCount(df.shape[1]+2)
         column_headers = df.iloc[3]
         table.setHorizontalHeaderLabels(column_headers)
@@ -219,20 +223,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
              table.resizeColumnToContents(i)
 
 
-        # # Wyświetlanie danych z Excela
-        # for row in df.iterrows():
-        #     values = row[1]
-        #     for col_index, value in enumerate(values):
-        #         tableItem = QTableWidgetItem(str(value))
-        #         table.setItem(row[0], col_index, tableItem)
-
         # Wyświetlanie danych z Excela
         for row in df.iterrows():
-            if x < row[0] < y:
-                values = row[1]
-                for col_index, value in enumerate(values):
-                    tableItem = QTableWidgetItem(str(value))
-                    table.setItem(row[0] - x, col_index, tableItem)
+            values = row[1]
+            for col_index, value in enumerate(values):
+                tableItem = QTableWidgetItem(str(value))
+                table.setItem(row[0], col_index, tableItem)
+
+        # # Wyświetlanie danych z Excela
+        # for row in df.iterrows():
+        #     if x < row[0] < y:
+        #         values = row[1]
+        #         for col_index, value in enumerate(values):
+        #             tableItem = QTableWidgetItem(str(value))
+        #             table.setItem(row[0] - x, col_index, tableItem)
 
         # Ustawienie poprakwi kolumn 2 i 3 w kolumnie 4
         table.itemChanged.connect(lambda item: self.update_tablewidget(item, table2=table))
@@ -310,43 +314,37 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ws.column_dimensions['D'].width = 13
         ws.column_dimensions['F'].width = 14
 
-
         self.zapis_pliku(self.sciezkaWynik_zapis.text(), wb)
 
     def generate_excel(self):
 
         wb = Workbook()
-        ws = wb.active
+        ws5 = wb.create_sheet("R", 0)
+        ws4 = wb.create_sheet("ACI", 0)
+        ws3 = wb.create_sheet("DCI", 0)
+        ws2 = wb.create_sheet("ACV", 0)
+        ws1 = wb.create_sheet("DCV", 0)
 
-        self.creat_excel(ws, self.check_dcv, self.ilDCV.value(),
-                          self.zakresDCV.value(), self.zakresDCV_2.value())
-        self.creat_excel(ws, self.check_acv, self.ilACV.value(),
-                         self.zakresACV.value(), self.zakresACV_2.value())
-        self.creat_excel(ws, self.check_dci, self.ilDCI.value(),
-                         self.zakresDCI.value(), self.zakresDCI_2.value())
-        self.creat_excel(ws, self.check_aci, self.ilACI.value(),
-                         self.zakresACI.value(), self.zakresACI_2.value())
-        self.creat_excel(ws, self.check_r, self.ilR.value(),
+        self.creat_excel(ws5, self.check_r, self.ilR.value(),
                          self.zakresR.value(), self.zakresR.value())
-
-
-
-        # ws.column_dimensions['A'].width = 1
-        ws.column_dimensions['B'].width = 8
-        ws.column_dimensions['C'].width = 13
-        ws.column_dimensions['D'].width = 12
-        ws.column_dimensions['E'].width = 10
-        ws.column_dimensions['F'].width = 12
+        self.creat_excel(ws4, self.check_aci, self.ilACI.value(),
+                         self.zakresACI.value(), self.zakresACI_2.value())
+        self.creat_excel(ws3, self.check_dci, self.ilDCI.value(),
+                         self.zakresDCI.value(), self.zakresDCI_2.value())
+        self.creat_excel(ws2, self.check_acv, self.ilACV.value(),
+                         self.zakresACV.value(), self.zakresACV_2.value())
+        self.creat_excel(ws1, self.check_dcv, self.ilDCV.value(),
+                         self.zakresDCV.value(), self.zakresDCV_2.value())
 
         self.zapis_pliku(self.sciezka_Model.text(), wb)
 
         wb.close()
 
-        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCV)
-        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACV)
-        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCI)
-        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACI)
-        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiR)
+        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCV, 0)
+        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACV, 1)
+        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCI, 2)
+        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACI, 3)
+        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiR, 4)
 
     def creat_excel(self, ws, checked, ile, zakres1, zakres2):
 
@@ -361,18 +359,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         alignmentCC = Alignment(wrap_text=True, horizontal='center', vertical='center')
         fontA10 = Font(name='Arial', size=10)
 
+        # ws.column_dimensions['A'].width = 1
+        ws.column_dimensions['B'].width = 8
+        ws.column_dimensions['C'].width = 13
+        ws.column_dimensions['D'].width = 12
+        ws.column_dimensions['E'].width = 10
+        ws.column_dimensions['F'].width = 12
+
         if checked.isChecked():
             x = 0
-            if checked == self.check_dcv:
-                x = 0
-            elif checked == self.check_acv:
-                x = 30
-            elif checked == self.check_dci:
-                x = 60
-            elif checked == self.check_aci:
-                x = 90
-            elif checked == self.check_r:
-                x = 120
+            # if checked == self.check_dcv:
+            #     x = 0
+            # elif checked == self.check_acv:
+            #     x = 30
+            # elif checked == self.check_dci:
+            #     x = 60
+            # elif checked == self.check_aci:
+            #     x = 90
+            # elif checked == self.check_r:
+            #     x = 120
 
             for i, col in enumerate(col_headers):
                 ws.cell(5+x, i + 2, col)
@@ -989,7 +994,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Tworzenie nowego pliku Excel
         wb = Workbook()
         # Tworzenie nowego arkusza
-        ws = wb.active
+        # ws = wb.active
+        ws = wb.create_sheet("Swiadectwo", 0)
 
         # Połączenie komórek
         for row in range(7, 15):
