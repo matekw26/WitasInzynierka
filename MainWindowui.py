@@ -45,10 +45,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.label_10, 6, 24, 1, 2)
 
-        self.pushButton_6 = QPushButton(self.Pomiary)
-        self.pushButton_6.setObjectName(u"pushButton_6")
+        self.Reset = QPushButton(self.Pomiary)
+        self.Reset.setObjectName(u"Reset")
 
-        self.gridLayout.addWidget(self.pushButton_6, 6, 27, 1, 2)
+        self.gridLayout.addWidget(self.Reset, 6, 27, 1, 2)
 
         self.ilR = QSpinBox(self.Pomiary)
         self.ilR.setObjectName(u"ilR")
@@ -69,178 +69,178 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.sciezka_Model, 1, 25, 3, 3)
 
-        self.tabWidget_2 = QTabWidget(self.Pomiary)
-        self.tabWidget_2.setObjectName(u"tabWidget_2")
+        self.Tabwybor = QTabWidget(self.Pomiary)
+        self.Tabwybor.setObjectName(u"Tabwybor")
         self.DCV = QWidget()
         self.DCV.setObjectName(u"DCV")
         self.gridLayout_2 = QGridLayout(self.DCV)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.ZapiszDC = QPushButton(self.DCV)
-        self.ZapiszDC.setObjectName(u"ZapiszDC")
+        self.ZapiszDCV = QPushButton(self.DCV)
+        self.ZapiszDCV.setObjectName(u"ZapiszDCV")
 
-        self.gridLayout_2.addWidget(self.ZapiszDC, 6, 5, 1, 1)
+        self.gridLayout_2.addWidget(self.ZapiszDCV, 6, 5, 1, 1)
 
-        self.label_3 = QLabel(self.DCV)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setPixmap(QPixmap(u"image/polaczenieUIv444.png"))
-        self.label_3.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.podlaczenieDCV = QLabel(self.DCV)
+        self.podlaczenieDCV.setObjectName(u"podlaczenieDCV")
+        self.podlaczenieDCV.setPixmap(QPixmap(u"image/polaczenieUIv444.png"))
+        self.podlaczenieDCV.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
-        self.gridLayout_2.addWidget(self.label_3, 2, 5, 1, 1)
+        self.gridLayout_2.addWidget(self.podlaczenieDCV, 2, 5, 1, 1)
 
-        self.Next = QPushButton(self.DCV)
-        self.Next.setObjectName(u"Next")
+        self.NextDCV = QPushButton(self.DCV)
+        self.NextDCV.setObjectName(u"NextDCV")
 
-        self.gridLayout_2.addWidget(self.Next, 5, 5, 1, 1)
+        self.gridLayout_2.addWidget(self.NextDCV, 5, 5, 1, 1)
 
-        self.Pomiar = QPushButton(self.DCV)
-        self.Pomiar.setObjectName(u"Pomiar")
+        self.PomiarDCV = QPushButton(self.DCV)
+        self.PomiarDCV.setObjectName(u"PomiarDCV")
 
-        self.gridLayout_2.addWidget(self.Pomiar, 4, 5, 1, 1)
+        self.gridLayout_2.addWidget(self.PomiarDCV, 4, 5, 1, 1)
 
         self.wynikiDCV = QTableWidget(self.DCV)
         self.wynikiDCV.setObjectName(u"wynikiDCV")
 
         self.gridLayout_2.addWidget(self.wynikiDCV, 0, 0, 8, 1)
 
-        self.KasujDC = QPushButton(self.DCV)
-        self.KasujDC.setObjectName(u"KasujDC")
+        self.KasujDCV = QPushButton(self.DCV)
+        self.KasujDCV.setObjectName(u"KasujDCV")
 
-        self.gridLayout_2.addWidget(self.KasujDC, 7, 5, 1, 1)
+        self.gridLayout_2.addWidget(self.KasujDCV, 7, 5, 1, 1)
 
-        self.tabWidget_2.addTab(self.DCV, "")
+        self.Tabwybor.addTab(self.DCV, "")
         self.ACV = QWidget()
         self.ACV.setObjectName(u"ACV")
         self.gridLayout_3 = QGridLayout(self.ACV)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
-        self.pushButton_22 = QPushButton(self.ACV)
-        self.pushButton_22.setObjectName(u"pushButton_22")
+        self.KasujACV = QPushButton(self.ACV)
+        self.KasujACV.setObjectName(u"KasujACV")
 
-        self.gridLayout_3.addWidget(self.pushButton_22, 7, 5, 1, 1)
+        self.gridLayout_3.addWidget(self.KasujACV, 7, 5, 1, 1)
 
         self.wynikiACV = QTableWidget(self.ACV)
         self.wynikiACV.setObjectName(u"wynikiACV")
 
         self.gridLayout_3.addWidget(self.wynikiACV, 0, 1, 8, 1)
 
-        self.pushButton_24 = QPushButton(self.ACV)
-        self.pushButton_24.setObjectName(u"pushButton_24")
+        self.ZapiszACV = QPushButton(self.ACV)
+        self.ZapiszACV.setObjectName(u"ZapiszACV")
 
-        self.gridLayout_3.addWidget(self.pushButton_24, 6, 5, 1, 1)
+        self.gridLayout_3.addWidget(self.ZapiszACV, 6, 5, 1, 1)
 
-        self.pushButton_23 = QPushButton(self.ACV)
-        self.pushButton_23.setObjectName(u"pushButton_23")
+        self.NextACV = QPushButton(self.ACV)
+        self.NextACV.setObjectName(u"NextACV")
 
-        self.gridLayout_3.addWidget(self.pushButton_23, 5, 5, 1, 1)
+        self.gridLayout_3.addWidget(self.NextACV, 5, 5, 1, 1)
 
-        self.pushButton_2 = QPushButton(self.ACV)
-        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.PomiarACV = QPushButton(self.ACV)
+        self.PomiarACV.setObjectName(u"PomiarACV")
 
-        self.gridLayout_3.addWidget(self.pushButton_2, 4, 5, 1, 1)
+        self.gridLayout_3.addWidget(self.PomiarACV, 4, 5, 1, 1)
 
-        self.label_19 = QLabel(self.ACV)
-        self.label_19.setObjectName(u"label_19")
-        self.label_19.setPixmap(QPixmap(u"image/polaczenieUIv444.png"))
-        self.label_19.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.PodlaczenieACV = QLabel(self.ACV)
+        self.PodlaczenieACV.setObjectName(u"PodlaczenieACV")
+        self.PodlaczenieACV.setPixmap(QPixmap(u"image/polaczenieUIv444.png"))
+        self.PodlaczenieACV.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
-        self.gridLayout_3.addWidget(self.label_19, 2, 5, 1, 1)
+        self.gridLayout_3.addWidget(self.PodlaczenieACV, 2, 5, 1, 1)
 
-        self.tabWidget_2.addTab(self.ACV, "")
+        self.Tabwybor.addTab(self.ACV, "")
         self.DCI = QWidget()
         self.DCI.setObjectName(u"DCI")
         self.gridLayout_4 = QGridLayout(self.DCI)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
-        self.pushButton_26 = QPushButton(self.DCI)
-        self.pushButton_26.setObjectName(u"pushButton_26")
+        self.NextDCI = QPushButton(self.DCI)
+        self.NextDCI.setObjectName(u"NextDCI")
 
-        self.gridLayout_4.addWidget(self.pushButton_26, 2, 3, 1, 1)
+        self.gridLayout_4.addWidget(self.NextDCI, 2, 3, 1, 1)
 
-        self.pushButton_25 = QPushButton(self.DCI)
-        self.pushButton_25.setObjectName(u"pushButton_25")
+        self.KasujDCI = QPushButton(self.DCI)
+        self.KasujDCI.setObjectName(u"KasujDCI")
 
-        self.gridLayout_4.addWidget(self.pushButton_25, 4, 3, 1, 1)
+        self.gridLayout_4.addWidget(self.KasujDCI, 4, 3, 1, 1)
 
-        self.pushButton_27 = QPushButton(self.DCI)
-        self.pushButton_27.setObjectName(u"pushButton_27")
+        self.ZapiszDCI = QPushButton(self.DCI)
+        self.ZapiszDCI.setObjectName(u"ZapiszDCI")
 
-        self.gridLayout_4.addWidget(self.pushButton_27, 3, 3, 1, 1)
+        self.gridLayout_4.addWidget(self.ZapiszDCI, 3, 3, 1, 1)
 
-        self.label_4 = QLabel(self.DCI)
-        self.label_4.setObjectName(u"label_4")
-        self.label_4.setPixmap(QPixmap(u"image/polaczenieUIv444.png"))
-        self.label_4.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.PodlaczenieDCI = QLabel(self.DCI)
+        self.PodlaczenieDCI.setObjectName(u"PodlaczenieDCI")
+        self.PodlaczenieDCI.setPixmap(QPixmap(u"image/polaczenieUIv444.png"))
+        self.PodlaczenieDCI.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
-        self.gridLayout_4.addWidget(self.label_4, 0, 2, 1, 2)
+        self.gridLayout_4.addWidget(self.PodlaczenieDCI, 0, 2, 1, 2)
 
-        self.pushButton_3 = QPushButton(self.DCI)
-        self.pushButton_3.setObjectName(u"pushButton_3")
+        self.PomiarDCI = QPushButton(self.DCI)
+        self.PomiarDCI.setObjectName(u"PomiarDCI")
 
-        self.gridLayout_4.addWidget(self.pushButton_3, 1, 3, 1, 1)
+        self.gridLayout_4.addWidget(self.PomiarDCI, 1, 3, 1, 1)
 
         self.wynikiDCI = QTableWidget(self.DCI)
         self.wynikiDCI.setObjectName(u"wynikiDCI")
 
         self.gridLayout_4.addWidget(self.wynikiDCI, 0, 1, 5, 1)
 
-        self.tabWidget_2.addTab(self.DCI, "")
+        self.Tabwybor.addTab(self.DCI, "")
         self.ACI = QWidget()
         self.ACI.setObjectName(u"ACI")
         self.gridLayout_5 = QGridLayout(self.ACI)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
-        self.label_5 = QLabel(self.ACI)
-        self.label_5.setObjectName(u"label_5")
-        self.label_5.setPixmap(QPixmap(u"image/polaczenieUIv444.png"))
-        self.label_5.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.PodlaczenieACI = QLabel(self.ACI)
+        self.PodlaczenieACI.setObjectName(u"PodlaczenieACI")
+        self.PodlaczenieACI.setPixmap(QPixmap(u"image/polaczenieUIv444.png"))
+        self.PodlaczenieACI.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
-        self.gridLayout_5.addWidget(self.label_5, 0, 2, 1, 2)
+        self.gridLayout_5.addWidget(self.PodlaczenieACI, 0, 2, 1, 2)
 
-        self.pushButton_30 = QPushButton(self.ACI)
-        self.pushButton_30.setObjectName(u"pushButton_30")
+        self.ZapiszACI = QPushButton(self.ACI)
+        self.ZapiszACI.setObjectName(u"ZapiszACI")
 
-        self.gridLayout_5.addWidget(self.pushButton_30, 3, 3, 1, 1)
+        self.gridLayout_5.addWidget(self.ZapiszACI, 3, 3, 1, 1)
 
-        self.pushButton_29 = QPushButton(self.ACI)
-        self.pushButton_29.setObjectName(u"pushButton_29")
+        self.NextACI = QPushButton(self.ACI)
+        self.NextACI.setObjectName(u"NextACI")
 
-        self.gridLayout_5.addWidget(self.pushButton_29, 2, 3, 1, 1)
+        self.gridLayout_5.addWidget(self.NextACI, 2, 3, 1, 1)
 
-        self.pushButton_28 = QPushButton(self.ACI)
-        self.pushButton_28.setObjectName(u"pushButton_28")
+        self.KasujACI = QPushButton(self.ACI)
+        self.KasujACI.setObjectName(u"KasujACI")
 
-        self.gridLayout_5.addWidget(self.pushButton_28, 4, 3, 1, 1)
+        self.gridLayout_5.addWidget(self.KasujACI, 4, 3, 1, 1)
 
-        self.pushButton_4 = QPushButton(self.ACI)
-        self.pushButton_4.setObjectName(u"pushButton_4")
+        self.PomiarACI = QPushButton(self.ACI)
+        self.PomiarACI.setObjectName(u"PomiarACI")
 
-        self.gridLayout_5.addWidget(self.pushButton_4, 1, 3, 1, 1)
+        self.gridLayout_5.addWidget(self.PomiarACI, 1, 3, 1, 1)
 
         self.wynikiACI = QTableWidget(self.ACI)
         self.wynikiACI.setObjectName(u"wynikiACI")
 
         self.gridLayout_5.addWidget(self.wynikiACI, 0, 1, 5, 1)
 
-        self.tabWidget_2.addTab(self.ACI, "")
+        self.Tabwybor.addTab(self.ACI, "")
         self.R = QWidget()
         self.R.setObjectName(u"R")
         self.gridLayout_6 = QGridLayout(self.R)
         self.gridLayout_6.setObjectName(u"gridLayout_6")
-        self.pushButton_31 = QPushButton(self.R)
-        self.pushButton_31.setObjectName(u"pushButton_31")
+        self.KasujR = QPushButton(self.R)
+        self.KasujR.setObjectName(u"KasujR")
 
-        self.gridLayout_6.addWidget(self.pushButton_31, 1, 2, 1, 1)
+        self.gridLayout_6.addWidget(self.KasujR, 1, 2, 1, 1)
 
-        self.pushButton_32 = QPushButton(self.R)
-        self.pushButton_32.setObjectName(u"pushButton_32")
+        self.ZapiszR = QPushButton(self.R)
+        self.ZapiszR.setObjectName(u"ZapiszR")
 
-        self.gridLayout_6.addWidget(self.pushButton_32, 1, 1, 1, 1)
+        self.gridLayout_6.addWidget(self.ZapiszR, 1, 1, 1, 1)
 
         self.wynikiR = QTableWidget(self.R)
         self.wynikiR.setObjectName(u"wynikiR")
 
         self.gridLayout_6.addWidget(self.wynikiR, 0, 0, 1, 3)
 
-        self.tabWidget_2.addTab(self.R, "")
+        self.Tabwybor.addTab(self.R, "")
 
-        self.gridLayout.addWidget(self.tabWidget_2, 5, 0, 1, 32)
+        self.gridLayout.addWidget(self.Tabwybor, 5, 0, 1, 32)
 
         self.label_9 = QLabel(self.Pomiary)
         self.label_9.setObjectName(u"label_9")
@@ -388,13 +388,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.ustawienie_kalibrator, 6, 2, 1, 2)
 
-        self.comboBox = QComboBox(self.Pomiary)
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.setObjectName(u"comboBox")
+        self.wybierz_model = QComboBox(self.Pomiary)
+        self.wybierz_model.setObjectName(u"wybierz_model")
 
-        self.gridLayout.addWidget(self.comboBox, 1, 1, 1, 2)
+        self.gridLayout.addWidget(self.wybierz_model, 1, 1, 1, 2)
 
         self.zakresR = QSpinBox(self.Pomiary)
         self.zakresR.setObjectName(u"zakresR")
@@ -527,7 +524,7 @@ class Ui_MainWindow(object):
 
         self.data_wzorcowania = QDateEdit(self.Swiadectwo)
         self.data_wzorcowania.setObjectName(u"data_wzorcowania")
-        self.data_wzorcowania.setDateTime(QDateTime(QDate(2023, 2, 9), QTime(16, 0, 0)))
+        self.data_wzorcowania.setDateTime(QDateTime(QDate(2023, 2, 9), QTime(15, 0, 0)))
         self.data_wzorcowania.setCalendarPopup(True)
 
         self.gridLayout_7.addWidget(self.data_wzorcowania, 2, 0, 2, 1)
@@ -714,7 +711,7 @@ class Ui_MainWindow(object):
         self.Wyczysc.clicked.connect(self.wartosc_kalibrator.clear)
 
         self.tabWidget.setCurrentIndex(0)
-        self.tabWidget_2.setCurrentIndex(0)
+        self.Tabwybor.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -723,35 +720,35 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MultiMeasure", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Odczytana warto\u015b\u0107:", None))
-        self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
+        self.Reset.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
         self.Wyczysc.setText(QCoreApplication.translate("MainWindow", u"Wyczy\u015b\u0107", None))
-        self.ZapiszDC.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
-        self.label_3.setText("")
-        self.Next.setText(QCoreApplication.translate("MainWindow", u"Next", None))
-        self.Pomiar.setText(QCoreApplication.translate("MainWindow", u"POMIAR", None))
-        self.KasujDC.setText(QCoreApplication.translate("MainWindow", u"Kasuj Wyniki", None))
-        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.DCV), QCoreApplication.translate("MainWindow", u"DCV", None))
-        self.pushButton_22.setText(QCoreApplication.translate("MainWindow", u"Kasuj Wyniki", None))
-        self.pushButton_24.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
-        self.pushButton_23.setText(QCoreApplication.translate("MainWindow", u"Next", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"POMIAR", None))
-        self.label_19.setText("")
-        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.ACV), QCoreApplication.translate("MainWindow", u"ACV", None))
-        self.pushButton_26.setText(QCoreApplication.translate("MainWindow", u"Next", None))
-        self.pushButton_25.setText(QCoreApplication.translate("MainWindow", u"Kasuj Wyniki", None))
-        self.pushButton_27.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
-        self.label_4.setText("")
-        self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"POMIAR", None))
-        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.DCI), QCoreApplication.translate("MainWindow", u"DCI", None))
-        self.label_5.setText("")
-        self.pushButton_30.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
-        self.pushButton_29.setText(QCoreApplication.translate("MainWindow", u"Next", None))
-        self.pushButton_28.setText(QCoreApplication.translate("MainWindow", u"Kasuj Wyniki", None))
-        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"POMIAR", None))
-        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.ACI), QCoreApplication.translate("MainWindow", u"ACI", None))
-        self.pushButton_31.setText(QCoreApplication.translate("MainWindow", u"Kasuj Wyniki", None))
-        self.pushButton_32.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
-        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.R), QCoreApplication.translate("MainWindow", u"R", None))
+        self.ZapiszDCV.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
+        self.podlaczenieDCV.setText("")
+        self.NextDCV.setText(QCoreApplication.translate("MainWindow", u"Next", None))
+        self.PomiarDCV.setText(QCoreApplication.translate("MainWindow", u"POMIAR", None))
+        self.KasujDCV.setText(QCoreApplication.translate("MainWindow", u"Kasuj Wyniki", None))
+        self.Tabwybor.setTabText(self.Tabwybor.indexOf(self.DCV), QCoreApplication.translate("MainWindow", u"DCV", None))
+        self.KasujACV.setText(QCoreApplication.translate("MainWindow", u"Kasuj Wyniki", None))
+        self.ZapiszACV.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
+        self.NextACV.setText(QCoreApplication.translate("MainWindow", u"Next", None))
+        self.PomiarACV.setText(QCoreApplication.translate("MainWindow", u"POMIAR", None))
+        self.PodlaczenieACV.setText("")
+        self.Tabwybor.setTabText(self.Tabwybor.indexOf(self.ACV), QCoreApplication.translate("MainWindow", u"ACV", None))
+        self.NextDCI.setText(QCoreApplication.translate("MainWindow", u"Next", None))
+        self.KasujDCI.setText(QCoreApplication.translate("MainWindow", u"Kasuj Wyniki", None))
+        self.ZapiszDCI.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
+        self.PodlaczenieDCI.setText("")
+        self.PomiarDCI.setText(QCoreApplication.translate("MainWindow", u"POMIAR", None))
+        self.Tabwybor.setTabText(self.Tabwybor.indexOf(self.DCI), QCoreApplication.translate("MainWindow", u"DCI", None))
+        self.PodlaczenieACI.setText("")
+        self.ZapiszACI.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
+        self.NextACI.setText(QCoreApplication.translate("MainWindow", u"Next", None))
+        self.KasujACI.setText(QCoreApplication.translate("MainWindow", u"Kasuj Wyniki", None))
+        self.PomiarACI.setText(QCoreApplication.translate("MainWindow", u"POMIAR", None))
+        self.Tabwybor.setTabText(self.Tabwybor.indexOf(self.ACI), QCoreApplication.translate("MainWindow", u"ACI", None))
+        self.KasujR.setText(QCoreApplication.translate("MainWindow", u"Kasuj Wyniki", None))
+        self.ZapiszR.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
+        self.Tabwybor.setTabText(self.Tabwybor.indexOf(self.R), QCoreApplication.translate("MainWindow", u"R", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Ustaw warto\u015b\u0107:", None))
         self.pushButton_19.setText(QCoreApplication.translate("MainWindow", u"Help", None))
         self.check_acv.setText(QCoreApplication.translate("MainWindow", u"ACV", None))
@@ -775,10 +772,6 @@ class Ui_MainWindow(object):
         self.ustawienie_kalibrator.setItemText(1, QCoreApplication.translate("MainWindow", u"V", None))
         self.ustawienie_kalibrator.setItemText(2, QCoreApplication.translate("MainWindow", u"mA", None))
         self.ustawienie_kalibrator.setItemText(3, QCoreApplication.translate("MainWindow", u"A", None))
-
-        self.comboBox.setItemText(0, QCoreApplication.translate("MainWindow", u"Fluke 1", None))
-        self.comboBox.setItemText(1, QCoreApplication.translate("MainWindow", u"Fluke 2", None))
-        self.comboBox.setItemText(2, QCoreApplication.translate("MainWindow", u"Fluke 3", None))
 
         self.label_54.setText(QCoreApplication.translate("MainWindow", u"A", None))
         self.label_53.setText(QCoreApplication.translate("MainWindow", u"V", None))

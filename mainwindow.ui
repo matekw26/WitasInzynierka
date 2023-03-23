@@ -37,7 +37,7 @@
          </widget>
         </item>
         <item row="6" column="27" colspan="2">
-         <widget class="QPushButton" name="pushButton_6">
+         <widget class="QPushButton" name="Reset">
           <property name="text">
            <string>Reset</string>
           </property>
@@ -76,9 +76,9 @@
          <widget class="QLineEdit" name="sciezka_Model"/>
         </item>
         <item row="5" column="0" colspan="32">
-         <widget class="QTabWidget" name="tabWidget_2">
+         <widget class="QTabWidget" name="Tabwybor">
           <property name="currentIndex">
-           <number>0</number>
+           <number>3</number>
           </property>
           <widget class="QWidget" name="DCV">
            <attribute name="title">
@@ -86,14 +86,14 @@
            </attribute>
            <layout class="QGridLayout" name="gridLayout_2">
             <item row="6" column="5">
-             <widget class="QPushButton" name="ZapiszDC">
+             <widget class="QPushButton" name="ZapiszDCV">
               <property name="text">
                <string>Zapisz</string>
               </property>
              </widget>
             </item>
             <item row="2" column="5">
-             <widget class="QLabel" name="label_3">
+             <widget class="QLabel" name="podlaczenieDCV">
               <property name="text">
                <string/>
               </property>
@@ -106,14 +106,14 @@
              </widget>
             </item>
             <item row="5" column="5">
-             <widget class="QPushButton" name="Next">
+             <widget class="QPushButton" name="NextDCV">
               <property name="text">
                <string>Next</string>
               </property>
              </widget>
             </item>
             <item row="4" column="5">
-             <widget class="QPushButton" name="Pomiar">
+             <widget class="QPushButton" name="PomiarDCV">
               <property name="text">
                <string>POMIAR</string>
               </property>
@@ -123,7 +123,7 @@
              <widget class="QTableWidget" name="wynikiDCV"/>
             </item>
             <item row="7" column="5">
-             <widget class="QPushButton" name="KasujDC">
+             <widget class="QPushButton" name="KasujDCV">
               <property name="text">
                <string>Kasuj Wyniki</string>
               </property>
@@ -137,7 +137,7 @@
            </attribute>
            <layout class="QGridLayout" name="gridLayout_3">
             <item row="7" column="5">
-             <widget class="QPushButton" name="pushButton_22">
+             <widget class="QPushButton" name="KasujACV">
               <property name="text">
                <string>Kasuj Wyniki</string>
               </property>
@@ -147,28 +147,28 @@
              <widget class="QTableWidget" name="wynikiACV"/>
             </item>
             <item row="6" column="5">
-             <widget class="QPushButton" name="pushButton_24">
+             <widget class="QPushButton" name="ZapiszACV">
               <property name="text">
                <string>Zapisz</string>
               </property>
              </widget>
             </item>
             <item row="5" column="5">
-             <widget class="QPushButton" name="pushButton_23">
+             <widget class="QPushButton" name="NextACV">
               <property name="text">
                <string>Next</string>
               </property>
              </widget>
             </item>
             <item row="4" column="5">
-             <widget class="QPushButton" name="pushButton_2">
+             <widget class="QPushButton" name="PomiarACV">
               <property name="text">
                <string>POMIAR</string>
               </property>
              </widget>
             </item>
             <item row="2" column="5">
-             <widget class="QLabel" name="label_19">
+             <widget class="QLabel" name="PodlaczenieACV">
               <property name="text">
                <string/>
               </property>
@@ -188,28 +188,28 @@
            </attribute>
            <layout class="QGridLayout" name="gridLayout_4">
             <item row="2" column="3">
-             <widget class="QPushButton" name="pushButton_26">
+             <widget class="QPushButton" name="NextDCI">
               <property name="text">
                <string>Next</string>
               </property>
              </widget>
             </item>
             <item row="4" column="3">
-             <widget class="QPushButton" name="pushButton_25">
+             <widget class="QPushButton" name="KasujDCI">
               <property name="text">
                <string>Kasuj Wyniki</string>
               </property>
              </widget>
             </item>
             <item row="3" column="3">
-             <widget class="QPushButton" name="pushButton_27">
+             <widget class="QPushButton" name="ZapiszDCI">
               <property name="text">
                <string>Zapisz</string>
               </property>
              </widget>
             </item>
             <item row="0" column="2" colspan="2">
-             <widget class="QLabel" name="label_4">
+             <widget class="QLabel" name="PodlaczenieDCI">
               <property name="text">
                <string/>
               </property>
@@ -222,7 +222,7 @@
              </widget>
             </item>
             <item row="1" column="3">
-             <widget class="QPushButton" name="pushButton_3">
+             <widget class="QPushButton" name="PomiarDCI">
               <property name="text">
                <string>POMIAR</string>
               </property>
@@ -239,7 +239,7 @@
            </attribute>
            <layout class="QGridLayout" name="gridLayout_5">
             <item row="0" column="2" colspan="2">
-             <widget class="QLabel" name="label_5">
+             <widget class="QLabel" name="PodlaczenieACI">
               <property name="text">
                <string/>
               </property>
@@ -252,28 +252,28 @@
              </widget>
             </item>
             <item row="3" column="3">
-             <widget class="QPushButton" name="pushButton_30">
+             <widget class="QPushButton" name="ZapiszACI">
               <property name="text">
                <string>Zapisz</string>
               </property>
              </widget>
             </item>
             <item row="2" column="3">
-             <widget class="QPushButton" name="pushButton_29">
+             <widget class="QPushButton" name="NextACI">
               <property name="text">
                <string>Next</string>
               </property>
              </widget>
             </item>
             <item row="4" column="3">
-             <widget class="QPushButton" name="pushButton_28">
+             <widget class="QPushButton" name="KasujACI">
               <property name="text">
                <string>Kasuj Wyniki</string>
               </property>
              </widget>
             </item>
             <item row="1" column="3">
-             <widget class="QPushButton" name="pushButton_4">
+             <widget class="QPushButton" name="PomiarACI">
               <property name="text">
                <string>POMIAR</string>
               </property>
@@ -290,14 +290,14 @@
            </attribute>
            <layout class="QGridLayout" name="gridLayout_6">
             <item row="1" column="2">
-             <widget class="QPushButton" name="pushButton_31">
+             <widget class="QPushButton" name="KasujR">
               <property name="text">
                <string>Kasuj Wyniki</string>
               </property>
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QPushButton" name="pushButton_32">
+             <widget class="QPushButton" name="ZapiszR">
               <property name="text">
                <string>Zapisz</string>
               </property>
@@ -594,23 +594,7 @@
          </widget>
         </item>
         <item row="1" column="1" colspan="2">
-         <widget class="QComboBox" name="comboBox">
-          <item>
-           <property name="text">
-            <string>Fluke 1</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Fluke 2</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Fluke 3</string>
-           </property>
-          </item>
-         </widget>
+         <widget class="QComboBox" name="wybierz_model"/>
         </item>
         <item row="2" column="22" colspan="2">
          <widget class="QSpinBox" name="zakresR">
@@ -857,7 +841,7 @@
          <widget class="QDateEdit" name="data_wzorcowania">
           <property name="dateTime">
            <datetime>
-            <hour>16</hour>
+            <hour>15</hour>
             <minute>0</minute>
             <second>0</second>
             <year>2023</year>

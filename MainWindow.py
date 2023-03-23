@@ -89,12 +89,34 @@ if __name__ == "__main__":
             self.Stworz.clicked.connect(self.generate_excel)
 
             # Zapisywanie pomiarow
-            self.ZapiszDC.clicked.connect(self.update_excel_click)
+            self.ZapiszDCV.clicked.connect(self.update_excel_click)
+
+            # Wczytywanie modeli z listy
+            self.wybierz_model.currentTextChanged.connect(self.load_model)
+
+            # Kasuj wyniki
+            self.KasujDCV.clicked.connect(self.clear_table)
+            self.KasujACV.clicked.connect(self.clear_table)
+            self.KasujDCI.clicked.connect(self.clear_table)
+            self.KasujACI.clicked.connect(self.clear_table)
+            self.KasujR.clicked.connect(self.clear_table)
+
+            # Reset all
+            self.Reset.clicked.connect(self.reset)
+
+            self.fil_modele()
 
 
             # update tabeli
             # self.loadExcelData(self.sciezkaWynik_zapis.text() +".xlsx", self.wyniki_wzorcowania)
 
+        # cos do zapisu
+        def initUI(self):
+            # ...
+            self.saveFileDialog = QFileDialog()
+            self.saveFileDialog.setAcceptMode(QFileDialog.AcceptSave)
+            self.saveFileDialog.setFileMode(QFileDialog.AnyFile)
+            self.saveFileDialog.setNameFilter("Excel Files (*.xlsx)")
 
 
         def zglaszajacy(self):
@@ -109,6 +131,21 @@ if __name__ == "__main__":
                 hanza = "HANZA POLAND SP.Z O.O. \nAL.JEROZOLIMSKIE 38 \n56 - 120 BRZEG DOLNY"
                 self.Zglaszajacy.setText(hanza)
 
+        def fil_modele(self):
+
+            # self.wybierz_model.clear()
+
+            # określenie ścieżki do folderu
+            folder_path = 'Modele'
+
+            # pobranie nazw plików z folderu
+            file_names = os.listdir(folder_path)
+
+            # dodanie nazw plików do QComboBox
+            for file_name in file_names:
+                filename_without_ext, ext = os.path.splitext(file_name)
+                self.wybierz_model.addItem( filename_without_ext)
+
 
         def text_changed(self, s):  # s is a str
             print(s)
@@ -116,6 +153,9 @@ if __name__ == "__main__":
         def nastawa(self):
             print(f'Ustawiona wartosc kalibratora to: ', self.wartosc_kalibrator.value(),
                   self.ustawienie_kalibrator.currentText(), self.AC_DC.currentText())
+            self.odczyt_kalibrator.setText(str(self.wartosc_kalibrator.value()) + " " +
+                                           str(self.ustawienie_kalibrator.currentText()) + " " +
+                                           str(self.AC_DC.currentText()))
 
         def odczytaj(self):
             print("Ustawiona wartosc kalibratora:", self.wartosc_kalibrator.value())
@@ -251,6 +291,51 @@ if __name__ == "__main__":
             # self.update_tablewidget()
             table.setStyleSheet("QTableView::item { border: 0px solid black; }")
 
+        def load_model(self):
+
+            try:
+                self.loadExcelData2(u"Modele/" + self.wybierz_model.currentText() + ".xlsx", self.wynikiDCV, 0)
+                self.loadExcelData2(u"Modele/" + self.wybierz_model.currentText() + ".xlsx", self.wynikiACV, 1)
+                self.loadExcelData2(u"Modele/" + self.wybierz_model.currentText() + ".xlsx", self.wynikiDCI, 2)
+                self.loadExcelData2(u"Modele/" + self.wybierz_model.currentText() + ".xlsx", self.wynikiACI, 3)
+                self.loadExcelData2(u"Modele/" + self.wybierz_model.currentText() + ".xlsx", self.wynikiR, 4)
+                path = (u"Modele/" + self.wybierz_model.currentText() + ".xlsx")
+                filename_without_ext, ext = os.path.splitext(path)
+                self.sciezka_Model.setText(filename_without_ext)
+            except FileNotFoundError as e:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Critical)
+                msg.setText("Nie ma takiego pliku")
+                msg.setInformativeText(str(e))
+                msg.setWindowTitle("Błąd")
+                msg.exec()
+            except ValueError:
+                pass
+
+        def clear_table(self):
+
+            sender = self.sender()
+            if sender.objectName() == "KasujDCV":
+                self.wynikiDCV.clear()
+            elif sender.objectName() == "KasujACV":
+                self.wynikiACV.clear()
+            elif sender.objectName() == "KasujDCI":
+                self.wynikiDCI.clear()
+            elif sender.objectName() == "KasujACI":
+                self.wynikiACI.clear()
+            elif sender.objectName() == "KasujR":
+                self.wynikiR.clear()
+
+        def reset(self):
+
+            self.wynikiDCV.clear()
+            self.wynikiACV.clear()
+            self.wynikiDCI.clear()
+            self.wynikiACI.clear()
+            self.wynikiR.clear()
+
+            self.wartosc_kalibrator.setValue(0)
+
         def update_tablewidget(self, item, table2):
             # Obliczanie poprakwi
             row = item.row()
@@ -356,21 +441,6 @@ if __name__ == "__main__":
                 msg.setWindowTitle("Błąd")
                 msg.exec()
 
-            # try:
-            #
-            #     # dodaj nowe dane
-            #     new_data = pd.DataFrame(table_data) # , columns=[table.horizontalHeaderItem(i).text() for i in
-            #                                                 # range(table.columnCount())])
-            #     df = new_data
-            #
-            #     # zapisz zmiany do pliku Excel
-            #     df.to_excel(path, index=False, sheet_name=sheet)
-            #
-            #     QMessageBox.information(self, 'Informacja', 'Dane zostały zapisane do pliku Excel.')
-            # except Exception as e:
-            #     QMessageBox.critical(self, 'Błąd', f'Wystąpił błąd podczas zapisywania danych do pliku Excel: {str(e)}')
-            #
-            # self.zapis_pliku(self.sciezkaWynik_zapis.text(), wb)
 
         def generate_excel(self):
 
@@ -1038,14 +1108,6 @@ if __name__ == "__main__":
 
                 # Zapisz plik Excel
                 workbook.save(fileName)
-
-        # cos do zapisu
-        def initUI(self):
-            # ...
-            self.saveFileDialog = QFileDialog()
-            self.saveFileDialog.setAcceptMode(QFileDialog.AcceptSave)
-            self.saveFileDialog.setFileMode(QFileDialog.AnyFile)
-            self.saveFileDialog.setNameFilter("Excel Files (*.xlsx)")
 
 
         # zamkniecie aplikacji
