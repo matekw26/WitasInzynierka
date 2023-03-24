@@ -83,7 +83,8 @@ if __name__ == "__main__":
             self.generuj_swiadectwo.clicked.connect(self.swiadectwo)
 
             # zapisywanie wynikow
-            self.Zapisz_wynik.clicked.connect(self.save_to_excel)
+            # self.Zapisz_wynik.clicked.connect(self.save_to_excel)
+            self.Zapisz_wynik.clicked.connect(self.update_excel_click)
 
             # Tworzenie excela
             self.Stworz.clicked.connect(self.generate_excel)
@@ -144,7 +145,7 @@ if __name__ == "__main__":
             # dodanie nazw plików do QComboBox
             for file_name in file_names:
                 filename_without_ext, ext = os.path.splitext(file_name)
-                self.wybierz_model.addItem( filename_without_ext)
+                self.wybierz_model.addItem(filename_without_ext)
 
 
         def text_changed(self, s):  # s is a str
@@ -410,11 +411,18 @@ if __name__ == "__main__":
 
         def update_excel_click(self):
 
-           self.update_excel(self.sciezka_Model.text() + ".xlsx", "DCV", self.wynikiDCV)
-           self.update_excel(self.sciezka_Model.text() + ".xlsx", "ACV", self.wynikiACV)
-           self.update_excel(self.sciezka_Model.text() + ".xlsx", "DCI", self.wynikiDCI)
-           self.update_excel(self.sciezka_Model.text() + ".xlsx", "ACI", self.wynikiACI)
-           self.update_excel(self.sciezka_Model.text() + ".xlsx", "R", self.wynikiR)
+            sender = self.sender()
+            if sender.objectName() == "ZapiszDCV":
+                path = self.sciezka_Model.text() + ".xlsx"
+                self.update_excel(path, "DCV", self.wynikiDCV)
+                self.update_excel(path, "ACV", self.wynikiACV)
+                self.update_excel(path, "DCI", self.wynikiDCI)
+                self.update_excel(path, "ACI", self.wynikiACI)
+                self.update_excel(path, "R", self.wynikiR)
+            elif sender.objectName() == "Zapisz_wynik":
+                path = self.sciezkaWynik_zapis.text() + ".xlsx"
+                self.update_excel2(path, self.wyniki_wzorcowania)
+
 
         def update_excel(self, path, sheet, table):
 
@@ -441,6 +449,56 @@ if __name__ == "__main__":
                 msg.setWindowTitle("Błąd")
                 msg.exec()
 
+        def update_excel2(self, path, table):
+
+            # Wczytywanie pliku excel
+            wb = openpyxl.load_workbook(path)
+            ws = wb["DCV"]
+
+            ile = 0
+            temp = 0
+            access = 0
+
+            for row in range(table.rowCount()):
+                for col in range(table.columnCount()):
+                    item = table.item(row, col)
+                    if ile == 2 and access < 1:
+                        ws = wb["ACV"]
+                        temp = row - 3
+                        access += 1
+                    elif ile == 3 and access < 2:
+                        ws = wb["DCI"]
+                        temp = row - 3
+                        access += 1
+                    elif ile == 4 and access < 3:
+                        ws = wb["ACI"]
+                        temp = row - 3
+                        access += 1
+                    elif ile == 5 and access < 4:
+                        ws = wb["R"]
+                        temp = row - 3
+                        access += 1
+                    #print(f"Teraz row: {row}")
+                    try:
+                        if item is not None:
+                            ws.cell(row=row+2 - temp, column=col+1, value=item.text())
+                            #print(f"Pierwsze: \n Row: {row} \n Col: {col} \n {item.text()} Temp: {temp}\n")
+                            if col == 1 and item.text() == "Zakres":
+                                ile += 1
+                                #print(f"Row: {row} \n Col: {col} \n {item.text()} \nIle: {ile}\n Temp: {temp}\n")
+
+                    except AttributeError:
+                        pass
+
+            try:
+                wb.save(path)
+            except PermissionError as e:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Critical)
+                msg.setText("Plik otwarty")
+                msg.setInformativeText(str(e))
+                msg.setWindowTitle("Błąd")
+                msg.exec()
 
         def generate_excel(self):
 
