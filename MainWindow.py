@@ -98,7 +98,15 @@ if __name__ == "__main__":
             # Podswietlenie tabeli
 
             # self.wynikiDCV.selectionModel().selectionChanged.connect(self.highlight_current_cell)
-            self.NextDCV.clicked.connect(self.highlight_current_cell)
+            self.count = 0
+            self.NextDCV.clicked.connect(self.highlight_current_cell_click)
+
+            # Pomiary
+
+            self.PomiarDCV.clicked.connect(self.pomiary)
+
+
+
             # Kasuj wyniki
             self.KasujDCV.clicked.connect(self.clear_table)
             self.KasujACV.clicked.connect(self.clear_table)
@@ -122,6 +130,44 @@ if __name__ == "__main__":
             self.saveFileDialog.setAcceptMode(QFileDialog.AcceptSave)
             self.saveFileDialog.setFileMode(QFileDialog.AnyFile)
             self.saveFileDialog.setNameFilter("Excel Files (*.xlsx)")
+
+        def highlight_current_cell_click(self):
+
+            self.count += 1
+
+            self.highlight_current_cell(self.wynikiDCV)
+
+
+        def highlight_current_cell(self, table):
+
+            # for ix in selected.indexes():
+            #     print(f'Selected Cell Location Row: {ix.row()}, Column: {ix.column()}')
+            #
+            # self.wynikiDCV.setCurrentCell(ix.row() + 1, ix.column())
+            try:
+                move = table.currentRow()
+                table.selectRow(move + 1)
+                item = table.item(table.currentRow(), 2)
+                table.setCurrentCell(table.currentRow(), 2)
+                if item.text() == '':
+                    table.selectRow(move + 2)
+                    item = table.item(table.currentRow(), 2)
+                    table.setCurrentCell(table.currentRow(), 2)
+                print(f"Teraz mamy wartosc: {item.text()}")
+
+            except AttributeError:
+                pass
+
+        def pomiary(self):
+
+            sender = self.sender()
+            if sender.objectName() == "PomiarDCV":
+                print("Teraz mierzymy DCV: ")
+                self.wynikiDCV.setCurrentCell(5, 2)
+                item = self.wynikiDCV.item(5, 2)
+                print(f"Mam wartosc: {item.text()}")
+
+
 
 
         def zglaszajacy(self):
@@ -346,6 +392,8 @@ if __name__ == "__main__":
 
             self.wartosc_kalibrator.setValue(0)
 
+            self.count = 0
+
         def update_tablewidget(self, item, table2):
             # Obliczanie poprakwi
             row = item.row()
@@ -360,15 +408,6 @@ if __name__ == "__main__":
                 pass
             except AttributeError:
                 pass
-
-        def highlight_current_cell(self):
-
-            # for ix in selected.indexes():
-            #     print(f'Selected Cell Location Row: {ix.row()}, Column: {ix.column()}')
-            #
-            # self.wynikiDCV.setCurrentCell(ix.row() + 1, ix.column())
-
-            self.wynikiDCV.selectRow(5)
 
 
         def save_to_excel(self):
