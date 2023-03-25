@@ -95,6 +95,10 @@ if __name__ == "__main__":
             # Wczytywanie modeli z listy
             self.wybierz_model.currentTextChanged.connect(self.load_model)
 
+            # Podswietlenie tabeli
+
+            # self.wynikiDCV.selectionModel().selectionChanged.connect(self.highlight_current_cell)
+            self.NextDCV.clicked.connect(self.highlight_current_cell)
             # Kasuj wyniki
             self.KasujDCV.clicked.connect(self.clear_table)
             self.KasujACV.clicked.connect(self.clear_table)
@@ -121,7 +125,7 @@ if __name__ == "__main__":
 
 
         def zglaszajacy(self):
-            print(self.Wybor_zglaszajacy.currentText())
+            # print(self.Wybor_zglaszajacy.currentText())
             if self.Wybor_zglaszajacy.currentText() == "Linetech":
                 lt = "LINETECH S.A. \nul. Warecka 11A \n00-034 Warszawa"
                 self.Zglaszajacy.setText(lt)
@@ -204,6 +208,8 @@ if __name__ == "__main__":
 
         def loadExcelData(self, path, table):
 
+            table.clear()
+
             df1 = pd.read_excel(path, sheet_name=0)
             df2 = pd.read_excel(path, sheet_name=1)
             df3 = pd.read_excel(path, sheet_name=2)
@@ -237,9 +243,12 @@ if __name__ == "__main__":
 
         def loadExcelData2(self, path, table, sheet):
 
+            table.clear()
+
             df = pd.read_excel(path, sheet_name=sheet)
             if df.size == 0:
                 return
+
 
             # x = 0
             # y = 32
@@ -352,6 +361,15 @@ if __name__ == "__main__":
             except AttributeError:
                 pass
 
+        def highlight_current_cell(self):
+
+            # for ix in selected.indexes():
+            #     print(f'Selected Cell Location Row: {ix.row()}, Column: {ix.column()}')
+            #
+            # self.wynikiDCV.setCurrentCell(ix.row() + 1, ix.column())
+
+            self.wynikiDCV.selectRow(5)
+
 
         def save_to_excel(self):
 
@@ -463,18 +481,22 @@ if __name__ == "__main__":
                 for col in range(table.columnCount()):
                     item = table.item(row, col)
                     if ile == 2 and access < 1:
+                        ws.cell(row=row + 2 - temp, column=col, value="") #zeby nie bylo slowa zakres
                         ws = wb["ACV"]
                         temp = row - 3
                         access += 1
                     elif ile == 3 and access < 2:
+                        ws.cell(row=row + 2 - temp, column=col, value="")
                         ws = wb["DCI"]
                         temp = row - 3
                         access += 1
                     elif ile == 4 and access < 3:
+                        ws.cell(row=row + 2 - temp, column=col, value="")
                         ws = wb["ACI"]
                         temp = row - 3
                         access += 1
                     elif ile == 5 and access < 4:
+                        ws.cell(row=row + 2 - temp, column=col, value="")
                         ws = wb["R"]
                         temp = row - 3
                         access += 1
