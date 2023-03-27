@@ -103,6 +103,7 @@ if __name__ == "__main__":
 
             # Pomiary
 
+            self.initialize = False
             self.PomiarDCV.clicked.connect(self.pomiary)
 
 
@@ -140,32 +141,56 @@ if __name__ == "__main__":
 
         def highlight_current_cell(self, table):
 
-            # for ix in selected.indexes():
-            #     print(f'Selected Cell Location Row: {ix.row()}, Column: {ix.column()}')
-            #
-            # self.wynikiDCV.setCurrentCell(ix.row() + 1, ix.column())
-            try:
-                move = table.currentRow()
-                table.selectRow(move + 1)
-                item = table.item(table.currentRow(), 2)
-                table.setCurrentCell(table.currentRow(), 2)
-                if item.text() == '':
-                    table.selectRow(move + 2)
-                    item = table.item(table.currentRow(), 2)
-                    table.setCurrentCell(table.currentRow(), 2)
-                print(f"Teraz mamy wartosc: {item.text()}")
+            if self.initialize:
 
-            except AttributeError:
-                pass
+                if self.count == 1:
+                    self.zakres = table.item(4, 1).text()
+
+                # for ix in selected.indexes():
+                #     print(f'Selected Cell Location Row: {ix.row()}, Column: {ix.column()}')
+                #
+                # self.wynikiDCV.setCurrentCell(ix.row() + 1, ix.column())
+                try:
+                    move = table.currentRow()
+                    table.selectRow(move + 1)
+                    item = table.item(table.currentRow(), 2)
+                    itemp = table.item(table.currentRow(), 1)
+                    table.setCurrentCell(table.currentRow(), 2)
+
+                    if item.text() == '':
+                        table.selectRow(move + 2)
+                        item = table.item(table.currentRow(), 2)
+                        table.setCurrentCell(table.currentRow(), 2)
+                    # print(f"Teraz mamy wartosc: {item.text()}")
+
+                    if itemp.text() == 'mV':
+                        self.zakres = "mV"
+                        print(f"Ustawiam wartosc na: {itemp.text()}")
+                    elif itemp.text() == 'V':
+                        self.zakres = "V"
+                        print(f"Ustawiam wartosc na: {itemp.text()}")
+                    elif itemp.text() == 'mA':
+                        self.zakres = "mA"
+                        print(f"Ustawiam wartosc na: {itemp.text()}")
+                    elif itemp.text() == 'A':
+                        self.zakres = "A"
+                        print(f"Ustawiam wartosc na: {itemp.text()}")
+
+                    print(f"Teraz mamy wartosc: {item.text()} {self.zakres}")
+
+                except AttributeError:
+                    pass
 
         def pomiary(self):
 
+            self.initialize = True
             sender = self.sender()
             if sender.objectName() == "PomiarDCV":
                 print("Teraz mierzymy DCV: ")
                 self.wynikiDCV.setCurrentCell(5, 2)
                 item = self.wynikiDCV.item(5, 2)
-                print(f"Mam wartosc: {item.text()}")
+                itemp = self.wynikiDCV.item(4, 1)
+                print(f"Mam wartosc: {item.text()} {itemp.text()}")
 
 
 
@@ -393,6 +418,7 @@ if __name__ == "__main__":
             self.wartosc_kalibrator.setValue(0)
 
             self.count = 0
+            self.initialize = False
 
         def update_tablewidget(self, item, table2):
             # Obliczanie poprakwi
@@ -921,24 +947,24 @@ if __name__ == "__main__":
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'mA')
                                 ws.merge_cells(f"B{11 + x}:F{11 + x}")
-                            elif (row == 9 + x) and (ile == 6) and (zakres2 / 10 < 1) and (zakres2 > 1):
-                                if checked == self.check_dcv or checked == self.check_acv:
-                                    ws.cell(row + 6, 2, 'mV')
-                                elif checked == self.check_dci or checked == self.check_aci:
-                                    ws.cell(row + 6, 2, 'mA')
-                                ws.merge_cells(f"B{15 + x}:F{15 + x}")
-                            elif (row == 13 + x) and (ile == 6) and (zakres2 / 10 < 1) and (zakres2 > 1):
-                                if checked == self.check_dcv or checked == self.check_acv:
-                                    ws.cell(row + 6, 2, 'mV')
-                                elif checked == self.check_dci or checked == self.check_aci:
-                                    ws.cell(row + 6, 2, 'mA')
-                                ws.merge_cells(f"B{19 + x}:F{19 + x}")
-                            elif (row == 17 + x) and (ile == 6) and (zakres2 / 10 < 1) and (zakres2 > 1):
+                            # elif (row == 9 + x) and (ile == 6) and (zakres2 / 10 < 1) and (zakres2 > 1):
+                            #     if checked == self.check_dcv or checked == self.check_acv:
+                            #         ws.cell(row + 6, 2, 'mV')
+                            #     elif checked == self.check_dci or checked == self.check_aci:
+                            #         ws.cell(row + 6, 2, 'mA') #zmiany
+                            #     ws.merge_cells(f"B{15 + x}:F{15 + x}")
+                            # elif (row == 13 + x) and (ile == 6) and (zakres2 / 10 < 1) and (zakres2 > 1):
+                            #     if checked == self.check_dcv or checked == self.check_acv:
+                            #         ws.cell(row + 6, 2, 'mV')
+                            #     elif checked == self.check_dci or checked == self.check_aci:
+                            #         ws.cell(row + 6, 2, 'mA')
+                            #     ws.merge_cells(f"B{19 + x}:F{19 + x}")
+                            elif (row == 18 + x) and (ile == 6) and (zakres2 / 10 < 1) and (zakres2 > 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{23 + x}:F{23 + x}")
+                                ws.merge_cells(f"B{24 + x}:F{24 + x}")
                             elif (row == 0 + x) and (ile <= 2) and (zakres2 / 10 < 1) and (zakres2 > 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
@@ -1005,15 +1031,14 @@ if __name__ == "__main__":
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
                                 ws.merge_cells(f"B{28 + x}:F{28 + x}")
-                            elif row < row_range - 21 + x:
+                            elif row < row_range - 22 + x: # zmienic na 22? 21
                                 if zakres2 / 10 < 1 < zakres2:
-                                    ws.cell(row + 6, 2, zakres2)
-                                   # ws.cell(row + 6, 3, zakres2 * (-0.9))
+                                    ws.cell(row + 6, 2, zakres2 * 100)
                                 elif zakres2 / 10 < 1:
-                                    ws.cell(row + 6, 2, zakres2 * 1000)
+                                    ws.cell(row + 6, 2, zakres2 * 100)
                                 else:
                                     ws.cell(row + 6, 2, zakres2 / 10)
-                            elif row < row_range - 17 + x:
+                            elif row < row_range - 17 + x: #zmienic na 18? 17
                                 if zakres2 < 1:
                                     ws.cell(row + 6, 2, zakres2 * 1000)
                                 else:
@@ -1025,17 +1050,17 @@ if __name__ == "__main__":
                                     ws.cell(row + 6, 2, zakres2 * 100)
                                 else:
                                     ws.cell(row + 6, 2, zakres2 / 100)
-                            elif row < row_range - 9 + x:
+                            elif row < row_range - 10 + x: # zakres 10? -9
                                 if zakres2 / 10 < 1:
                                     ws.cell(row + 6, 2, zakres2 * 100)
                                 else:
                                     ws.cell(row + 6, 2, zakres2 / 10)
-                            elif row < row_range - 5 + x:
+                            elif row < row_range - 4 + x: # zakres -6? -5
                                 if zakres2 < 1:
                                     ws.cell(row + 6, 2, zakres2 * 1000)
                                 else:
                                     ws.cell(row + 6, 2, zakres2)
-                            elif row < row_range + x:
+                            elif row < row_range + 1 + x:
                                 ws.cell(row + 6, 2, zakres1)
                             # if row < row_range + x:
                             #     ws.cell(row + 6, 3, zakres1 * (-0.9))
@@ -1105,7 +1130,9 @@ if __name__ == "__main__":
                                     (60 > row > 45 and (row - 42) % 4 == 0) and end >= 3 > endy:
                                 endy += 1
                                 ws.merge_cells(f"B{row}:B{row + 3}")
-                            elif row == (ile - 1) * 4 + 9 + x:
+                            # elif (row == (ile - 1) * 4 + 9 + x:
+                            #     ws.merge_cells(f"B{row}:B{row + 3}")
+                            elif (row - 25) % 4 == 0 and row > y + 19 and endy >= 3:
                                 ws.merge_cells(f"B{row}:B{row + 3}")
                     else:
                         row_range = ile * 4 + 2
