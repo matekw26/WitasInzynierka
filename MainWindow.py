@@ -91,6 +91,10 @@ if __name__ == "__main__":
 
             # Zapisywanie pomiarow
             self.ZapiszDCV.clicked.connect(self.update_excel_click)
+            self.ZapiszACV.clicked.connect(self.update_excel_click)
+            self.ZapiszDCI.clicked.connect(self.update_excel_click)
+            self.ZapiszACI.clicked.connect(self.update_excel_click)
+            self.ZapiszR.clicked.connect(self.update_excel_click)
 
             # Wczytywanie modeli z listy
             self.wybierz_model.currentTextChanged.connect(self.load_model)
@@ -100,11 +104,19 @@ if __name__ == "__main__":
             # self.wynikiDCV.selectionModel().selectionChanged.connect(self.highlight_current_cell)
             self.count = 0
             self.NextDCV.clicked.connect(self.highlight_current_cell_click)
+            self.NextACV.clicked.connect(self.highlight_current_cell_click)
+            self.NextDCI.clicked.connect(self.highlight_current_cell_click)
+            self.NextACI.clicked.connect(self.highlight_current_cell_click)
+            # self.NextR.clicked.connect(self.highlight_current_cell_click)
 
             # Pomiary
 
             self.initialize = False
             self.PomiarDCV.clicked.connect(self.pomiary)
+            self.PomiarDCI.clicked.connect(self.pomiary)
+            self.PomiarACV.clicked.connect(self.pomiary)
+            self.PomiarACI.clicked.connect(self.pomiary)
+            # self.PomiarR.clicked.connect(self.pomiary)
 
 
 
@@ -136,7 +148,15 @@ if __name__ == "__main__":
 
             self.count += 1
 
-            self.highlight_current_cell(self.wynikiDCV)
+            sender = self.sender()
+            if sender.objectName() == "NextDCV":
+                self.highlight_current_cell(self.wynikiDCV)
+            elif sender.objectName() == "NextACV":
+                self.highlight_current_cell(self.wynikiACV)
+            elif sender.objectName() == "NextDCI":
+                self.highlight_current_cell(self.wynikiDCI)
+            elif sender.objectName() == "NextACI":
+                self.highlight_current_cell(self.wynikiACI)
 
 
         def highlight_current_cell(self, table):
@@ -162,8 +182,10 @@ if __name__ == "__main__":
                         item = table.item(table.currentRow(), 2)
                         table.setCurrentCell(table.currentRow(), 2)
                     # print(f"Teraz mamy wartosc: {item.text()}")
-
-                    if itemp.text() == 'mV':
+                    if itemp.text() == 'uV':
+                        self.zakres = "uV"
+                        print(f"Ustawiam wartosc na: {itemp.text()}")
+                    elif itemp.text() == 'mV':
                         self.zakres = "mV"
                         print(f"Ustawiam wartosc na: {itemp.text()}")
                     elif itemp.text() == 'V':
@@ -184,6 +206,8 @@ if __name__ == "__main__":
         def pomiary(self):
 
             self.initialize = True
+            self.count = 0
+
             sender = self.sender()
             if sender.objectName() == "PomiarDCV":
                 print("Teraz mierzymy DCV: ")
@@ -191,8 +215,30 @@ if __name__ == "__main__":
                 item = self.wynikiDCV.item(5, 2)
                 itemp = self.wynikiDCV.item(4, 1)
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
-
-
+            elif sender.objectName() == "PomiarACV":
+                print("Teraz mierzymy ACV: ")
+                self.wynikiACV.setCurrentCell(5, 2)
+                item = self.wynikiACV.item(5, 2)
+                itemp = self.wynikiACV.item(4, 1)
+                print(f"Mam wartosc: {item.text()} {itemp.text()}")
+            elif sender.objectName() == "PomiarDCI":
+                print("Teraz mierzymy DCI: ")
+                self.wynikiDCI.setCurrentCell(5, 2)
+                item = self.wynikiDCI.item(5, 2)
+                itemp = self.wynikiDCI.item(4, 1)
+                print(f"Mam wartosc: {item.text()} {itemp.text()}")
+            elif sender.objectName() == "PomiarACI":
+                print("Teraz mierzymy ACI: ")
+                self.wynikiACI.setCurrentCell(5, 2)
+                item = self.wynikiACI.item(5, 2)
+                itemp = self.wynikiACI.item(4, 1)
+                print(f"Mam wartosc: {item.text()} {itemp.text()}")
+            elif sender.objectName() == "PomiarR":
+                print("Teraz mierzymy R: ")
+                self.wynikiR.setCurrentCell(5, 2)
+                item = self.wynikiR.item(5, 2)
+                itemp = self.wynikiR.item(4, 1)
+                print(f"Mam wartosc: {item.text()} {itemp.text()}")
 
 
         def zglaszajacy(self):
@@ -277,15 +323,37 @@ if __name__ == "__main__":
                     self.loadExcelData(self.sciezkaWynik_zapis.text() + ".xlsx", self.wyniki_wzorcowania)
                     print(file_name)
 
+        def worksheet_exists(self, workbook_path, sheet_name):
+            workbook = load_workbook(workbook_path)
+            sheet_names = workbook.sheetnames
+            return sheet_name in sheet_names
+
         def loadExcelData(self, path, table):
 
             table.clear()
+            # workbook = load_workbook(path)
 
-            df1 = pd.read_excel(path, sheet_name=0)
-            df2 = pd.read_excel(path, sheet_name=1)
-            df3 = pd.read_excel(path, sheet_name=2)
-            df4 = pd.read_excel(path, sheet_name=3)
-            df5 = pd.read_excel(path, sheet_name=4)
+            if self.worksheet_exists(path, "R"):
+                df5 = pd.read_excel(path, sheet_name="R")
+            else:
+                df5 = pd.DataFrame()
+            if self.worksheet_exists(path, "ACI"):
+                df4 = pd.read_excel(path, sheet_name="ACI")
+            else:
+                df4 = pd.DataFrame()
+            if self.worksheet_exists(path, "DCI"):
+                df3 = pd.read_excel(path, sheet_name="DCI")
+            else:
+                df3 = pd.DataFrame()
+            if self.worksheet_exists(path, "ACV"):
+                df2 = pd.read_excel(path, sheet_name="ACV")
+            else:
+                df2 = pd.DataFrame()
+            if self.worksheet_exists(path, "DCV"):
+                df1 = pd.read_excel(path, sheet_name="DCV")
+            else:
+                df1 = pd.DataFrame()
+
             df = pd.concat([df1, df2, df3, df4, df5], ignore_index=True)
 
 
@@ -495,16 +563,33 @@ if __name__ == "__main__":
         def update_excel_click(self):
 
             sender = self.sender()
-            if sender.objectName() == "ZapiszDCV":
+            try:
                 path = self.sciezka_Model.text() + ".xlsx"
-                self.update_excel(path, "DCV", self.wynikiDCV)
-                self.update_excel(path, "ACV", self.wynikiACV)
-                self.update_excel(path, "DCI", self.wynikiDCI)
-                self.update_excel(path, "ACI", self.wynikiACI)
-                self.update_excel(path, "R", self.wynikiR)
-            elif sender.objectName() == "Zapisz_wynik":
-                path = self.sciezkaWynik_zapis.text() + ".xlsx"
-                self.update_excel2(path, self.wyniki_wzorcowania)
+                if sender.objectName() == "ZapiszDCV":
+                    self.update_excel(path, "DCV", self.wynikiDCV)
+                elif sender.objectName() == "ZapiszACV":
+                    self.update_excel(path, "ACV", self.wynikiACV)
+                elif sender.objectName() == "ZapiszDCI":
+                    self.update_excel(path, "DCI", self.wynikiDCI)
+                elif sender.objectName() == "ZapiszACI":
+                    self.update_excel(path, "ACI", self.wynikiACI)
+                elif sender.objectName() == "ZapiszR":
+                    self.update_excel(path, "R", self.wynikiR)
+                elif sender.objectName() == "Zapisz_wynik":
+                    path = self.sciezkaWynik_zapis.text() + ".xlsx"
+                    self.update_excel2(path, self.wyniki_wzorcowania)
+            except FileNotFoundError:
+                path = u"Modele/" + self.wybierz_model.currentText() + ".xlsx"
+                if sender.objectName() == "ZapiszDCV":
+                    self.update_excel3(path, "DCV", self.wynikiDCV)
+                elif sender.objectName() == "ZapiszACV":
+                    self.update_excel3(path, "ACV", self.wynikiACV)
+                elif sender.objectName() == "ZapiszDCI":
+                    self.update_excel3(path, "DCI", self.wynikiDCI)
+                elif sender.objectName() == "ZapiszACI":
+                    self.update_excel3(path, "ACI", self.wynikiACI)
+                elif sender.objectName() == "ZapiszR":
+                    self.update_excel3(path, "R", self.wynikiR)
 
 
         def update_excel(self, path, sheet, table):
@@ -532,11 +617,45 @@ if __name__ == "__main__":
                 msg.setWindowTitle("Błąd")
                 msg.exec()
 
+        def update_excel3(self, path, sheet, table):
+
+            # Wczytywanie pliku excel
+            wb = openpyxl.load_workbook(path)
+            ws = wb[sheet]
+
+            for row in range(table.rowCount()):
+                for col in range(table.columnCount()):
+                    item = table.item(row, col)
+                    try:
+                        if item is not None:
+                            ws.cell(row=row+2, column=col+1, value=item.text())
+                    except AttributeError:
+                        pass
+
+            try:
+                path2 = self.sciezka_Model.text() + ".xlsx"
+                wb.save(path2)
+            except PermissionError as e:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Critical)
+                msg.setText("Plik otwarty")
+                msg.setInformativeText(str(e))
+                msg.setWindowTitle("Błąd")
+                msg.exec()
+
         def update_excel2(self, path, table):
 
             # Wczytywanie pliku excel
             wb = openpyxl.load_workbook(path)
-            ws = wb["DCV"]
+            # lista arkuszy
+            # print(wb.sheetnames)
+            # ws = wb["DCV"]
+            ws = wb.active
+
+            # iterowanie po arkuszach i wyświetlanie nazw
+            # for sheet_name in wb.sheetnames:
+            #     sheet = wb[sheet_name]
+            #     print(f"Nazwa arkusza: {sheet_name}")
 
             ile = 0
             temp = 0
@@ -547,22 +666,26 @@ if __name__ == "__main__":
                     item = table.item(row, col)
                     if ile == 2 and access < 1:
                         ws.cell(row=row + 2 - temp, column=col, value="") #zeby nie bylo slowa zakres
-                        ws = wb["ACV"]
+                        # ws = wb["ACV"]
+                        ws = wb[str(wb.sheetnames[1])]
                         temp = row - 3
                         access += 1
                     elif ile == 3 and access < 2:
                         ws.cell(row=row + 2 - temp, column=col, value="")
-                        ws = wb["DCI"]
+                        # ws = wb["DCI"]
+                        ws = wb[str(wb.sheetnames[2])]
                         temp = row - 3
                         access += 1
                     elif ile == 4 and access < 3:
                         ws.cell(row=row + 2 - temp, column=col, value="")
-                        ws = wb["ACI"]
+                        # ws = wb["ACI"]
+                        ws = wb[str(wb.sheetnames[3])]
                         temp = row - 3
                         access += 1
                     elif ile == 5 and access < 4:
                         ws.cell(row=row + 2 - temp, column=col, value="")
-                        ws = wb["R"]
+                        # ws = wb["R"]
+                        ws = wb[str(wb.sheetnames[4])]
                         temp = row - 3
                         access += 1
                     #print(f"Teraz row: {row}")
@@ -587,35 +710,46 @@ if __name__ == "__main__":
                 msg.setWindowTitle("Błąd")
                 msg.exec()
 
+
         def generate_excel(self):
 
             wb = Workbook()
-            ws5 = wb.create_sheet("R", 0)
-            ws4 = wb.create_sheet("ACI", 0)
-            ws3 = wb.create_sheet("DCI", 0)
-            ws2 = wb.create_sheet("ACV", 0)
-            ws1 = wb.create_sheet("DCV", 0)
 
-            self.creat_excel(ws5, self.check_r, self.ilR.value(),
-                             self.zakresR.value(), self.zakresR.value())
-            self.creat_excel(ws4, self.check_aci, self.ilACI.value(),
-                             self.zakresACI.value(), self.zakresACI_2.value())
-            self.creat_excel(ws3, self.check_dci, self.ilDCI.value(),
-                             self.zakresDCI.value(), self.zakresDCI_2.value())
-            self.creat_excel(ws2, self.check_acv, self.ilACV.value(),
-                             self.zakresACV.value(), self.zakresACV_2.value())
-            self.creat_excel(ws1, self.check_dcv, self.ilDCV.value(),
-                             self.zakresDCV.value(), self.zakresDCV_2.value())
+            if self.check_r.isChecked():
+                ws5 = wb.create_sheet("R", 0)
+                self.creat_excel(ws5, self.check_r, self.ilR.value(),
+                                 self.zakresR.value(), self.zakresR.value())
+            if self.check_aci.isChecked():
+                ws4 = wb.create_sheet("ACI", 0)
+                self.creat_excel(ws4, self.check_aci, self.ilACI.value(),
+                                 self.zakresACI.value(), self.zakresACI_2.value())
+            if self.check_dci.isChecked():
+                ws3 = wb.create_sheet("DCI", 0)
+                self.creat_excel(ws3, self.check_dci, self.ilDCI.value(),
+                                 self.zakresDCI.value(), self.zakresDCI_2.value())
+            if self.check_acv.isChecked():
+                ws2 = wb.create_sheet("ACV", 0)
+                self.creat_excel(ws2, self.check_acv, self.ilACV.value(),
+                                 self.zakresACV.value(), self.zakresACV_2.value())
+            if self.check_dcv.isChecked():
+                ws1 = wb.create_sheet("DCV", 0)
+                self.creat_excel(ws1, self.check_dcv, self.ilDCV.value(),
+                                 self.zakresDCV.value(), self.zakresDCV_2.value())
 
             self.zapis_pliku(self.sciezka_Model.text(), wb)
 
             wb.close()
 
-            self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCV, 0)
-            self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACV, 1)
-            self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCI, 2)
-            self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACI, 3)
-            self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiR, 4)
+            if self.check_dcv.isChecked():
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCV, 0)
+            if self.check_acv.isChecked():
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACV, 1)
+            if self.check_dci.isChecked():
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCI, 2)
+            if self.check_aci.isChecked():
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACI, 3)
+            if self.check_r.isChecked():
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiR, 4)
 
         def creat_excel(self, ws, checked, ile, zakres1, zakres2):
 
@@ -1210,7 +1344,6 @@ if __name__ == "__main__":
                                     ws.cell(row, 3, cell.value * 0.1)
                             except TypeError:
                                 pass
-
 
         def calculate(self, zakres, row, ws):
 

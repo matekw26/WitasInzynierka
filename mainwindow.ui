@@ -78,7 +78,7 @@
         <item row="5" column="0" colspan="32">
          <widget class="QTabWidget" name="Tabwybor">
           <property name="currentIndex">
-           <number>3</number>
+           <number>4</number>
           </property>
           <widget class="QWidget" name="DCV">
            <attribute name="title">
@@ -187,27 +187,6 @@
             <string>DCI</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_4">
-            <item row="2" column="3">
-             <widget class="QPushButton" name="NextDCI">
-              <property name="text">
-               <string>Next</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="3">
-             <widget class="QPushButton" name="KasujDCI">
-              <property name="text">
-               <string>Kasuj Wyniki</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="3">
-             <widget class="QPushButton" name="ZapiszDCI">
-              <property name="text">
-               <string>Zapisz</string>
-              </property>
-             </widget>
-            </item>
             <item row="0" column="2" colspan="2">
              <widget class="QLabel" name="PodlaczenieDCI">
               <property name="text">
@@ -221,15 +200,36 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="3">
+            <item row="0" column="1" rowspan="5">
+             <widget class="QTableWidget" name="wynikiDCI"/>
+            </item>
+            <item row="1" column="2" colspan="2">
              <widget class="QPushButton" name="PomiarDCI">
               <property name="text">
                <string>POMIAR</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="1" rowspan="5">
-             <widget class="QTableWidget" name="wynikiDCI"/>
+            <item row="2" column="2" colspan="2">
+             <widget class="QPushButton" name="NextDCI">
+              <property name="text">
+               <string>Next</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2" colspan="2">
+             <widget class="QPushButton" name="ZapiszDCI">
+              <property name="text">
+               <string>Zapisz</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="2" colspan="2">
+             <widget class="QPushButton" name="KasujDCI">
+              <property name="text">
+               <string>Kasuj Wyniki</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -251,36 +251,36 @@
               </property>
              </widget>
             </item>
-            <item row="3" column="3">
-             <widget class="QPushButton" name="ZapiszACI">
-              <property name="text">
-               <string>Zapisz</string>
-              </property>
-             </widget>
+            <item row="0" column="1" rowspan="5">
+             <widget class="QTableWidget" name="wynikiACI"/>
             </item>
-            <item row="2" column="3">
-             <widget class="QPushButton" name="NextACI">
-              <property name="text">
-               <string>Next</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="3">
-             <widget class="QPushButton" name="KasujACI">
-              <property name="text">
-               <string>Kasuj Wyniki</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="3">
+            <item row="1" column="2" colspan="2">
              <widget class="QPushButton" name="PomiarACI">
               <property name="text">
                <string>POMIAR</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="1" rowspan="5">
-             <widget class="QTableWidget" name="wynikiACI"/>
+            <item row="2" column="2" colspan="2">
+             <widget class="QPushButton" name="NextACI">
+              <property name="text">
+               <string>Next</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2" colspan="2">
+             <widget class="QPushButton" name="ZapiszACI">
+              <property name="text">
+               <string>Zapisz</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="2" colspan="2">
+             <widget class="QPushButton" name="KasujACI">
+              <property name="text">
+               <string>Kasuj Wyniki</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -291,6 +291,12 @@
            <layout class="QGridLayout" name="gridLayout_6">
             <item row="1" column="2">
              <widget class="QPushButton" name="KasujR">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>Kasuj Wyniki</string>
               </property>
@@ -298,6 +304,12 @@
             </item>
             <item row="1" column="1">
              <widget class="QPushButton" name="ZapiszR">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>Zapisz</string>
               </property>
@@ -841,7 +853,7 @@
          <widget class="QDateEdit" name="data_wzorcowania">
           <property name="dateTime">
            <datetime>
-            <hour>15</hour>
+            <hour>14</hour>
             <minute>0</minute>
             <second>0</second>
             <year>2023</year>

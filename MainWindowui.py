@@ -149,21 +149,6 @@ class Ui_MainWindow(object):
         self.DCI.setObjectName(u"DCI")
         self.gridLayout_4 = QGridLayout(self.DCI)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
-        self.NextDCI = QPushButton(self.DCI)
-        self.NextDCI.setObjectName(u"NextDCI")
-
-        self.gridLayout_4.addWidget(self.NextDCI, 2, 3, 1, 1)
-
-        self.KasujDCI = QPushButton(self.DCI)
-        self.KasujDCI.setObjectName(u"KasujDCI")
-
-        self.gridLayout_4.addWidget(self.KasujDCI, 4, 3, 1, 1)
-
-        self.ZapiszDCI = QPushButton(self.DCI)
-        self.ZapiszDCI.setObjectName(u"ZapiszDCI")
-
-        self.gridLayout_4.addWidget(self.ZapiszDCI, 3, 3, 1, 1)
-
         self.PodlaczenieDCI = QLabel(self.DCI)
         self.PodlaczenieDCI.setObjectName(u"PodlaczenieDCI")
         self.PodlaczenieDCI.setPixmap(QPixmap(u"image/polaczenieUIv444.png"))
@@ -171,15 +156,30 @@ class Ui_MainWindow(object):
 
         self.gridLayout_4.addWidget(self.PodlaczenieDCI, 0, 2, 1, 2)
 
-        self.PomiarDCI = QPushButton(self.DCI)
-        self.PomiarDCI.setObjectName(u"PomiarDCI")
-
-        self.gridLayout_4.addWidget(self.PomiarDCI, 1, 3, 1, 1)
-
         self.wynikiDCI = QTableWidget(self.DCI)
         self.wynikiDCI.setObjectName(u"wynikiDCI")
 
         self.gridLayout_4.addWidget(self.wynikiDCI, 0, 1, 5, 1)
+
+        self.PomiarDCI = QPushButton(self.DCI)
+        self.PomiarDCI.setObjectName(u"PomiarDCI")
+
+        self.gridLayout_4.addWidget(self.PomiarDCI, 1, 2, 1, 2)
+
+        self.NextDCI = QPushButton(self.DCI)
+        self.NextDCI.setObjectName(u"NextDCI")
+
+        self.gridLayout_4.addWidget(self.NextDCI, 2, 2, 1, 2)
+
+        self.ZapiszDCI = QPushButton(self.DCI)
+        self.ZapiszDCI.setObjectName(u"ZapiszDCI")
+
+        self.gridLayout_4.addWidget(self.ZapiszDCI, 3, 2, 1, 2)
+
+        self.KasujDCI = QPushButton(self.DCI)
+        self.KasujDCI.setObjectName(u"KasujDCI")
+
+        self.gridLayout_4.addWidget(self.KasujDCI, 4, 2, 1, 2)
 
         self.Tabwybor.addTab(self.DCI, "")
         self.ACI = QWidget()
@@ -193,30 +193,30 @@ class Ui_MainWindow(object):
 
         self.gridLayout_5.addWidget(self.PodlaczenieACI, 0, 2, 1, 2)
 
-        self.ZapiszACI = QPushButton(self.ACI)
-        self.ZapiszACI.setObjectName(u"ZapiszACI")
-
-        self.gridLayout_5.addWidget(self.ZapiszACI, 3, 3, 1, 1)
-
-        self.NextACI = QPushButton(self.ACI)
-        self.NextACI.setObjectName(u"NextACI")
-
-        self.gridLayout_5.addWidget(self.NextACI, 2, 3, 1, 1)
-
-        self.KasujACI = QPushButton(self.ACI)
-        self.KasujACI.setObjectName(u"KasujACI")
-
-        self.gridLayout_5.addWidget(self.KasujACI, 4, 3, 1, 1)
-
-        self.PomiarACI = QPushButton(self.ACI)
-        self.PomiarACI.setObjectName(u"PomiarACI")
-
-        self.gridLayout_5.addWidget(self.PomiarACI, 1, 3, 1, 1)
-
         self.wynikiACI = QTableWidget(self.ACI)
         self.wynikiACI.setObjectName(u"wynikiACI")
 
         self.gridLayout_5.addWidget(self.wynikiACI, 0, 1, 5, 1)
+
+        self.PomiarACI = QPushButton(self.ACI)
+        self.PomiarACI.setObjectName(u"PomiarACI")
+
+        self.gridLayout_5.addWidget(self.PomiarACI, 1, 2, 1, 2)
+
+        self.NextACI = QPushButton(self.ACI)
+        self.NextACI.setObjectName(u"NextACI")
+
+        self.gridLayout_5.addWidget(self.NextACI, 2, 2, 1, 2)
+
+        self.ZapiszACI = QPushButton(self.ACI)
+        self.ZapiszACI.setObjectName(u"ZapiszACI")
+
+        self.gridLayout_5.addWidget(self.ZapiszACI, 3, 2, 1, 2)
+
+        self.KasujACI = QPushButton(self.ACI)
+        self.KasujACI.setObjectName(u"KasujACI")
+
+        self.gridLayout_5.addWidget(self.KasujACI, 4, 2, 1, 2)
 
         self.Tabwybor.addTab(self.ACI, "")
         self.R = QWidget()
@@ -225,11 +225,13 @@ class Ui_MainWindow(object):
         self.gridLayout_6.setObjectName(u"gridLayout_6")
         self.KasujR = QPushButton(self.R)
         self.KasujR.setObjectName(u"KasujR")
+        self.KasujR.setMaximumSize(QSize(200, 16777215))
 
         self.gridLayout_6.addWidget(self.KasujR, 1, 2, 1, 1)
 
         self.ZapiszR = QPushButton(self.R)
         self.ZapiszR.setObjectName(u"ZapiszR")
+        self.ZapiszR.setMaximumSize(QSize(200, 16777215))
 
         self.gridLayout_6.addWidget(self.ZapiszR, 1, 1, 1, 1)
 
@@ -524,7 +526,7 @@ class Ui_MainWindow(object):
 
         self.data_wzorcowania = QDateEdit(self.Swiadectwo)
         self.data_wzorcowania.setObjectName(u"data_wzorcowania")
-        self.data_wzorcowania.setDateTime(QDateTime(QDate(2023, 2, 9), QTime(15, 0, 0)))
+        self.data_wzorcowania.setDateTime(QDateTime(QDate(2023, 2, 9), QTime(14, 0, 0)))
         self.data_wzorcowania.setCalendarPopup(True)
 
         self.gridLayout_7.addWidget(self.data_wzorcowania, 2, 0, 2, 1)
@@ -711,7 +713,7 @@ class Ui_MainWindow(object):
         self.Wyczysc.clicked.connect(self.wartosc_kalibrator.clear)
 
         self.tabWidget.setCurrentIndex(0)
-        self.Tabwybor.setCurrentIndex(3)
+        self.Tabwybor.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -734,17 +736,17 @@ class Ui_MainWindow(object):
         self.PomiarACV.setText(QCoreApplication.translate("MainWindow", u"POMIAR", None))
         self.PodlaczenieACV.setText("")
         self.Tabwybor.setTabText(self.Tabwybor.indexOf(self.ACV), QCoreApplication.translate("MainWindow", u"ACV", None))
-        self.NextDCI.setText(QCoreApplication.translate("MainWindow", u"Next", None))
-        self.KasujDCI.setText(QCoreApplication.translate("MainWindow", u"Kasuj Wyniki", None))
-        self.ZapiszDCI.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
         self.PodlaczenieDCI.setText("")
         self.PomiarDCI.setText(QCoreApplication.translate("MainWindow", u"POMIAR", None))
+        self.NextDCI.setText(QCoreApplication.translate("MainWindow", u"Next", None))
+        self.ZapiszDCI.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
+        self.KasujDCI.setText(QCoreApplication.translate("MainWindow", u"Kasuj Wyniki", None))
         self.Tabwybor.setTabText(self.Tabwybor.indexOf(self.DCI), QCoreApplication.translate("MainWindow", u"DCI", None))
         self.PodlaczenieACI.setText("")
-        self.ZapiszACI.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
-        self.NextACI.setText(QCoreApplication.translate("MainWindow", u"Next", None))
-        self.KasujACI.setText(QCoreApplication.translate("MainWindow", u"Kasuj Wyniki", None))
         self.PomiarACI.setText(QCoreApplication.translate("MainWindow", u"POMIAR", None))
+        self.NextACI.setText(QCoreApplication.translate("MainWindow", u"Next", None))
+        self.ZapiszACI.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
+        self.KasujACI.setText(QCoreApplication.translate("MainWindow", u"Kasuj Wyniki", None))
         self.Tabwybor.setTabText(self.Tabwybor.indexOf(self.ACI), QCoreApplication.translate("MainWindow", u"ACI", None))
         self.KasujR.setText(QCoreApplication.translate("MainWindow", u"Kasuj Wyniki", None))
         self.ZapiszR.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
