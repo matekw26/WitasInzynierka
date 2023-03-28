@@ -133,9 +133,6 @@ if __name__ == "__main__":
             self.fil_modele()
 
 
-            # update tabeli
-            # self.loadExcelData(self.sciezkaWynik_zapis.text() +".xlsx", self.wyniki_wzorcowania)
-
         # cos do zapisu
         def initUI(self):
             # ...
@@ -166,10 +163,6 @@ if __name__ == "__main__":
                 if self.count == 1:
                     self.zakres = table.item(4, 1).text()
 
-                # for ix in selected.indexes():
-                #     print(f'Selected Cell Location Row: {ix.row()}, Column: {ix.column()}')
-                #
-                # self.wynikiDCV.setCurrentCell(ix.row() + 1, ix.column())
                 try:
                     move = table.currentRow()
                     table.selectRow(move + 1)
@@ -389,24 +382,6 @@ if __name__ == "__main__":
                 return
 
 
-            # x = 0
-            # y = 32
-            # if table == self.wynikiDCV:
-            #     x = 2
-            #     y = 32
-            # elif table == self.wynikiACV:
-            #     x = 32
-            #     y = 62
-            # elif table == self.wynikiDCI:
-            #     x = 62
-            #     y = 92
-            # elif table == self.wynikiACI:
-            #     x = 92
-            #     y = 122
-            # elif table == self.wynikiR:
-            #     x = 122
-            #     y = 152
-
             df.fillna('', inplace=True)
             # table.setRowCount(df.shape[0]+5)
             table.setRowCount(70)
@@ -426,13 +401,6 @@ if __name__ == "__main__":
                     tableItem = QTableWidgetItem(str(value))
                     table.setItem(row[0], col_index, tableItem)
 
-            # # Wyświetlanie danych z Excela
-            # for row in df.iterrows():
-            #     if x < row[0] < y:
-            #         values = row[1]
-            #         for col_index, value in enumerate(values):
-            #             tableItem = QTableWidgetItem(str(value))
-            #             table.setItem(row[0] - x, col_index, tableItem)
 
             # Ustawienie poprakwi kolumn 2 i 3 w kolumnie 4
             table.itemChanged.connect(lambda item: self.update_tablewidget(item, table2=table))
@@ -522,11 +490,6 @@ if __name__ == "__main__":
                     item = self.wyniki_wzorcowania.item(row, col)
                     if item is not None:
                         ws.cell(row=row + 2, column=col + 1, value=item.text())
-                        # if item.text() != "":
-                        #     cell1 = ws.cell(row=row + 2, column=col + 1)
-                        #     cell1.border = border
-                        #     cell1.alignment = Alignment(wrapText=True)
-                        #     cell1.alignment = alignmentCC
 
 
             # ustawienie obramowania dla komórki i dopasowanie szerokosci kolumn
@@ -647,15 +610,7 @@ if __name__ == "__main__":
 
             # Wczytywanie pliku excel
             wb = openpyxl.load_workbook(path)
-            # lista arkuszy
-            # print(wb.sheetnames)
-            # ws = wb["DCV"]
             ws = wb.active
-
-            # iterowanie po arkuszach i wyświetlanie nazw
-            # for sheet_name in wb.sheetnames:
-            #     sheet = wb[sheet_name]
-            #     print(f"Nazwa arkusza: {sheet_name}")
 
             ile = 0
             temp = 0
@@ -666,36 +621,29 @@ if __name__ == "__main__":
                     item = table.item(row, col)
                     if ile == 2 and access < 1:
                         ws.cell(row=row + 2 - temp, column=col, value="") #zeby nie bylo slowa zakres
-                        # ws = wb["ACV"]
                         ws = wb[str(wb.sheetnames[1])]
                         temp = row - 3
                         access += 1
                     elif ile == 3 and access < 2:
                         ws.cell(row=row + 2 - temp, column=col, value="")
-                        # ws = wb["DCI"]
                         ws = wb[str(wb.sheetnames[2])]
                         temp = row - 3
                         access += 1
                     elif ile == 4 and access < 3:
                         ws.cell(row=row + 2 - temp, column=col, value="")
-                        # ws = wb["ACI"]
                         ws = wb[str(wb.sheetnames[3])]
                         temp = row - 3
                         access += 1
                     elif ile == 5 and access < 4:
                         ws.cell(row=row + 2 - temp, column=col, value="")
-                        # ws = wb["R"]
                         ws = wb[str(wb.sheetnames[4])]
                         temp = row - 3
                         access += 1
-                    #print(f"Teraz row: {row}")
                     try:
                         if item is not None:
                             ws.cell(row=row+2 - temp, column=col+1, value=item.text())
-                            #print(f"Pierwsze: \n Row: {row} \n Col: {col} \n {item.text()} Temp: {temp}\n")
                             if col == 1 and item.text() == "Zakres":
                                 ile += 1
-                                #print(f"Row: {row} \n Col: {col} \n {item.text()} \nIle: {ile}\n Temp: {temp}\n")
 
                     except AttributeError:
                         pass
@@ -764,7 +712,6 @@ if __name__ == "__main__":
             alignmentCC = Alignment(wrap_text=True, horizontal='center', vertical='center')
             fontA10 = Font(name='Arial', size=10)
 
-            # ws.column_dimensions['A'].width = 1
             ws.column_dimensions['B'].width = 8
             ws.column_dimensions['C'].width = 13
             ws.column_dimensions['D'].width = 12
@@ -773,16 +720,6 @@ if __name__ == "__main__":
 
             if checked.isChecked():
                 x = 0
-                # if checked == self.check_dcv:
-                #     x = 0
-                # elif checked == self.check_acv:
-                #     x = 30
-                # elif checked == self.check_dci:
-                #     x = 60
-                # elif checked == self.check_aci:
-                #     x = 90
-                # elif checked == self.check_r:
-                #     x = 120
 
                 for i, col in enumerate(col_headers):
                     ws.cell(5+x, i + 2, col)
@@ -791,188 +728,13 @@ if __name__ == "__main__":
                     cell.font = fontA10
                     cell.alignment = alignmentCC
 
-                # if 6 > ile > 2:
-                #     row_range = ile * 4 + 2
-                #     if checked != self.check_r:
-                #         for row in range(row_range):
-                #             row = row + x
-                #             if row == 0 + x:
-                #                 if checked == self.check_dcv or checked == self.check_acv:
-                #                     ws.cell(row + 6, 2, 'mV')
-                #                 elif checked == self.check_dci or checked == self.check_aci:
-                #                     ws.cell(row + 6, 2, 'mA')
-                #             elif row == 5 + x:
-                #                 if checked == self.check_dcv or checked == self.check_acv:
-                #                     ws.cell(row + 6, 2, 'V')
-                #                 elif checked == self.check_dci or checked == self.check_aci:
-                #                     ws.cell(row + 6, 2, 'A')
-                #             elif row < row_range - 16 + x:
-                #                 ws.cell(row + 6, 2, zakres2)
-                #             elif row < row_range - 12 + x:
-                #                 ws.cell(row + 6, 2, zakres2/100)
-                #             elif row < row_range - 8 + x:
-                #                 ws.cell(row + 6, 2, zakres2/10)
-                #             elif row < row_range - 4 + x:
-                #                 ws.cell(row + 6, 2, zakres2)
-                #             elif row < row_range + x:
-                #                 ws.cell(row + 6, 2, zakres1)
-                #             for col in range(2, 7):
-                #                 cell = ws.cell(row=row+6, column=col)
-                #                 cell.border = border
-                #                 cell.alignment = alignmentCC
-                #         ws.merge_cells(f"B{7 + x }:B{10 + x}")
-                #         ws.merge_cells(f"B{6 + x }:F{6 + x}")
-                #         ws.merge_cells(f"B{11 + x }:F{11 + x}")
-                #         for row in range(row_range + 3):
-                #             row = row + x
-                #             if (((40 > row > 11 + x) or (70 < row < 90)) and row % 4 == 0) or \
-                #                (row > 101 and (row-102) % 4 == 0) or \
-                #                (60 > row > 40 and (row-42) % 4 == 0):
-                #                 ws.merge_cells(f"B{row}:B{row + 3}")
-                #
-                #     elif checked == self.check_r:
-                #         row_range = ile * 2 + 3
-                #         for row in range(row_range):
-                #             row = row + x
-                #             if row == 0 + x:
-                #                 ws.cell(row + 6, 2, '\u03A9')
-                #             elif row == 3 + x:
-                #                 ws.cell(row + 6, 2, 'k\u03A9')
-                #             elif row == 10 + x:
-                #                 ws.cell(row + 6, 2, 'M\u03A9')
-                #             elif row < row_range + x - 12:
-                #                 ws.cell(row + 6, 2, zakres1 / 10000000)
-                #             elif row < row_range + x - 10:
-                #                 ws.cell(row + 6, 2, zakres1 / 1000000)
-                #             elif row < row_range - 8 + x:
-                #                 ws.cell(row + 6, 2, zakres2/100000000)
-                #             elif row < row_range - 6 + x:
-                #                 ws.cell(row + 6, 2, zakres2/10000000)
-                #             elif row < row_range - 4 + x:
-                #                 ws.cell(row + 6, 2, zakres2/1000000)
-                #             elif row < row_range - 2 + x:
-                #                 ws.cell(row + 6, 2, zakres2/10000000)
-                #             elif row < row_range + x:
-                #                 ws.cell(row + 6, 2, zakres1/1000000)
-                #             for col in range(2, 7):
-                #                 cell = ws.cell(row=row+6, column=col)
-                #                 cell.border = border
-                #                 cell.alignment = alignmentCC
-                #         ws.merge_cells(f"B{6 + x }:F{6 + x}")
-                #         ws.merge_cells(f"B{9 + x}:F{9 + x}")
-                #         ws.merge_cells(f"B{16 + x}:F{16 + x}")
-                #         ws.merge_cells(f"B{7 + x}:B{8 + x}")
-                #         ws.merge_cells(f"B{17 + x}:B{18 + x}")
-                #         for row in range(row_range + 3):
-                #             row = row + x
-                #             if 136 > row > 129 and row % 2 == 0:
-                #                 ws.merge_cells(f"B{row}:B{row + 1}")
-                #
-                # elif ile <= 2:
-                #     row_range = ile * 4 + 1
-                #     for row in range(row_range):
-                #         row = row + x
-                #         if row == 0 + x:
-                #             ws.cell(row + 6, 2, 'V')
-                #         elif row < row_range - 4 + x:
-                #             ws.cell(row + 6, 2, zakres2)
-                #         elif row < row_range + x:
-                #             ws.cell(row + 6, 2, zakres1)
-                #         for col in range(2, 7):
-                #             cell = ws.cell(row=row+6, column=col)
-                #             cell.border = border
-                #             cell.alignment = alignmentCC
-                #     ws.merge_cells(f"B{6 + x}:F{6 + x}")
-                #     ws.merge_cells(f"B{7 + x}:B{10 + x}")
-                #     ws.merge_cells(f"B{11 + x}:B{14 + x}")
-                #
-                # elif ile > 5:
-                #     if checked != self.check_r:
-                #         row_range = ile * 4 + 2
-                #         for row in range(row_range):
-                #             row = row + x
-                #             if row == 0 + x:
-                #                 ws.cell(row + 6, 2, 'mV')
-                #             elif row == 9 + x:
-                #                 ws.cell(row + 6, 2, 'V')
-                #             elif row < row_range - 25 + x:
-                #                 ws.cell(row + 6, 2, zakres2/100)
-                #             elif row < row_range - 21 + x:
-                #                 ws.cell(row + 6, 2, zakres2/10)
-                #             elif row < row_range - 19 + x:
-                #                 ws.cell(row + 6, 2, zakres2)
-                #             elif row < row_range - 12 + x:
-                #                 ws.cell(row + 6, 2, zakres2 / 100)
-                #             elif row < row_range - 8 + x:
-                #                 ws.cell(row + 6, 2, zakres2 / 10)
-                #             elif row < row_range - 4 + x:
-                #                 ws.cell(row + 6, 2, zakres2)
-                #             elif row < row_range + x:
-                #                 ws.cell(row + 6, 2, zakres1)
-                #             for col in range(2, 7):
-                #                 cell = ws.cell(row=row + 6, column=col)
-                #                 cell.border = border
-                #                 cell.alignment = alignmentCC
-                #         ws.merge_cells(f"B{7 + x}:B{10 + x}")
-                #         ws.merge_cells(f"B{6 + x}:F{6 + x}")
-                #         ws.merge_cells(f"B{11 + x}:B{14 + x}")
-                #         ws.merge_cells(f"B{15 + x}:F{15 + x}")
-                #         for row in range(row_range + 3):
-                #             row = row + x
-                #             if (((45 > row > 15 + x) or (75 < row < 90)) and row % 4 == 0) or \
-                #                (60 > row > 45 and (row-42) % 4 == 0) or \
-                #                (row > 105 and (row-102) % 4 == 0):
-                #                 ws.merge_cells(f"B{row}:B{row + 3}")
-                #
-                #     elif checked == self.check_r:
-                #         row_range = ile * 2 + 3
-                #         for row in range(row_range):
-                #             row = row + x
-                #             if row == 0 + x:
-                #                 ws.cell(row + 6, 2, '\u03A9')
-                #             elif row == 3 + x:
-                #                 ws.cell(row + 6, 2, 'k\u03A9')
-                #             elif row == 10 + x:
-                #                 ws.cell(row + 6, 2, 'M\u03A9')
-                #             elif row < row_range - 8 + x:
-                #                 ws.cell(row + 6, 2, zakres2 / 1000000)
-                #             elif row < row_range - 6 + x:
-                #                 ws.cell(row + 6, 2, zakres2 / 100000000)
-                #             elif row < row_range - 4 + x:
-                #                 ws.cell(row + 6, 2, zakres2 / 10000000)
-                #             elif row < row_range - 2 + x:
-                #                 ws.cell(row + 6, 2, zakres2 / 1000000)
-                #             elif row < row_range + x:
-                #                 ws.cell(row + 6, 2, zakres1 / 1000000)
-                #             for col in range(2, 7):
-                #                 cell = ws.cell(row=row + 6, column=col)
-                #                 cell.border = border
-                #                 cell.alignment = alignmentCC
-                #         ws.merge_cells(f"B{6 + x}:F{6 + x}")
-                #         ws.merge_cells(f"B{9 + x}:F{9 + x}")
-                #         ws.merge_cells(f"B{16 + x}:F{16 + x}")
-                #         ws.merge_cells(f"B{7 + x}:B{8 + x}")
-                #         ws.merge_cells(f"B{17 + x}:B{18 + x}")
-                #         ws.merge_cells(f"B{19 + x}:B{20 + x}")
-                #         for row in range(row_range + 3):
-                #             row = row + x
-                #             if 136 > row > 129 and row % 2 == 0:
-                #                 ws.merge_cells(f"B{row}:B{row + 1}")
-
-                # if 6 > ile > 2:
                 if (ile <= 4) and (zakres2 / 100 >= 1) or \
                    (ile == 3) and (zakres2 / 10 >= 1) or \
                    (ile <= 2) and (zakres2 > 1) and (zakres2 < 10):
                     row_range = ile * 4 + 1
-                # elif (ile == 3) and (zakres2 / 10 >= 1):
-                #     row_range = ile * 4 + 1
-                # elif (ile <= 2) and (zakres2 > 1) and (zakres2 < 10):
-                #     row_range = ile * 4 + 1
                 elif (5 <= ile <= 7) and (zakres2 < 1) or \
                      (ile == 6) and (zakres2 / 10 < 1) and (zakres2 > 1):
                     row_range = ile * 4 + 3
-                # elif (ile == 6) and (zakres2 / 10 < 1) and (zakres2 > 1):
-                #     row_range = ile * 4 + 3
                 else:
                     row_range = ile * 4 + 2
                 if checked != self.check_r:
@@ -1081,18 +843,6 @@ if __name__ == "__main__":
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'mA')
                                 ws.merge_cells(f"B{11 + x}:F{11 + x}")
-                            # elif (row == 9 + x) and (ile == 6) and (zakres2 / 10 < 1) and (zakres2 > 1):
-                            #     if checked == self.check_dcv or checked == self.check_acv:
-                            #         ws.cell(row + 6, 2, 'mV')
-                            #     elif checked == self.check_dci or checked == self.check_aci:
-                            #         ws.cell(row + 6, 2, 'mA') #zmiany
-                            #     ws.merge_cells(f"B{15 + x}:F{15 + x}")
-                            # elif (row == 13 + x) and (ile == 6) and (zakres2 / 10 < 1) and (zakres2 > 1):
-                            #     if checked == self.check_dcv or checked == self.check_acv:
-                            #         ws.cell(row + 6, 2, 'mV')
-                            #     elif checked == self.check_dci or checked == self.check_aci:
-                            #         ws.cell(row + 6, 2, 'mA')
-                            #     ws.merge_cells(f"B{19 + x}:F{19 + x}")
                             elif (row == 18 + x) and (ile == 6) and (zakres2 / 10 < 1) and (zakres2 > 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
@@ -1165,14 +915,14 @@ if __name__ == "__main__":
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
                                 ws.merge_cells(f"B{28 + x}:F{28 + x}")
-                            elif row < row_range - 22 + x: # zmienic na 22? 21
+                            elif row < row_range - 22 + x:
                                 if zakres2 / 10 < 1 < zakres2:
                                     ws.cell(row + 6, 2, zakres2 * 100)
                                 elif zakres2 / 10 < 1:
                                     ws.cell(row + 6, 2, zakres2 * 100)
                                 else:
                                     ws.cell(row + 6, 2, zakres2 / 10)
-                            elif row < row_range - 17 + x: #zmienic na 18? 17
+                            elif row < row_range - 17 + x:
                                 if zakres2 < 1:
                                     ws.cell(row + 6, 2, zakres2 * 1000)
                                 else:
@@ -1184,29 +934,24 @@ if __name__ == "__main__":
                                     ws.cell(row + 6, 2, zakres2 * 100)
                                 else:
                                     ws.cell(row + 6, 2, zakres2 / 100)
-                            elif row < row_range - 10 + x: # zakres 10? -9
+                            elif row < row_range - 10 + x:
                                 if zakres2 / 10 < 1:
                                     ws.cell(row + 6, 2, zakres2 * 100)
                                 else:
                                     ws.cell(row + 6, 2, zakres2 / 10)
-                            elif row < row_range - 4 + x: # zakres -6? -5
+                            elif row < row_range - 4 + x:
                                 if zakres2 < 1:
                                     ws.cell(row + 6, 2, zakres2 * 1000)
                                 else:
                                     ws.cell(row + 6, 2, zakres2)
                             elif row < row_range + 1 + x:
                                 ws.cell(row + 6, 2, zakres1)
-                            # if row < row_range + x:
-                            #     ws.cell(row + 6, 3, zakres1 * (-0.9))
                         except AttributeError:
                             pass
                         for col in range(2, 7):
                             cell = ws.cell(row=row+6, column=col)
                             cell.border = border
                             cell.alignment = alignmentCC
-                    # ws.merge_cells(f"B{7 + x }:B{10 + x}")
-                    # ws.merge_cells(f"B{6 + x }:F{6 + x}")
-                    # ws.merge_cells(f"B{11 + x }:F{11 + x}")
                     if ile == 6 and zakres2 / 100 >= 1:
                         end = 1
                     elif ile == 5 and zakres2 / 100 >= 1:
@@ -1264,8 +1009,6 @@ if __name__ == "__main__":
                                     (60 > row > 45 and (row - 42) % 4 == 0) and end >= 3 > endy:
                                 endy += 1
                                 ws.merge_cells(f"B{row}:B{row + 3}")
-                            # elif (row == (ile - 1) * 4 + 9 + x:
-                            #     ws.merge_cells(f"B{row}:B{row + 3}")
                             elif (row - 25) % 4 == 0 and row > y + 19 and endy >= 3:
                                 ws.merge_cells(f"B{row}:B{row + 3}")
                     else:
@@ -1375,9 +1118,6 @@ if __name__ == "__main__":
                     self.sciezkaWynik_zapis.setText(filename_without_ext)
                     print(fileName)
 
-                # Zapisz plik w wybranej ścieżce
-                # with open(fileName, 'w') as f:
-                #     f.write("Tutaj jest tekst, który zostanie zapisany w pliku.")
 
                 # Utwórz nowy plik Excel
                 workbook = openpyxl.Workbook()
@@ -1560,9 +1300,6 @@ if __name__ == "__main__":
                     cell.font = fontA10B
                     cell.alignment = alignmentLC
 
-            # ws['C7'].alignment = alignmentLC
-            # ws['C10'].alignment = alignmentLC
-            # ws['C11'].alignment = alignmentLC
             ws['B15'].alignment = alignmentCC
             ws['B15'].font = fontA10
 
