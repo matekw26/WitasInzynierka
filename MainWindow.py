@@ -21,6 +21,8 @@ from openpyxl.utils import get_column_letter
 import pandas as pd
 import numpy as np
 import xlsxwriter
+import xlwings as xw
+from win32com.client import Dispatch
 
 
 # 1 instalacja PySide6 ... pip install PySide6
@@ -29,6 +31,8 @@ import xlsxwriter
 # 4 instalacja Excela pip install openpyxl
 # 5 Import obrazu do excela pip install Pillow
 # 6 generowanie excela pip install xlsxwriter
+# 7 pip install pywin32 and install packages Dispatch
+# install package xlwings
 
 if __name__ == "__main__":
     class MainWindow(QMainWindow, Ui_MainWindow):
@@ -46,6 +50,7 @@ if __name__ == "__main__":
             self.wartosc_kalibrator.valueChanged.connect(self.odczytaj)
             self.Nastaw.clicked.connect(self.nastawa)
             self.Wyczysc.clicked.connect(self.wyczysc)
+
             # odczyt wartośći z listy AC/DC
             self.AC_DC.currentTextChanged.connect(self.text_changed)
 
@@ -80,7 +85,7 @@ if __name__ == "__main__":
             self.Wybor_zglaszajacy.currentTextChanged.connect(self.zglaszajacy)
 
             # generowanie swiadectwa
-            self.generuj_swiadectwo.clicked.connect(self.swiadectwo)
+            self.generuj_swiadectwo.clicked.connect(self.swiadectwo_final)
 
             # zapisywanie wynikow
             # self.Zapisz_wynik.clicked.connect(self.save_to_excel)
@@ -302,12 +307,16 @@ if __name__ == "__main__":
                 elif sender.objectName() == "SzukajModelu":
                     path = file_name
                     filename_without_ext, ext = os.path.splitext(path)
-                    self.sciezka_Model.setText(filename_without_ext)
-                    self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCV, 0)
-                    self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACV, 1)
-                    self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCI, 2)
-                    self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACI, 3)
-                    self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiR, 4)
+                    if self.check_dcv.isChecked():
+                        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCV, 0)
+                    if self.check_acv.isChecked():
+                        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACV, 1)
+                    if self.check_dci.isChecked():
+                        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCI, 2)
+                    if self.check_aci.isChecked():
+                        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACI, 3)
+                    if self.check_r.isChecked():
+                        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiR, 4)
                     print(file_name)
                 elif sender.objectName() == "SzukajWynikow" or "odczyt_wynikow":
                     path = file_name
@@ -1169,6 +1178,34 @@ if __name__ == "__main__":
                 wb.save(path + ".xlsx")
                 self.open_folder(path)
 
+
+        def swiadectwo_final(self):
+
+            self.swiadectwo()
+
+            # START czesci do kiopiowania i tworzenia 1 pliku z danymi calymi
+
+            # pierwszy plik Excel
+            path1 = self.sciezkaSW_zapis.text() + ".xlsx"
+            # drugi plik Excel
+            path2 = self.sciezkaWynik_zapis.text() + ".xlsx"
+
+            wb1 = xw.Book(path2)
+            wb2 = xw.Book(path1)
+
+            for i in range(wb1.sheets.count - 1):
+                ws1 = wb1.sheets(i+1)
+                ws1.api.Copy(After=wb2.sheets(i+1).api)
+
+            wb2.save()
+            wb2.app.quit()
+
+            # KONIEC
+
+            # START robienie operacji na głównym swiadectwie
+
+            # path = self.sciezkaSW_zapis.text() + ".xlsx"
+            # wb = openpyxl.load_workbook(path)
 
         # generowanie świadectwa
         def swiadectwo(self):
