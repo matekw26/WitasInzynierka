@@ -22,7 +22,10 @@ import pandas as pd
 import numpy as np
 import xlsxwriter
 import xlwings as xw
+from xlwings.constants import InsertShiftDirection
 from win32com.client import Dispatch
+
+
 
 
 # 1 instalacja PySide6 ... pip install PySide6
@@ -33,6 +36,7 @@ from win32com.client import Dispatch
 # 6 generowanie excela pip install xlsxwriter
 # 7 pip install pywin32 and install packages Dispatch
 # install package xlwings
+# 9 pip install aspose-cellsO JEDNAK NIE
 
 if __name__ == "__main__":
     class MainWindow(QMainWindow, Ui_MainWindow):
@@ -260,6 +264,7 @@ if __name__ == "__main__":
 
             # pobranie nazw plików z folderu
             file_names = os.listdir(folder_path)
+            file_names = sorted(file_names)
 
             # dodanie nazw plików do QComboBox
             for file_name in file_names:
@@ -390,12 +395,13 @@ if __name__ == "__main__":
             if df.size == 0:
                 return
 
+            x = 10 # zmienic to na ta sama wartosc co w generate excel
 
             df.fillna('', inplace=True)
             # table.setRowCount(df.shape[0]+5)
             table.setRowCount(70)
             table.setColumnCount(df.shape[1]+2)
-            column_headers = df.iloc[3]
+            column_headers = df.iloc[3+x]
             table.setHorizontalHeaderLabels(column_headers)
 
             # ustawienie dopasowywania się rozmiaru kolumn
@@ -410,11 +416,13 @@ if __name__ == "__main__":
                     tableItem = QTableWidgetItem(str(value))
                     table.setItem(row[0], col_index, tableItem)
 
+            for i in range(x):
+                table.removeRow(0)
 
             # Ustawienie poprakwi kolumn 2 i 3 w kolumnie 4
             table.itemChanged.connect(lambda item: self.update_tablewidget(item, table2=table))
 
-            # self.update_tablewidget()
+                        # self.update_tablewidget()
             table.setStyleSheet("QTableView::item { border: 0px solid black; }")
 
         def load_model(self):
@@ -728,11 +736,11 @@ if __name__ == "__main__":
             ws.column_dimensions['F'].width = 12
 
             if checked.isChecked():
-                x = 0
+                x = 10 # 0, tutaj zmienie chyba na wiecej zmienic TEZ W 398
 
                 for i, col in enumerate(col_headers):
-                    ws.cell(5+x, i + 2, col)
-                    cell = ws.cell(row=5+x, column=i+2)
+                    ws.cell(5 + x, i + 2, col)
+                    cell = ws.cell(row=5 + x, column=i+2)
                     cell.border = border
                     cell.font = fontA10
                     cell.alignment = alignmentCC
@@ -1015,10 +1023,10 @@ if __name__ == "__main__":
                             elif ((100 > row > 60 and row > (6 + x + y)) or 45 > row > (6 + x + y)) and \
                                     row % 4 == 0 and end >= 3 > endy or \
                                     row > (6 + x + y) and (row > 101 and (row - 102) % 4 == 0) and end >= 3 > endy or \
-                                    (60 > row > 45 and (row - 42) % 4 == 0) and end >= 3 > endy:
+                                    (60 > row > 45 and (row - (42 + x)) % 4 == 0) and end >= 3 > endy:
                                 endy += 1
                                 ws.merge_cells(f"B{row}:B{row + 3}")
-                            elif (row - 25) % 4 == 0 and row > y + 19 and endy >= 3:
+                            elif (row - (25 + x)) % 4 == 0 and row > y + 19 + x and endy >= 3:
                                 ws.merge_cells(f"B{row}:B{row + 3}")
                     else:
                         row_range = ile * 4 + 2
@@ -1029,18 +1037,18 @@ if __name__ == "__main__":
                                 end += 1
                                 ws.merge_cells(f"B{row}:B{row + 3}")
                             elif ((100 > row > 60 and row > (6 + x + y)) or 45 > row > (6 + x + y)) and \
-                                    row % 4 == 0 and end >= 3 or \
+                                    (row - x) % 4 == 0 and end >= 3 or \
                                     row > (6 + x + y) and (row > 101 and (row-102) % 4 == 0) and end >= 3 or \
-                                    (60 > row > 45 and (row - 42) % 4 == 0) and end >= 3:
+                                    (60 > row > 45 and (row - (42 + x)) % 4 == 0) and end >= 3:
                                 ws.merge_cells(f"B{row}:B{row + 3}")
 
                     for row in range(row_range):
-                        row += 6
+                        row += 6 + x
                         cell = ws.cell(row=row, column=2)
                         if cell.value is not None:
                             try:
                                 if 0 < cell.value < 10 ** 15:
-                                    self.calculate(cell.value, row, ws)
+                                    self.calculate(cell.value, row, ws) # row + x
                             except TypeError:
                                 pass
 
@@ -1076,18 +1084,18 @@ if __name__ == "__main__":
                             cell.border = border
                             cell.alignment = alignmentCC
                     for row in range(row_range + 3):
-                        row = row + 6
+                        row = row + 6 + x
                         cell = ws.cell(row=row, column=2)
                         if cell.value is not None:
                             try:
-                                if 10 ** 15 > cell.value > 0 == row % 2 or \
-                                        10 ** 15 > cell.value > 0 == (row - 7) % 2:
+                                if 10 ** 15 > cell.value > 0 == (row - x) % 2 or \
+                                        10 ** 15 > cell.value > 0 == (row - (x + 7)) % 2:
                                     ws.merge_cells(f"B{row}:B{row + 1}")
                             except TypeError:
                                 pass
 
                     for row in range(row_range):
-                        row += 6
+                        row += 6 + x
                         cell = ws.cell(row=row, column=2)
                         if cell.value is not None:
                             try:
@@ -1121,21 +1129,54 @@ if __name__ == "__main__":
                     filename_without_ext, ext = os.path.splitext(path)
                     self.sciezkaSW_zapis.setText(filename_without_ext)
                     print(fileName)
+
+                    # Utwórz nowy plik Excel
+                    workbook = openpyxl.Workbook()
+                    sheet = workbook.active
+                    sheet['A1'] = 'Hello'
+                    sheet['B1'] = 'World'
+                    # Zapisz plik Excel
+                    workbook.save(fileName)
+
                 elif sender.objectName() == "SzukajWynikow":
                     path = fileName
                     filename_without_ext, ext = os.path.splitext(path)
                     self.sciezkaWynik_zapis.setText(filename_without_ext)
                     print(fileName)
 
+                    # Utwórz nowy plik Excel
+                    # workbook = openpyxl.Workbook()
+                    # sheet = workbook.active
+                    # sheet['A1'] = 'Hello'
+                    # sheet['B1'] = 'World'
 
-                # Utwórz nowy plik Excel
-                workbook = openpyxl.Workbook()
-                sheet = workbook.active
-                sheet['A1'] = 'Hello'
-                sheet['B1'] = 'World'
+                    wb = Workbook()
 
-                # Zapisz plik Excel
-                workbook.save(fileName)
+                    if self.check_r.isChecked():
+                        ws5 = wb.create_sheet("R", 0)
+                        self.creat_excel(ws5, self.check_r, self.ilR.value(),
+                                         self.zakresR.value(), self.zakresR.value())
+                    if self.check_aci.isChecked():
+                        ws4 = wb.create_sheet("ACI", 0)
+                        self.creat_excel(ws4, self.check_aci, self.ilACI.value(),
+                                         self.zakresACI.value(), self.zakresACI_2.value())
+                    if self.check_dci.isChecked():
+                        ws3 = wb.create_sheet("DCI", 0)
+                        self.creat_excel(ws3, self.check_dci, self.ilDCI.value(),
+                                         self.zakresDCI.value(), self.zakresDCI_2.value())
+                    if self.check_acv.isChecked():
+                        ws2 = wb.create_sheet("ACV", 0)
+                        self.creat_excel(ws2, self.check_acv, self.ilACV.value(),
+                                         self.zakresACV.value(), self.zakresACV_2.value())
+                    if self.check_dcv.isChecked():
+                        ws1 = wb.create_sheet("DCV", 0)
+                        self.creat_excel(ws1, self.check_dcv, self.ilDCV.value(),
+                                         self.zakresDCV.value(), self.zakresDCV_2.value())
+
+                    self.zapis_pliku(self.sciezkaWynik_zapis.text(), wb)
+
+                    # Zapisz plik Excel
+                    # workbook.save(fileName)
 
 
         # zamkniecie aplikacji
@@ -1206,6 +1247,17 @@ if __name__ == "__main__":
 
             # path = self.sciezkaSW_zapis.text() + ".xlsx"
             # wb = openpyxl.load_workbook(path)
+            #
+            # worksheets = wb.sheetnames
+            #
+            # for sheet in worksheets:
+            #     ws = wb[sheet]
+            #     # ws.insert_rows(1, 10)
+            #     # ws.move_range("B5:F31", rows=5, cols=0, translate=True)
+            #
+            # # zapis pliku
+            # self.zapis_pliku(self.sciezkaSW_zapis.text(), wb)
+
 
         # generowanie świadectwa
         def swiadectwo(self):
