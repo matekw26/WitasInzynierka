@@ -363,11 +363,12 @@ if __name__ == "__main__":
 
             df = pd.concat([df1, df2, df3, df4, df5], ignore_index=True)
 
+            x = 10  # zmienic to na ta sama wartosc co w generate excel 399, 740
 
             df.fillna('', inplace=True)
             table.setRowCount(df.shape[0]+5)
             table.setColumnCount(df.shape[1]+2)
-            column_headers = df.iloc[3]
+            column_headers = df.iloc[3+x]
             table.setHorizontalHeaderLabels(column_headers)
 
             # ustawienie dopasowywania się rozmiaru kolumn
@@ -380,6 +381,10 @@ if __name__ == "__main__":
                 for col_index, value in enumerate(values):
                     tableItem = QTableWidgetItem(str(value))
                     table.setItem(row[0], col_index, tableItem)
+
+            # wyswietlanie excela od 10 lini
+            for i in range(x):
+                table.removeRow(0)
 
             # Ustawienie poprakwi kolumn 2 i 3 w kolumnie 4
             table.itemChanged.connect(lambda item: self.update_tablewidget(item, table2=table))
@@ -395,7 +400,7 @@ if __name__ == "__main__":
             if df.size == 0:
                 return
 
-            x = 10 # zmienic to na ta sama wartosc co w generate excel
+            x = 10 # zmienic to na ta sama wartosc co w generate excel 366, 740
 
             df.fillna('', inplace=True)
             # table.setRowCount(df.shape[0]+5)
@@ -406,7 +411,7 @@ if __name__ == "__main__":
 
             # ustawienie dopasowywania się rozmiaru kolumn
             for i in range(table.columnCount()):
-                 table.resizeColumnToContents(i)
+                table.resizeColumnToContents(i)
 
 
             # Wyświetlanie danych z Excela
@@ -416,6 +421,7 @@ if __name__ == "__main__":
                     tableItem = QTableWidgetItem(str(value))
                     table.setItem(row[0], col_index, tableItem)
 
+            # wyswietlanie excela od 10 lini
             for i in range(x):
                 table.removeRow(0)
 
@@ -736,7 +742,7 @@ if __name__ == "__main__":
             ws.column_dimensions['F'].width = 12
 
             if checked.isChecked():
-                x = 10 # 0, tutaj zmienie chyba na wiecej zmienic TEZ W 398
+                x = 10 # 0, tutaj zmienie chyba na wiecej zmienic TEZ W 398, 366
 
                 for i, col in enumerate(col_headers):
                     ws.cell(5 + x, i + 2, col)
@@ -1219,6 +1225,95 @@ if __name__ == "__main__":
                 wb.save(path + ".xlsx")
                 self.open_folder(path)
 
+        def naglowek(self, ws):
+
+            ws.merge_cells("A2:B2")
+            ws.merge_cells("C2:G2")
+            ws.merge_cells("A3:G3")
+            ws.merge_cells("A4:B4")
+            #ws.merge_cells("B4:C4")
+            ws.merge_cells("D4:F4")
+
+            # ustawianie stylu obramowania dla komórek
+            border_style = Side(border_style='thin', color='000000')
+            border = Border(left=border_style, right=border_style, top=border_style, bottom=border_style)
+
+            # ustawienie obramowania dla komórki
+            for row in range(2, 5):
+                for column in range(1, 8):
+                    cell = ws.cell(row=row, column=column)
+                    cell.border = border
+
+            ws.row_dimensions[2].height = 92
+            ws.row_dimensions[3].height = 41.25
+            ws.row_dimensions[4].height = 30
+            ws.column_dimensions['A'].width = 13
+            ws.column_dimensions['G'].width = 17
+            ws.column_dimensions['H'].width = 0
+
+
+            # ustawianie czcionki i pozycji tekstu
+            alignmentCT = Alignment(wrap_text=True, horizontal='center', vertical='top')
+            alignmentCC = Alignment(wrap_text=True, horizontal='center', vertical='center')
+            alignmentLC = Alignment(wrap_text=True, horizontal='left', vertical='center')
+            alignmentLT = Alignment(wrap_text=True, horizontal='left', vertical='top')
+            fontA12 = Font(name='Arial', size=12)
+            fontA22 = Font(name='Arial', size=22)
+            fontA10 = Font(name='Arial', size=10)
+            fontA10B = Font(name='Arial', size=10, bold=True)
+
+            # wstawienie loga
+            img = Image('image/logov3.png')
+            img.height = 116
+            img.width = 140
+            ws.add_image(img, 'A2')
+
+            ws['C2'] = ('Metro-Lab Agnieszka Greń \n '
+                        'Warszawa 01-386 ul. Reżyserska 5 \n '
+                        'tel. (+48) 661 472 870 \n '
+                        'e-mail: poczta@metro-lab.pl \n'
+                        'www.metro-lab.pl')
+
+            ws['C2'].alignment = alignmentCC
+            ws['C2'].font = fontA12
+
+            ws['A3'] = "ŚWIADECTWO WZORCOWANIA"
+            ws['A3'].font = fontA22
+            ws['A3'].alignment = alignmentCC
+
+            ws['A4'] = "Data wydania:"
+            ws['A4'].font = fontA10
+            ws['A4'].alignment = alignmentLC
+
+            ws['C4'] = self.data_wzorcowania.text()
+            ws['C4'].font = fontA10
+            ws['C4'].alignment = alignmentLC
+
+            ws['D4'] = "Nr świadectwa: " + self.numer_swiadectwa.text()
+            ws['D4'].font = fontA10
+            ws['D4'].alignment = alignmentLC
+
+            ws['G4'] = "Strona 1/6"  # ogarnac str
+            ws['G4'].font = fontA10
+            ws['G4'].alignment = alignmentLC
+
+            if ws.title == "DCV":
+                ws['A7'] = "        1. Oględziny zewnętrzne:"
+                ws['A8'] = "           a. stan techniczny obudowy, gniazd i przełączników - Uwag brak."
+                ws['A9'] = "        2. Sprawdzenie wstępne "
+                ws['A10'] = "           a. działanie elementów służących do regulacji i przełączania - Uwag brak"
+                ws['A12'] = "        Wyznaczenie poprawek wskazań napięcia stałego DC."
+            if ws.title == "ACV":
+                ws['A12'] = "        Wyznaczenie poprawek wskazań napięcia przemiennego AC."
+                ws['A13'] = "        f = 60 Hz"
+            if ws.title == "ACI":
+                ws['A12'] = "        Wyznaczenie poprawek wskazań nateżenia prądu przemiennego AC."
+                ws['A13'] = "        f = 60 Hz"
+            if ws.title == "DCI":
+                ws['A12'] = "        Wyznaczenie poprawek wskazań nateżenia prądu stałego DC."
+            if ws.title == "R":
+                ws['A12'] = "        Wyznaczenie poprawek wskazań rezystancji."
+
 
         def swiadectwo_final(self):
 
@@ -1245,18 +1340,23 @@ if __name__ == "__main__":
 
             # START robienie operacji na głównym swiadectwie
 
-            # path = self.sciezkaSW_zapis.text() + ".xlsx"
-            # wb = openpyxl.load_workbook(path)
-            #
-            # worksheets = wb.sheetnames
-            #
-            # for sheet in worksheets:
-            #     ws = wb[sheet]
-            #     # ws.insert_rows(1, 10)
-            #     # ws.move_range("B5:F31", rows=5, cols=0, translate=True)
-            #
-            # # zapis pliku
-            # self.zapis_pliku(self.sciezkaSW_zapis.text(), wb)
+            path = self.sciezkaSW_zapis.text() + ".xlsx"
+            wb = openpyxl.load_workbook(path)
+
+            worksheets = wb.sheetnames
+
+            for i, sheet in enumerate(worksheets):
+                if sheet != "Swiadectwo":
+                    if sheet != "Sheet":
+                        ws = wb[sheet]
+                        self.naglowek(ws)
+                        ws['G4'] = f"Strona {i+1}/{len(worksheets)-1}"
+                elif sheet == "Swiadectwo":
+                    ws = wb[sheet]
+                    ws['E4'] = f"Strona {i + 1}/{len(worksheets) - 1}"
+
+            # zapis pliku
+            wb.save(path)
 
 
         # generowanie świadectwa
