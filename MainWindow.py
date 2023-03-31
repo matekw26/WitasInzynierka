@@ -108,6 +108,8 @@ if __name__ == "__main__":
             # Wczytywanie modeli z listy
             self.wybierz_model.currentTextChanged.connect(self.load_model)
 
+            self.tabWidget.currentChanged.connect(self.on_tab_changed)
+
             # Podswietlenie tabeli
 
             # self.wynikiDCV.selectionModel().selectionChanged.connect(self.highlight_current_cell)
@@ -428,8 +430,13 @@ if __name__ == "__main__":
             # Ustawienie poprakwi kolumn 2 i 3 w kolumnie 4
             table.itemChanged.connect(lambda item: self.update_tablewidget(item, table2=table))
 
-                        # self.update_tablewidget()
+            # self.update_tablewidget()
             table.setStyleSheet("QTableView::item { border: 0px solid black; }")
+
+        def on_tab_changed(self, index):
+            # Wywołanie metody po zmianie aktywnej zakładki
+            if index == 1:  # sprawdzanie czy zmieniona została zakładka 2
+                self.loadExcelData(self.sciezka_Model.text() + ".xlsx", self.wyniki_wzorcowania)
 
         def load_model(self):
 
@@ -584,12 +591,14 @@ if __name__ == "__main__":
             wb = openpyxl.load_workbook(path)
             ws = wb[sheet]
 
+            x = 10 #zmienic tez w innych przy mzianie tego
+
             for row in range(table.rowCount()):
                 for col in range(table.columnCount()):
                     item = table.item(row, col)
                     try:
                         if item is not None:
-                            ws.cell(row=row+2, column=col+1, value=item.text())
+                            ws.cell(row=row+2+x, column=col+1, value=item.text())
                     except AttributeError:
                         pass
 
@@ -608,6 +617,8 @@ if __name__ == "__main__":
             # Wczytywanie pliku excel
             wb = openpyxl.load_workbook(path)
             ws = wb[sheet]
+
+            x = 10  # zmienic tez w innych przy mzianie tego
 
             for row in range(table.rowCount()):
                 for col in range(table.columnCount()):
@@ -634,6 +645,8 @@ if __name__ == "__main__":
             # Wczytywanie pliku excel
             wb = openpyxl.load_workbook(path)
             ws = wb.active
+
+            x = 10  # zmienic tez w innych przy mzianie tego
 
             ile = 0
             temp = 0
