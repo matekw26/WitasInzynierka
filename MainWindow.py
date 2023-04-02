@@ -181,26 +181,38 @@ if __name__ == "__main__":
                     itemp = table.item(table.currentRow(), 1)
                     table.setCurrentCell(table.currentRow(), 2)
 
-                    if item.text() == '':
-                        table.selectRow(move + 2)
-                        item = table.item(table.currentRow(), 2)
-                        table.setCurrentCell(table.currentRow(), 2)
-                    # print(f"Teraz mamy wartosc: {item.text()}")
-                    if itemp.text() == 'uV':
-                        self.zakres = "uV"
-                        print(f"Ustawiam wartosc na: {itemp.text()}")
-                    elif itemp.text() == 'mV':
-                        self.zakres = "mV"
-                        print(f"Ustawiam wartosc na: {itemp.text()}")
-                    elif itemp.text() == 'V':
-                        self.zakres = "V"
-                        print(f"Ustawiam wartosc na: {itemp.text()}")
-                    elif itemp.text() == 'mA':
-                        self.zakres = "mA"
-                        print(f"Ustawiam wartosc na: {itemp.text()}")
-                    elif itemp.text() == 'A':
-                        self.zakres = "A"
-                        print(f"Ustawiam wartosc na: {itemp.text()}")
+                    for i in range(0, 5):
+                        if item.text() == '':
+                            table.selectRow(move + 2)
+                            item = table.item(table.currentRow(), 2)
+                            table.setCurrentCell(table.currentRow(), 2)
+                        # print(f"Teraz mamy wartosc: {item.text()}")
+                        if itemp.text() == 'uV':
+                            self.zakres = "uV"
+                            print(f"Ustawiam wartosc na: {itemp.text()}")
+                            break
+                        elif itemp.text() == 'mV':
+                            self.zakres = "mV"
+                            print(f"Ustawiam wartosc na: {itemp.text()}")
+                            break
+                        elif itemp.text() == 'V':
+                            self.zakres = "V"
+                            print(f"Ustawiam wartosc na: {itemp.text()}")
+                            break
+                        elif itemp.text() == 'uA':
+                            self.zakres = "uA"
+                            print(f"Ustawiam wartosc na: {itemp.text()}")
+                            break
+                        elif itemp.text() == 'mA':
+                            self.zakres = "mA"
+                            print(f"Ustawiam wartosc na: {itemp.text()}")
+                            break
+                        elif itemp.text() == 'A':
+                            self.zakres = "A"
+                            print(f"Ustawiam wartosc na: {itemp.text()}")
+                            break
+                        else:
+                            itemp = table.item(table.currentRow() - i, 1)
 
                     print(f"Teraz mamy wartosc: {item.text()} {self.zakres}")
 
@@ -725,15 +737,15 @@ if __name__ == "__main__":
             wb.close()
 
             if self.check_dcv.isChecked():
-                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCV, 0)
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCV, "DCV")
             if self.check_acv.isChecked():
-                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACV, 1)
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACV, "ACV")
             if self.check_dci.isChecked():
-                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCI, 2)
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCI, "DCI")
             if self.check_aci.isChecked():
-                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACI, 3)
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACI, "ACI")
             if self.check_r.isChecked():
-                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiR, 4)
+                self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiR, "R")
 
         def creat_excel(self, ws, checked, ile, zakres1, zakres2):
 
@@ -1000,6 +1012,8 @@ if __name__ == "__main__":
                         end = 1
                     elif ile == 4 and zakres2 / 10 >= 1:
                         end = 2
+                    elif ile == 3 and zakres2 / 10 >= 1:
+                        end = 0
                     elif ile <= 4 and zakres2 / 10 >= 1:
                         end = 3
                     elif ile == 3 and zakres2 < 1:
@@ -1040,7 +1054,7 @@ if __name__ == "__main__":
                                 end += 1
                                 ws.merge_cells(f"B{row}:B{row + 3}")
                             elif ((100 > row > 60 and row > (6 + x + y)) or 45 > row > (6 + x + y)) and \
-                                    row % 4 == 0 and end >= 3 > endy or \
+                                    (row - x) % 4 == 0 and end >= 3 > endy or \
                                     row > (6 + x + y) and (row > 101 and (row - 102) % 4 == 0) and end >= 3 > endy or \
                                     (60 > row > 45 and (row - (42 + x)) % 4 == 0) and end >= 3 > endy:
                                 endy += 1
