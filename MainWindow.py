@@ -107,6 +107,7 @@ if __name__ == "__main__":
 
             # Wczytywanie modeli z listy
             self.wybierz_model.currentTextChanged.connect(self.load_model)
+            # self.wybierz_model.currentIndexChanged.connect(self.load_model)
 
             # zmienianie zakladek
             self.tabWidget.currentChanged.connect(self.on_tab_changed)
@@ -473,14 +474,20 @@ if __name__ == "__main__":
         def load_model(self):
 
             try:
-                self.loadExcelData2(u"Modele/" + self.wybierz_model.currentText() + ".xlsx", self.wynikiDCV, 0)
-                self.loadExcelData2(u"Modele/" + self.wybierz_model.currentText() + ".xlsx", self.wynikiACV, 1)
-                self.loadExcelData2(u"Modele/" + self.wybierz_model.currentText() + ".xlsx", self.wynikiDCI, 2)
-                self.loadExcelData2(u"Modele/" + self.wybierz_model.currentText() + ".xlsx", self.wynikiACI, 3)
-                self.loadExcelData2(u"Modele/" + self.wybierz_model.currentText() + ".xlsx", self.wynikiR, 4)
                 path = (u"Modele/" + self.wybierz_model.currentText() + ".xlsx")
+                if self.worksheet_exists(path, "DCV"):
+                    self.loadExcelData2(path, self.wynikiDCV, "DCV")
+                if self.worksheet_exists(path, "ACV"):
+                    self.loadExcelData2(path, self.wynikiACV, "ACV")
+                if self.worksheet_exists(path, "DCI"):
+                    self.loadExcelData2(path, self.wynikiDCI, "DCI")
+                if self.worksheet_exists(path, "ACI"):
+                    self.loadExcelData2(path, self.wynikiACI, "ACI")
+                if self.worksheet_exists(path, "R"):
+                    self.loadExcelData2(path, self.wynikiR, "R")
                 filename_without_ext, ext = os.path.splitext(path)
                 self.sciezka_Model.setText(filename_without_ext)
+                # print(f"Sciezka: {filename_without_ext}")
             except FileNotFoundError as e:
                 msg = QMessageBox()
                 msg.setIcon(QMessageBox.Critical)
