@@ -853,7 +853,7 @@
          <widget class="QDateEdit" name="data_wzorcowania">
           <property name="dateTime">
            <datetime>
-            <hour>14</hour>
+            <hour>13</hour>
             <minute>0</minute>
             <second>0</second>
             <year>2023</year>

@@ -22,7 +22,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="Pomiary">
        <attribute name="title">
@@ -78,7 +78,7 @@
         <item row="5" column="0" colspan="32">
          <widget class="QTabWidget" name="Tabwybor">
           <property name="currentIndex">
-           <number>4</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="DCV">
            <attribute name="title">
@@ -853,7 +853,7 @@
          <widget class="QDateEdit" name="data_wzorcowania">
           <property name="dateTime">
            <datetime>
-            <hour>13</hour>
+            <hour>12</hour>
             <minute>0</minute>
             <second>0</second>
             <year>2023</year>

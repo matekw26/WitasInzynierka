@@ -108,7 +108,9 @@ if __name__ == "__main__":
             # Wczytywanie modeli z listy
             self.wybierz_model.currentTextChanged.connect(self.load_model)
 
+            # zmienianie zakladek
             self.tabWidget.currentChanged.connect(self.on_tab_changed)
+            self.Tabwybor.currentChanged.connect(self.on_tab_changed2)
 
             # Podswietlenie tabeli
 
@@ -181,7 +183,7 @@ if __name__ == "__main__":
                     itemp = table.item(table.currentRow(), 1)
                     table.setCurrentCell(table.currentRow(), 2)
 
-                    for i in range(0, 5):
+                    for i in range(0, 20):
                         if item.text() == '':
                             table.selectRow(move + 2)
                             item = table.item(table.currentRow(), 2)
@@ -449,6 +451,24 @@ if __name__ == "__main__":
             # Wywołanie metody po zmianie aktywnej zakładki
             if index == 1:  # sprawdzanie czy zmieniona została zakładka 2
                 self.loadExcelData(self.sciezka_Model.text() + ".xlsx", self.wyniki_wzorcowania)
+                path = self.sciezka_Model.text() + ".xlsx"
+                filename_without_ext, ext = os.path.splitext(path)
+                self.sciezkaWynik_zapis.setText(filename_without_ext)
+
+        def on_tab_changed2(self, index):
+            # Wywołanie metody po zmianie aktywnej zakładki
+            if index == 0:  # sprawdzanie czy zmieniona została zakładka 2
+                print("Jestes w zakladce DCV")
+                QMessageBox.information(self, "Uwaga", "Sprawdź podłączenie przewodów")
+            if index == 1:  # sprawdzanie czy zmieniona została zakładka 2
+                print("Jestes w zakladce ACV")
+                QMessageBox.information(self, "Uwaga", "Sprawdź podłączenie przewodów")
+            if index == 2:  # sprawdzanie czy zmieniona została zakładka 2
+                print("Jestes w zakladce DCI")
+                QMessageBox.information(self, "Uwaga", "Sprawdź podłączenie przewodów")
+            if index == 3:  # sprawdzanie czy zmieniona została zakładka 2
+                print("Jestes w zakladce ACI")
+                QMessageBox.information(self, "Uwaga", "Sprawdź podłączenie przewodów")
 
         def load_model(self):
 
