@@ -664,7 +664,7 @@ if __name__ == "__main__":
                     item = table.item(row, col)
                     try:
                         if item is not None:
-                            ws.cell(row=row+2, column=col+1, value=item.text())
+                            ws.cell(row=row+2+x, column=col+1, value=item.text())
                     except AttributeError:
                         pass
 
@@ -695,28 +695,28 @@ if __name__ == "__main__":
                 for col in range(table.columnCount()):
                     item = table.item(row, col)
                     if ile == 2 and access < 1:
-                        ws.cell(row=row + 2 - temp, column=col, value="") #zeby nie bylo slowa zakres
+                        ws.cell(row=row + 2 + x - temp, column=col, value="") #zeby nie bylo slowa zakres
                         ws = wb[str(wb.sheetnames[1])]
                         temp = row - 3
                         access += 1
                     elif ile == 3 and access < 2:
-                        ws.cell(row=row + 2 - temp, column=col, value="")
+                        ws.cell(row=row + 2 + x - temp, column=col, value="")
                         ws = wb[str(wb.sheetnames[2])]
                         temp = row - 3
                         access += 1
                     elif ile == 4 and access < 3:
-                        ws.cell(row=row + 2 - temp, column=col, value="")
+                        ws.cell(row=row + 2 + x- temp, column=col, value="")
                         ws = wb[str(wb.sheetnames[3])]
                         temp = row - 3
                         access += 1
                     elif ile == 5 and access < 4:
-                        ws.cell(row=row + 2 - temp, column=col, value="")
+                        ws.cell(row=row + 2 + x- temp, column=col, value="")
                         ws = wb[str(wb.sheetnames[4])]
                         temp = row - 3
                         access += 1
                     try:
                         if item is not None:
-                            ws.cell(row=row+2 - temp, column=col+1, value=item.text())
+                            ws.cell(row=row+2 + x - temp, column=col+1, value=item.text())
                             if col == 1 and item.text() == "Zakres":
                                 ile += 1
 

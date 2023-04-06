@@ -19,6 +19,12 @@ if __name__ == "__main__":
 
     fluke5100b = rm.open_resource(fluke5100b_address)
 
+    # jakby trzeba było zmienić bound_rate
+    # fluke5100b.baud_rate = 57600
+
+    # What are you
+    print(fluke5100b.query('*IDN?'))
+
     # Wysyłamy polecenie do kalibratora
     fluke5100b.write('CALibration:AUTO 1')
 
