@@ -204,7 +204,7 @@ if __name__ == "__main__":
                     itemp = table.item(table.currentRow(), 1)
                     table.setCurrentCell(table.currentRow(), 2)
 
-                    for i in range(0, 20):
+                    for i in range(0, 25):
                         if item.text() == '':
                             table.selectRow(move + 2)
                             item = table.item(table.currentRow(), 2)
@@ -243,7 +243,7 @@ if __name__ == "__main__":
                             break
                         elif itemp.text() == 'A':
                             self.zakres = "A"
-                            if self.displayed_warningmA == False:
+                            if self.displayed_warningmA is False:
                                 reply = QMessageBox.question(self, 'Zmień przewody',
                                                              'Przekroczyłeś wartość 400mA. Czy zmieniłeś przewody?',
                                                              QMessageBox.Yes | QMessageBox.No)
@@ -252,24 +252,41 @@ if __name__ == "__main__":
                                 else:
                                     self.displayed_warningmA = False
                                     table.setCurrentCell(table.currentRow() - 1, 2)
+                                    item = table.item(table.currentRow(), 2)
+                                    if item.text() == '':
+                                        table.setCurrentCell(table.currentRow() - 1, 2)
+                                        itemp = table.item(table.currentRow() - i, 1)
+                                        for i in range(0, 25):
+                                            if itemp.text() != 'mA':
+                                                itemp = table.item(table.currentRow() - i, 1)
+                                            elif itemp.text() == 'mA':
+                                                self.zakres = "mA"
+                                                break
                             else:
                                 print(f"Ustawiam wartosc na: {itemp.text()}")
-                            if int(item.text()) > 2:
-                                if self.displayed_warning == False:
-                                    reply = QMessageBox.question(self, 'Zmień przewody',
-                                                                 'Przekroczyłeś wartość 2. Czy zmieniłeś przewody?',
-                                                                 QMessageBox.Yes | QMessageBox.No)
-                                    if reply == QMessageBox.Yes:
-                                        self.displayed_warning = True
+                            try:
+                                if float(item.text()) > 2:
+                                    if self.displayed_warning is False:
+                                        reply = QMessageBox.question(self, 'Zmień przewody',
+                                                                     'Przekroczyłeś wartość 2. Czy zmieniłeś przewody?',
+                                                                     QMessageBox.Yes | QMessageBox.No)
+                                        if reply == QMessageBox.Yes:
+                                            self.displayed_warning = True
+                                        else:
+                                            self.displayed_warning = False
+                                            table.setCurrentCell(table.currentRow()-1, 2)
+                                            item = table.item(table.currentRow(), 2)
+                                            if item.text() == '':
+                                                table.setCurrentCell(table.currentRow() - 1, 2)
                                     else:
-                                        self.displayed_warning = False
-                                        table.setCurrentCell(table.currentRow()-1, 2)
-                                else:
-                                    print(f"Ustawiam wartosc na: {itemp.text()}")
+                                        print(f"Ustawiam wartosc na: {itemp.text()}")
+                            except ValueError:
+                                pass
                             break
                         else:
                             itemp = table.item(table.currentRow() - i, 1)
 
+                   # if self.displayed_warning is True and self.displayed_warningmA is True:
                     item = table.item(table.currentRow(), 2)
                     print(f"Teraz mamy wartosc: {item.text()} {self.zakres}")
 
@@ -595,17 +612,21 @@ if __name__ == "__main__":
                 pass
             except AttributeError:
                 pass
+            try:
+                if col == 1:
+                    value_1 = float(float(table2.item(row, col).text()) * 0.1)
+                    value_2 = float(float(table2.item(row, col).text()) * 0.5)
+                    value_3 = float(float(table2.item(row, col).text()) * 0.9)
+                    value_4 = float(float(table2.item(row, col).text()) * (-0.9))
 
-            if col == 1:
-                value_1 = float(float(table2.item(row, col).text()) * 0.1)
-                value_2 = float(float(table2.item(row, col).text()) * 0.5)
-                value_3 = float(float(table2.item(row, col).text()) * 0.9)
-                value_4 = float(float(table2.item(row, col).text()) * (-0.9))
-
-                table2.item(row, 2).setText(str(value_1))
-                table2.item(row+1, 2).setText(str(value_2))
-                table2.item(row+2, 2).setText(str(value_3))
-                table2.item(row+3, 2).setText(str(value_4))
+                    table2.item(row, 2).setText(str(value_1))
+                    table2.item(row+1, 2).setText(str(value_2))
+                    table2.item(row+2, 2).setText(str(value_3))
+                    table2.item(row+3, 2).setText(str(value_4))
+            except ValueError:
+                pass
+            except AttributeError:
+                pass
 
 
         def save_to_excel(self):
