@@ -1,7 +1,8 @@
 import sys
 from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtUiTools import QUiLoader
-from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QFileDialog, QMessageBox, QTableWidgetItem
+from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QFileDialog, QMessageBox, QTableWidgetItem, \
+    QPushButton
 from PySide6.QtCore import QDate, Qt
 from PySide6.QtGui import QCloseEvent, QPen, QColor, QStandardItem, QStandardItemModel
 from MainWindowui import Ui_MainWindow
@@ -143,6 +144,8 @@ if __name__ == "__main__":
             # Pomiary
 
             self.initialize = False
+            self.displayed_warning = False
+            self.displayed_warningmA = False
             self.PomiarDCV.clicked.connect(self.pomiary)
             self.PomiarDCI.clicked.connect(self.pomiary)
             self.PomiarACV.clicked.connect(self.pomiary)
@@ -225,15 +228,49 @@ if __name__ == "__main__":
                             break
                         elif itemp.text() == 'mA':
                             self.zakres = "mA"
-                            print(f"Ustawiam wartosc na: {itemp.text()}")
+                            if float(item.text()) > 400:
+                                if self.displayed_warningmA == False:
+                                    reply = QMessageBox.question(self, 'Zmień przewody',
+                                                                 'Przekroczyłeś wartość 400mA. Czy zmieniłeś przewody?',
+                                                                 QMessageBox.Yes | QMessageBox.No)
+                                    if reply == QMessageBox.Yes:
+                                        self.displayed_warningmA = True
+                                    else:
+                                        self.displayed_warningmA = False
+                                        table.setCurrentCell(table.currentRow() - 1, 2)
+                                else:
+                                    print(f"Ustawiam wartosc na: {itemp.text()}")
                             break
                         elif itemp.text() == 'A':
                             self.zakres = "A"
-                            print(f"Ustawiam wartosc na: {itemp.text()}")
+                            if self.displayed_warningmA == False:
+                                reply = QMessageBox.question(self, 'Zmień przewody',
+                                                             'Przekroczyłeś wartość 400mA. Czy zmieniłeś przewody?',
+                                                             QMessageBox.Yes | QMessageBox.No)
+                                if reply == QMessageBox.Yes:
+                                    self.displayed_warningmA = True
+                                else:
+                                    self.displayed_warningmA = False
+                                    table.setCurrentCell(table.currentRow() - 1, 2)
+                            else:
+                                print(f"Ustawiam wartosc na: {itemp.text()}")
+                            if int(item.text()) > 2:
+                                if self.displayed_warning == False:
+                                    reply = QMessageBox.question(self, 'Zmień przewody',
+                                                                 'Przekroczyłeś wartość 2. Czy zmieniłeś przewody?',
+                                                                 QMessageBox.Yes | QMessageBox.No)
+                                    if reply == QMessageBox.Yes:
+                                        self.displayed_warning = True
+                                    else:
+                                        self.displayed_warning = False
+                                        table.setCurrentCell(table.currentRow()-1, 2)
+                                else:
+                                    print(f"Ustawiam wartosc na: {itemp.text()}")
                             break
                         else:
                             itemp = table.item(table.currentRow() - i, 1)
 
+                    item = table.item(table.currentRow(), 2)
                     print(f"Teraz mamy wartosc: {item.text()} {self.zakres}")
 
                 except AttributeError:
@@ -242,6 +279,8 @@ if __name__ == "__main__":
         def pomiary(self):
 
             self.initialize = True
+            self.displayed_warning = False
+            self.displayed_warningmA = False
             self.count = 0
 
             sender = self.sender()
@@ -556,6 +595,17 @@ if __name__ == "__main__":
                 pass
             except AttributeError:
                 pass
+
+            if col == 1:
+                value_1 = float(float(table2.item(row, col).text()) * 0.1)
+                value_2 = float(float(table2.item(row, col).text()) * 0.5)
+                value_3 = float(float(table2.item(row, col).text()) * 0.9)
+                value_4 = float(float(table2.item(row, col).text()) * (-0.9))
+
+                table2.item(row, 2).setText(str(value_1))
+                table2.item(row+1, 2).setText(str(value_2))
+                table2.item(row+2, 2).setText(str(value_3))
+                table2.item(row+3, 2).setText(str(value_4))
 
 
         def save_to_excel(self):
