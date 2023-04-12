@@ -123,6 +123,23 @@ if __name__ == "__main__":
             self.NextACI.clicked.connect(self.highlight_current_cell_click)
             # self.NextR.clicked.connect(self.highlight_current_cell_click)
 
+            # Hovery
+            self.zakresDCV.setToolTip('Pierwszy zakres')
+            self.zakresDCV_2.setToolTip('Drugi zakres')
+            self.zakresACV.setToolTip('Pierwszy zakres')
+            self.zakresACV_2.setToolTip('Drugi zakres')
+            self.zakresDCI.setToolTip('Pierwszy zakres')
+            self.zakresDCI_2.setToolTip('Drugi zakres')
+            self.zakresACI.setToolTip('Pierwszy zakres')
+            self.zakresACI_2.setToolTip('Drugi zakres')
+
+            self.ilDCV.setToolTip('Ilosc zakresow')
+            self.ilACV.setToolTip('Ilosc zakresow')
+            self.ilDCI.setToolTip('Ilosc zakresow')
+            self.ilACI.setToolTip('Ilosc zakresow')
+            self.ilR.setToolTip('Ilosc zakresow')
+
+
             # Pomiary
 
             self.initialize = False
@@ -622,6 +639,8 @@ if __name__ == "__main__":
                     self.update_excel3(path, "ACI", self.wynikiACI)
                 elif sender.objectName() == "ZapiszR":
                     self.update_excel3(path, "R", self.wynikiR)
+                elif sender.objectName() == "Zapisz_wynik":
+                    self.update_excel2(path, self.wyniki_wzorcowania)
 
 
         def update_excel(self, path, sheet, table):
@@ -724,6 +743,7 @@ if __name__ == "__main__":
                         pass
 
             try:
+                path = self.sciezkaWynik_zapis.text() + ".xlsx"
                 wb.save(path)
             except PermissionError as e:
                 msg = QMessageBox()
