@@ -42,6 +42,8 @@ import Calibrator
 # install package xlwings !
 # 9 pip install aspose-cellsO JEDNAK NIE
 
+# TEST
+
 if __name__ == "__main__":
     class MainWindow(QMainWindow, Ui_MainWindow):
         def __init__(self):
