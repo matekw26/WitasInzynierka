@@ -256,9 +256,9 @@ if __name__ == "__main__":
                                     if item.text() == '':
                                         table.setCurrentCell(table.currentRow() - 1, 2)
                                         itemp = table.item(table.currentRow() - i, 1)
-                                        for i in range(0, 25):
+                                        for j in range(0, 25):
                                             if itemp.text() != 'mA':
-                                                itemp = table.item(table.currentRow() - i, 1)
+                                                itemp = table.item(table.currentRow() - j, 1)
                                             elif itemp.text() == 'mA':
                                                 self.zakres = "mA"
                                                 break
@@ -403,15 +403,16 @@ if __name__ == "__main__":
                     path = file_name
                     filename_without_ext, ext = os.path.splitext(path)
                     if self.check_dcv.isChecked():
-                        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCV, 0)
+                        self.loadExcelData2(path, self.wynikiDCV, "DCV")
                     if self.check_acv.isChecked():
-                        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACV, 1)
+                        self.loadExcelData2(path, self.wynikiACV, "ACV")
                     if self.check_dci.isChecked():
-                        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiDCI, 2)
+                        self.loadExcelData2(path, self.wynikiDCI, "DCI")
                     if self.check_aci.isChecked():
-                        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiACI, 3)
+                        self.loadExcelData2(path, self.wynikiACI, "ACI")
                     if self.check_r.isChecked():
-                        self.loadExcelData2(self.sciezka_Model.text() + ".xlsx", self.wynikiR, 4)
+                        self.loadExcelData2(path, self.wynikiR, "R")
+                    self.sciezka_Model.setText(filename_without_ext)
                     print(file_name)
                 elif sender.objectName() == "SzukajWynikow" or "odczyt_wynikow":
                     path = file_name
