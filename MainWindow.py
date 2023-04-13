@@ -26,17 +26,20 @@ import xlwings as xw
 from xlwings.constants import InsertShiftDirection
 from win32com.client import Dispatch
 
+import Calibrator
 
 
 
-# 1 instalacja PySide6 ... pip install PySide6
+
+# 1 instalacja PySide6 ... pip install PySide6 !
 # 2 instalacja docx do Worda pip install python-docx... nie przyda sie chyba
 # 3 aktualizacja gui pyside6-uic mainwindow.ui -o MainWindowui.py
-# 4 instalacja Excela pip install openpyxl
-# 5 Import obrazu do excela pip install Pillow
-# 6 generowanie excela pip install xlsxwriter
+# 4 instalacja Excela pip install openpyxl !
+# 5 Import obrazu do excela pip install Pillow !
+# 6 generowanie excela pip install xlsxwriter !
+# pip install pandas !
 # 7 pip install pywin32 and install packages Dispatch
-# install package xlwings
+# install package xlwings !
 # 9 pip install aspose-cellsO JEDNAK NIE
 
 if __name__ == "__main__":
@@ -366,11 +369,23 @@ if __name__ == "__main__":
             print(s)
 
         def nastawa(self):
+            Calibrator.fluke5100b.write('CC')
             print(f'Ustawiona wartosc kalibratora to: ', self.wartosc_kalibrator.value(),
                   self.ustawienie_kalibrator.currentText(), self.AC_DC.currentText())
             self.odczyt_kalibrator.setText(str(self.wartosc_kalibrator.value()) + " " +
                                            str(self.ustawienie_kalibrator.currentText()) + " " +
                                            str(self.AC_DC.currentText()))
+
+            if self.ustawienie_kalibrator.currentText() == "mV":
+                if self.AC_DC.currentText() == "DC":
+                    mV = 'E-3'
+                    Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}{mV}V,')
+                elif self.AC_DC.currentText() == "AC":
+                    mV = 'E-3'
+                    Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}{mV}V1E3H,')
+
+
+           # Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}V,')
 
         def odczytaj(self):
             print("Ustawiona wartosc kalibratora:", self.wartosc_kalibrator.value())
@@ -379,6 +394,7 @@ if __name__ == "__main__":
                                            str(self.AC_DC.currentText()))
 
         def wyczysc(self):
+            Calibrator.fluke5100b.write('CC')
             self.wartosc_kalibrator.setValue(0)
 
         # funkcja do otwierania folderu
@@ -412,7 +428,7 @@ if __name__ == "__main__":
                         self.loadExcelData2(path, self.wynikiACI, "ACI")
                     if self.check_r.isChecked():
                         self.loadExcelData2(path, self.wynikiR, "R")
-                    self.sciezka_Model.setText(filename_without_ext)
+                        self.sciezka_Model.setText(filename_without_ext)
                     print(file_name)
                 elif sender.objectName() == "SzukajWynikow" or "odczyt_wynikow":
                     path = file_name
@@ -587,6 +603,7 @@ if __name__ == "__main__":
                 self.wynikiR.clear()
 
         def reset(self):
+
 
             self.wynikiDCV.clear()
             self.wynikiACV.clear()
@@ -801,13 +818,13 @@ if __name__ == "__main__":
                         temp = row - 3
                         access += 1
                     elif ile == 5 and access < 4:
-                        ws.cell(row=row + 2 + x- temp, column=col, value="")
+                        ws.cell(row=row + 2 - temp, column=col, value="")
                         ws = wb[str(wb.sheetnames[4])]
                         temp = row - 3
                         access += 1
                     try:
                         if item is not None:
-                            ws.cell(row=row+2 + x - temp, column=col+1, value=item.text())
+                            ws.cell(row=row+2 - temp, column=col+1, value=item.text())
                             if col == 1 and item.text() == "Zakres":
                                 ile += 1
 
