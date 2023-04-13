@@ -386,6 +386,8 @@ class Ui_MainWindow(object):
         self.ustawienie_kalibrator.addItem("")
         self.ustawienie_kalibrator.addItem("")
         self.ustawienie_kalibrator.addItem("")
+        self.ustawienie_kalibrator.addItem("")
+        self.ustawienie_kalibrator.addItem("")
         self.ustawienie_kalibrator.setObjectName(u"ustawienie_kalibrator")
 
         self.gridLayout.addWidget(self.ustawienie_kalibrator, 6, 2, 1, 2)
@@ -526,7 +528,7 @@ class Ui_MainWindow(object):
 
         self.data_wzorcowania = QDateEdit(self.Swiadectwo)
         self.data_wzorcowania.setObjectName(u"data_wzorcowania")
-        self.data_wzorcowania.setDateTime(QDateTime(QDate(2023, 2, 9), QTime(14, 0, 0)))
+        self.data_wzorcowania.setDateTime(QDateTime(QDate(2023, 2, 9), QTime(12, 0, 0)))
         self.data_wzorcowania.setCalendarPopup(True)
 
         self.gridLayout_7.addWidget(self.data_wzorcowania, 2, 0, 2, 1)
@@ -713,7 +715,7 @@ class Ui_MainWindow(object):
         self.Wyczysc.clicked.connect(self.wartosc_kalibrator.clear)
 
         self.tabWidget.setCurrentIndex(0)
-        self.Tabwybor.setCurrentIndex(0)
+        self.Tabwybor.setCurrentIndex(4)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -770,10 +772,12 @@ class Ui_MainWindow(object):
         self.check_dcv.setText(QCoreApplication.translate("MainWindow", u"DCV", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Wybierz model:", None))
         self.label.setText("")
-        self.ustawienie_kalibrator.setItemText(0, QCoreApplication.translate("MainWindow", u"mV", None))
-        self.ustawienie_kalibrator.setItemText(1, QCoreApplication.translate("MainWindow", u"V", None))
-        self.ustawienie_kalibrator.setItemText(2, QCoreApplication.translate("MainWindow", u"mA", None))
-        self.ustawienie_kalibrator.setItemText(3, QCoreApplication.translate("MainWindow", u"A", None))
+        self.ustawienie_kalibrator.setItemText(0, QCoreApplication.translate("MainWindow", u"uV", None))
+        self.ustawienie_kalibrator.setItemText(1, QCoreApplication.translate("MainWindow", u"mV", None))
+        self.ustawienie_kalibrator.setItemText(2, QCoreApplication.translate("MainWindow", u"V", None))
+        self.ustawienie_kalibrator.setItemText(3, QCoreApplication.translate("MainWindow", u"uA", None))
+        self.ustawienie_kalibrator.setItemText(4, QCoreApplication.translate("MainWindow", u"mA", None))
+        self.ustawienie_kalibrator.setItemText(5, QCoreApplication.translate("MainWindow", u"A", None))
 
         self.label_54.setText(QCoreApplication.translate("MainWindow", u"A", None))
         self.label_53.setText(QCoreApplication.translate("MainWindow", u"V", None))

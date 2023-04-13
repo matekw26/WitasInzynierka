@@ -3,18 +3,20 @@
 import pyvisa
 import visa
 
-# obiekt VISA ResourceManager, który będzie zarządzał dostępem do urządzeń VISA.
-rm = pyvisa.ResourceManager()
-
-# Znajdź adres GPIB kalibratora i przypisz go do zmiennej.
-fluke5100b_address = 'GPIB0::7::INSTR' # adres GPIB kalibratora
-
-# Następnie otwórz połączenie z kalibratorem za pomocą metody "open_resource" obiektu ResourceManager,
-# podając jako argument adres GPIB kalibratora.
 try:
+    # obiekt VISA ResourceManager, który będzie zarządzał dostępem do urządzeń VISA.
+    rm = pyvisa.ResourceManager()
+
+    # Znajdź adres GPIB kalibratora i przypisz go do zmiennej.
+    fluke5100b_address = 'GPIB0::7::INSTR' # adres GPIB kalibratora
+
+    # Następnie otwórz połączenie z kalibratorem za pomocą metody "open_resource" obiektu ResourceManager,
+    # podając jako argument adres GPIB kalibratora.
     fluke5100b = rm.open_resource(fluke5100b_address)
 except:
+    print("Błąd komunikacji")
     pass
+
 if __name__ == "__main__":
 
     # "list_resources" obiektu ResourceManager, aby wyświetlić dostępne urządzenia VISA na Twoim komputerze.
