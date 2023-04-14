@@ -23,11 +23,19 @@ if __name__ == "__main__":
     devices = rm.list_resources()
     print(devices)
 
-
+    fluke5100b.write('CC')
     fluke5100b.write('J')
-    fluke5100b.write('5V1E3H,')
+    fluke5100b.write('1V60H,')
     fluke5100b.write('S')
     # fluke5100b.write('CC')
+
+    # fluke5100b.write('G')
+    #fluke5100b.write("1V,")
+    # response = fluke5100b.query('V?')
+    response = fluke5100b.query('?')
+    print(response)
+    response2 = fluke5100b.query('!?')
+    print(response2)
 
     #
     # # jakby trzeba było zmienić bound_rate

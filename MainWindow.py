@@ -295,51 +295,144 @@ if __name__ == "__main__":
                     print(f"Teraz mamy wartosc: {item.text()} {self.zakres}")
 
                     # Calibrator.fluke5100b.write(f'{item.text()}')
-                    if self.zakres == "uV":
-                        if self.AC_DC.currentText() == "DC":
-                            Calibrator.fluke5100b.write(f'{item.text()}E-6V,')
-                            # Calibrator.fluke5100b.write('N') operate
-                        elif self.AC_DC.currentText() == "AC":
-                            Calibrator.fluke5100b.write(f'{item.text()}E-6V60H,')
-                            # Calibrator.fluke5100b.write('N') operate
-                    elif self.zakres == "mV":
-                        if self.AC_DC.currentText() == "DC":
-                            Calibrator.fluke5100b.write(f'{item.text()}E-3V,')
-                            # Calibrator.fluke5100b.write('N') operate
-                        elif self.AC_DC.currentText() == "AC":
-                            Calibrator.fluke5100b.write(f'{item.text()}E-3V60H,')
-                            # Calibrator.fluke5100b.write('N') operate
-                    elif self.zakres == "V":
-                        if self.AC_DC.currentText() == "DC":
-                            Calibrator.fluke5100b.write(f'{item.text()}V,')
-                            # Calibrator.fluke5100b.write('N') operate
-                        elif self.AC_DC.currentText() == "AC":
-                            Calibrator.fluke5100b.write(f'{item.text()}V60H,')
-                            # Calibrator.fluke5100b.write('N') operate
-                    elif self.zakres == "uA":
-                        if self.AC_DC.currentText() == "DC":
-                            Calibrator.fluke5100b.write(f'{item.text()}E-6A,')
-                            # Calibrator.fluke5100b.write('N') operate
-                        elif self.AC_DC.currentText() == "AC":
-                            Calibrator.fluke5100b.write(f'{item.text()}E-6A60H,')
-                            # Calibrator.fluke5100b.write('N') operate
-                    elif self.zakres == "mA":
-                        if self.AC_DC.currentText() == "DC":
-                            Calibrator.fluke5100b.write(f'{item.text()}E-3A,')
-                            # Calibrator.fluke5100b.write('N') operate
-                        elif self.AC_DC.currentText() == "AC":
-                            Calibrator.fluke5100b.write(f'{item.text()}E-3A60H,')
-                            # Calibrator.fluke5100b.write('N') operate
-                    elif self.zakres == "A":
-                        if self.AC_DC.currentText() == "DC":
-                            Calibrator.fluke5100b.write(f'{item.text()}A,')
-                            # Calibrator.fluke5100b.write('N') operate
-                        elif self.AC_DC.currentText() == "AC":
-                            Calibrator.fluke5100b.write(f'{item.text()}V60H,')
-                            # Calibrator.fluke5100b.write('N') operate
+
+                    self.calibrator_nastawa(item, self.zakres, None)
+
+                    # if self.zakres == "uV":
+                    #     if self.AC_DC.currentText() == "DC":
+                    #         Calibrator.fluke5100b.write(f'{item.text()}E-6V,')
+                    #         # Calibrator.fluke5100b.write('N') operate
+                    #     elif self.AC_DC.currentText() == "AC":
+                    #         Calibrator.fluke5100b.write(f'{item.text()}E-6V60H,')
+                    #         # Calibrator.fluke5100b.write('N') operate
+                    # elif self.zakres == "mV":
+                    #     if self.AC_DC.currentText() == "DC":
+                    #         Calibrator.fluke5100b.write(f'{item.text()}E-3V,')
+                    #         # Calibrator.fluke5100b.write('N') operate
+                    #     elif self.AC_DC.currentText() == "AC":
+                    #         Calibrator.fluke5100b.write(f'{item.text()}E-3V60H,')
+                    #         # Calibrator.fluke5100b.write('N') operate
+                    # elif self.zakres == "V":
+                    #     if self.AC_DC.currentText() == "DC":
+                    #         Calibrator.fluke5100b.write(f'{item.text()}V,')
+                    #         # Calibrator.fluke5100b.write('N') operate
+                    #     elif self.AC_DC.currentText() == "AC":
+                    #         Calibrator.fluke5100b.write(f'{item.text()}V60H,')
+                    #         # Calibrator.fluke5100b.write('N') operate
+                    # elif self.zakres == "uA":
+                    #     if self.AC_DC.currentText() == "DC":
+                    #         Calibrator.fluke5100b.write(f'{item.text()}E-6A,')
+                    #         # Calibrator.fluke5100b.write('N') operate
+                    #     elif self.AC_DC.currentText() == "AC":
+                    #         Calibrator.fluke5100b.write(f'{item.text()}E-6A60H,')
+                    #         # Calibrator.fluke5100b.write('N') operate
+                    # elif self.zakres == "mA":
+                    #     if self.AC_DC.currentText() == "DC":
+                    #         Calibrator.fluke5100b.write(f'{item.text()}E-3A,')
+                    #         # Calibrator.fluke5100b.write('N') operate
+                    #     elif self.AC_DC.currentText() == "AC":
+                    #         Calibrator.fluke5100b.write(f'{item.text()}E-3A60H,')
+                    #         # Calibrator.fluke5100b.write('N') operate
+                    # elif self.zakres == "A":
+                    #     if self.AC_DC.currentText() == "DC":
+                    #         Calibrator.fluke5100b.write(f'{item.text()}A,')
+                    #         # Calibrator.fluke5100b.write('N') operate
+                    #     elif self.AC_DC.currentText() == "AC":
+                    #         Calibrator.fluke5100b.write(f'{item.text()}V60H,')
+                    #         # Calibrator.fluke5100b.write('N') operate
 
                 except AttributeError:
                     pass
+
+        def calibrator_nastawa(self, item, zakres, sender):
+
+            if zakres == "uV":
+                if self.AC_DC.currentText() == "DC" or sender == "PomiarDCV":
+                    Calibrator.fluke5100b.write(f'{item.text()}E-6V,')
+                    Calibrator.fluke5100b.write('N')
+                elif self.AC_DC.currentText() == "AC"  or sender == "PomiarACV":
+                    Calibrator.fluke5100b.write(f'{item.text()}E-6V60H,')
+                    Calibrator.fluke5100b.write('N')
+            elif zakres == "mV":
+                if self.AC_DC.currentText() == "DC" or sender == "PomiarDCV":
+                    Calibrator.fluke5100b.write(f'{item.text()}E-3V,')
+                    Calibrator.fluke5100b.write('N')
+                elif self.AC_DC.currentText() == "AC"  or sender == "PomiarACV":
+                    Calibrator.fluke5100b.write(f'{item.text()}E-3V60H,')
+                    Calibrator.fluke5100b.write('N')
+            elif zakres == "V":
+                if self.AC_DC.currentText() == "DC" or sender == "PomiarDCV":
+                    Calibrator.fluke5100b.write(f'{item.text()}V,')
+                    Calibrator.fluke5100b.write('N')
+                elif self.AC_DC.currentText() == "AC" or sender == "PomiarACV":
+                    Calibrator.fluke5100b.write(f'{item.text()}V60H,')
+                    Calibrator.fluke5100b.write('N')
+            elif zakres == "uA":
+                if self.AC_DC.currentText() == "DC" or sender == "PomiarDCI":
+                    Calibrator.fluke5100b.write(f'{item.text()}E-6A,')
+                    Calibrator.fluke5100b.write('N')
+                elif self.AC_DC.currentText() == "AC" or sender == "PomiarACI":
+                    Calibrator.fluke5100b.write(f'{item.text()}E-6A60H,')
+                    Calibrator.fluke5100b.write('N')
+            elif zakres == "mA":
+                if self.AC_DC.currentText() == "DC" or sender == "PomiarDCI":
+                    Calibrator.fluke5100b.write(f'{item.text()}E-3A,')
+                    Calibrator.fluke5100b.write('N')
+                elif self.AC_DC.currentText() == "AC" or sender == "PomiarACI":
+                    Calibrator.fluke5100b.write(f'{item.text()}E-3A60H,')
+                    Calibrator.fluke5100b.write('N')
+            elif zakres == "A":
+                if self.AC_DC.currentText() == "DC" or sender == "PomiarDCI":
+                    Calibrator.fluke5100b.write(f'{item.text()}A,')
+                    Calibrator.fluke5100b.write('N')
+                elif self.AC_DC.currentText() == "AC" or sender == "PomiarACI":
+                    Calibrator.fluke5100b.write(f'{item.text()}V60H,')
+                    Calibrator.fluke5100b.write('N')
+
+        def calibrator_nastawa_value(self, item, zakres, sender):
+
+            if zakres == "uV":
+                if self.AC_DC.currentText() == "DC" or sender == "PomiarDCV":
+                    Calibrator.fluke5100b.write(f'{item.value()}E-6V,')
+                    Calibrator.fluke5100b.write('N')
+                elif self.AC_DC.currentText() == "AC" or sender == "PomiarACV":
+                    Calibrator.fluke5100b.write(f'{item.value()}E-6V60H,')
+                    Calibrator.fluke5100b.write('N')
+            elif zakres == "mV":
+                if self.AC_DC.currentText() == "DC" or sender == "PomiarDCV":
+                    Calibrator.fluke5100b.write(f'{item.value()}E-3V,')
+                    Calibrator.fluke5100b.write('N')
+                elif self.AC_DC.currentText() == "AC" or sender == "PomiarACV":
+                    Calibrator.fluke5100b.write(f'{item.value()}E-3V60H,')
+                    Calibrator.fluke5100b.write('N')
+            elif zakres == "V":
+                if self.AC_DC.currentText() == "DC" or sender == "PomiarDCV":
+                    Calibrator.fluke5100b.write(f'{item.value()}V,')
+                    Calibrator.fluke5100b.write('N')
+                elif self.AC_DC.currentText() == "AC" or sender == "PomiarACV":
+                    Calibrator.fluke5100b.write(f'{item.value()}V60H,')
+                    Calibrator.fluke5100b.write('N')
+            elif zakres == "uA":
+                if self.AC_DC.currentText() == "DC" or sender == "PomiarDCI":
+                    Calibrator.fluke5100b.write(f'{item.value()}E-6A,')
+                    Calibrator.fluke5100b.write('S')
+                elif self.AC_DC.currentText() == "AC" or sender == "PomiarACI":
+                    Calibrator.fluke5100b.write(f'{item.value()}E-6A60H,')
+                    Calibrator.fluke5100b.write('S')
+            elif zakres == "mA":
+                if self.AC_DC.currentText() == "DC" or sender == "PomiarDCI":
+                    Calibrator.fluke5100b.write(f'{item.value()}E-3A,')
+                    Calibrator.fluke5100b.write('S')
+                elif self.AC_DC.currentText() == "AC" or sender == "PomiarACI":
+                    Calibrator.fluke5100b.write(f'{item.value()}E-3A60H,')
+                    Calibrator.fluke5100b.write('S')
+            elif zakres == "A":
+                if self.AC_DC.currentText() == "DC" or sender == "PomiarDCI":
+                    Calibrator.fluke5100b.write(f'{item.value()}A,')
+                    Calibrator.fluke5100b.write('S')
+                elif self.AC_DC.currentText() == "AC" or sender == "PomiarACI":
+                    Calibrator.fluke5100b.write(f'{item.value()}V60H,')
+                    Calibrator.fluke5100b.write('S')
 
         def pomiary(self):
 
@@ -349,7 +442,10 @@ if __name__ == "__main__":
             self.count = 0
 
             # Reset -go to remote
-            # Calibrator.fluke5100b.write('J')
+            Calibrator.fluke5100b.write('J')
+            Calibrator.fluke5100b.write('CC')
+
+
 
             sender = self.sender()
             if sender.objectName() == "PomiarDCV":
@@ -358,30 +454,39 @@ if __name__ == "__main__":
                 item = self.wynikiDCV.item(5, 2)
                 itemp = self.wynikiDCV.item(4, 1)
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
+                self.calibrator_nastawa(item, itemp.text(), sender.objectName())
             elif sender.objectName() == "PomiarACV":
                 print("Teraz mierzymy ACV: ")
                 self.wynikiACV.setCurrentCell(5, 2)
                 item = self.wynikiACV.item(5, 2)
                 itemp = self.wynikiACV.item(4, 1)
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
+                self.calibrator_nastawa(item, itemp.text(), sender.objectName())
             elif sender.objectName() == "PomiarDCI":
                 print("Teraz mierzymy DCI: ")
                 self.wynikiDCI.setCurrentCell(5, 2)
                 item = self.wynikiDCI.item(5, 2)
                 itemp = self.wynikiDCI.item(4, 1)
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
+                self.calibrator_nastawa(item, itemp.text(), sender.objectName())
             elif sender.objectName() == "PomiarACI":
                 print("Teraz mierzymy ACI: ")
                 self.wynikiACI.setCurrentCell(5, 2)
                 item = self.wynikiACI.item(5, 2)
                 itemp = self.wynikiACI.item(4, 1)
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
+                self.calibrator_nastawa(item, itemp.text(), sender.objectName())
             elif sender.objectName() == "PomiarR":
                 print("Teraz mierzymy R: ")
                 self.wynikiR.setCurrentCell(5, 2)
                 item = self.wynikiR.item(5, 2)
                 itemp = self.wynikiR.item(4, 1)
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
+                self.calibrator_nastawa(item, itemp.text(), sender.objectName())
+
+            # Calibrator.fluke5100b.write(f'{item.text()}')
+
+
 
 
         def zglaszajacy(self):
@@ -432,48 +537,52 @@ if __name__ == "__main__":
                                            str(self.ustawienie_kalibrator.currentText()) + " " +
                                            str(self.AC_DC.currentText()))
 
-            if self.ustawienie_kalibrator.currentText() == "uV":
-                if self.AC_DC.currentText() == "DC":
-                    Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-6V,')
-                    # Calibrator.fluke5100b.write('N') operate
-                elif self.AC_DC.currentText() == "AC":
-                    Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-6V60H,')
-                    # Calibrator.fluke5100b.write('N') operate
-            elif self.ustawienie_kalibrator.currentText() == "mV":
-                if self.AC_DC.currentText() == "DC":
-                    Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-3V,')
-                    # Calibrator.fluke5100b.write('N') operate
-                elif self.AC_DC.currentText() == "AC":
-                    Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-3V60H,')
-                    # Calibrator.fluke5100b.write('N') operate
-            elif self.ustawienie_kalibrator.currentText() == "V":
-                if self.AC_DC.currentText() == "DC":
-                    Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}V,')
-                    # Calibrator.fluke5100b.write('N') operate
-                elif self.AC_DC.currentText() == "AC":
-                    Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}V60H,')
-                    # Calibrator.fluke5100b.write('N') operate
-            elif self.ustawienie_kalibrator.currentText() == "uA":
-                if self.AC_DC.currentText() == "DC":
-                    Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-6A,')
-                    # Calibrator.fluke5100b.write('N') operate
-                elif self.AC_DC.currentText() == "AC":
-                    Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-6A60H,')
-                    # Calibrator.fluke5100b.write('N') operate
-            elif self.ustawienie_kalibrator.currentText() == "mA":
-                if self.AC_DC.currentText() == "DC":
-                    Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-3A,')
-                    # Calibrator.fluke5100b.write('N') operate
-                elif self.AC_DC.currentText() == "AC":
-                    Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-3A60H,')
-                    # Calibrator.fluke5100b.write('N') operate
-            elif self.ustawienie_kalibrator.currentText() == "A":
-                if self.AC_DC.currentText() == "DC":
-                    Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}A,')
-                    # Calibrator.fluke5100b.write('N') operate
-                elif self.AC_DC.currentText() == "AC":
-                    Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}V60H,')
-                    # Calibrator.fluke5100b.write('N') operate
+            # self.odczyt_kalibrator.setText()
+
+            self.calibrator_nastawa_value(self.wartosc_kalibrator, self.ustawienie_kalibrator.currentText(), None)
+
+            # if self.ustawienie_kalibrator.currentText() == "uV":
+            #     if self.AC_DC.currentText() == "DC":
+            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-6V,')
+            #         Calibrator.fluke5100b.write('N')
+            #     elif self.AC_DC.currentText() == "AC":
+            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-6V60H,')
+            #         Calibrator.fluke5100b.write('N')
+            # elif self.ustawienie_kalibrator.currentText() == "mV":
+            #     if self.AC_DC.currentText() == "DC":
+            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-3V,')
+            #         Calibrator.fluke5100b.write('N')
+            #     elif self.AC_DC.currentText() == "AC":
+            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-3V60H,')
+            #         Calibrator.fluke5100b.write('N')
+            # elif self.ustawienie_kalibrator.currentText() == "V":
+            #     if self.AC_DC.currentText() == "DC":
+            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}V,')
+            #         Calibrator.fluke5100b.write('N')
+            #     elif self.AC_DC.currentText() == "AC":
+            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}V60H,')
+            #         Calibrator.fluke5100b.write('N')
+            # elif self.ustawienie_kalibrator.currentText() == "uA":
+            #     if self.AC_DC.currentText() == "DC":
+            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-6A,')
+            #         Calibrator.fluke5100b.write('N')
+            #     elif self.AC_DC.currentText() == "AC":
+            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-6A60H,')
+            #         Calibrator.fluke5100b.write('N')
+            # elif self.ustawienie_kalibrator.currentText() == "mA":
+            #     if self.AC_DC.currentText() == "DC":
+            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-3A,')
+            #         Calibrator.fluke5100b.write('N')
+            #     elif self.AC_DC.currentText() == "AC":
+            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-3A60H,')
+            #         Calibrator.fluke5100b.write('N')
+            # elif self.ustawienie_kalibrator.currentText() == "A":
+            #     if self.AC_DC.currentText() == "DC":
+            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}A,')
+            #         Calibrator.fluke5100b.write('N')
+            #     elif self.AC_DC.currentText() == "AC":
+            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}V60H,')
+            #         Calibrator.fluke5100b.write('N')
 
 
            # Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}V,')
@@ -637,6 +746,8 @@ if __name__ == "__main__":
                 filename_without_ext, ext = os.path.splitext(path)
                 self.sciezkaWynik_zapis.setText(filename_without_ext)
 
+            Calibrator.fluke5100b.write('S')
+
         def on_tab_changed2(self, index):
             # Wywołanie metody po zmianie aktywnej zakładki
             if index == 0:  # sprawdzanie czy zmieniona została zakładka 2
@@ -651,6 +762,8 @@ if __name__ == "__main__":
             if index == 3:  # sprawdzanie czy zmieniona została zakładka 2
                 print("Jestes w zakladce ACI")
                 QMessageBox.information(self, "Uwaga", "Sprawdź podłączenie przewodów")
+
+            Calibrator.fluke5100b.write('S')
 
         def load_model(self):
 
