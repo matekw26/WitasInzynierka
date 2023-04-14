@@ -27,6 +27,7 @@ from xlwings.constants import InsertShiftDirection
 from win32com.client import Dispatch
 
 import Calibrator
+import Multimetr
 
 
 # 1 instalacja PySide6 ... pip install PySide6 !
@@ -219,6 +220,7 @@ if __name__ == "__main__":
                         elif itemp.text() == 'mV':
                             self.zakres = "mV"
                             print(f"Ustawiam wartosc na: {itemp.text()}")
+                            self.update_multimetr(item, self.wynikiDCV)
                             break
                         elif itemp.text() == 'V':
                             self.zakres = "V"
@@ -298,48 +300,6 @@ if __name__ == "__main__":
 
                     self.calibrator_nastawa(item, self.zakres, None)
 
-                    # if self.zakres == "uV":
-                    #     if self.AC_DC.currentText() == "DC":
-                    #         Calibrator.fluke5100b.write(f'{item.text()}E-6V,')
-                    #         # Calibrator.fluke5100b.write('N') operate
-                    #     elif self.AC_DC.currentText() == "AC":
-                    #         Calibrator.fluke5100b.write(f'{item.text()}E-6V60H,')
-                    #         # Calibrator.fluke5100b.write('N') operate
-                    # elif self.zakres == "mV":
-                    #     if self.AC_DC.currentText() == "DC":
-                    #         Calibrator.fluke5100b.write(f'{item.text()}E-3V,')
-                    #         # Calibrator.fluke5100b.write('N') operate
-                    #     elif self.AC_DC.currentText() == "AC":
-                    #         Calibrator.fluke5100b.write(f'{item.text()}E-3V60H,')
-                    #         # Calibrator.fluke5100b.write('N') operate
-                    # elif self.zakres == "V":
-                    #     if self.AC_DC.currentText() == "DC":
-                    #         Calibrator.fluke5100b.write(f'{item.text()}V,')
-                    #         # Calibrator.fluke5100b.write('N') operate
-                    #     elif self.AC_DC.currentText() == "AC":
-                    #         Calibrator.fluke5100b.write(f'{item.text()}V60H,')
-                    #         # Calibrator.fluke5100b.write('N') operate
-                    # elif self.zakres == "uA":
-                    #     if self.AC_DC.currentText() == "DC":
-                    #         Calibrator.fluke5100b.write(f'{item.text()}E-6A,')
-                    #         # Calibrator.fluke5100b.write('N') operate
-                    #     elif self.AC_DC.currentText() == "AC":
-                    #         Calibrator.fluke5100b.write(f'{item.text()}E-6A60H,')
-                    #         # Calibrator.fluke5100b.write('N') operate
-                    # elif self.zakres == "mA":
-                    #     if self.AC_DC.currentText() == "DC":
-                    #         Calibrator.fluke5100b.write(f'{item.text()}E-3A,')
-                    #         # Calibrator.fluke5100b.write('N') operate
-                    #     elif self.AC_DC.currentText() == "AC":
-                    #         Calibrator.fluke5100b.write(f'{item.text()}E-3A60H,')
-                    #         # Calibrator.fluke5100b.write('N') operate
-                    # elif self.zakres == "A":
-                    #     if self.AC_DC.currentText() == "DC":
-                    #         Calibrator.fluke5100b.write(f'{item.text()}A,')
-                    #         # Calibrator.fluke5100b.write('N') operate
-                    #     elif self.AC_DC.currentText() == "AC":
-                    #         Calibrator.fluke5100b.write(f'{item.text()}V60H,')
-                    #         # Calibrator.fluke5100b.write('N') operate
 
                 except AttributeError:
                     pass
@@ -446,7 +406,6 @@ if __name__ == "__main__":
             Calibrator.fluke5100b.write('CC')
 
 
-
             sender = self.sender()
             if sender.objectName() == "PomiarDCV":
                 print("Teraz mierzymy DCV: ")
@@ -455,6 +414,11 @@ if __name__ == "__main__":
                 itemp = self.wynikiDCV.item(4, 1)
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
                 self.calibrator_nastawa(item, itemp.text(), sender.objectName())
+
+                self.update_multimetr(item, self.wynikiDCV)
+                # response = Multimetr.multimetr.query('READ?')
+                # print(response)
+
             elif sender.objectName() == "PomiarACV":
                 print("Teraz mierzymy ACV: ")
                 self.wynikiACV.setCurrentCell(5, 2)
@@ -541,48 +505,6 @@ if __name__ == "__main__":
 
             self.calibrator_nastawa_value(self.wartosc_kalibrator, self.ustawienie_kalibrator.currentText(), None)
 
-            # if self.ustawienie_kalibrator.currentText() == "uV":
-            #     if self.AC_DC.currentText() == "DC":
-            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-6V,')
-            #         Calibrator.fluke5100b.write('N')
-            #     elif self.AC_DC.currentText() == "AC":
-            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-6V60H,')
-            #         Calibrator.fluke5100b.write('N')
-            # elif self.ustawienie_kalibrator.currentText() == "mV":
-            #     if self.AC_DC.currentText() == "DC":
-            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-3V,')
-            #         Calibrator.fluke5100b.write('N')
-            #     elif self.AC_DC.currentText() == "AC":
-            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-3V60H,')
-            #         Calibrator.fluke5100b.write('N')
-            # elif self.ustawienie_kalibrator.currentText() == "V":
-            #     if self.AC_DC.currentText() == "DC":
-            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}V,')
-            #         Calibrator.fluke5100b.write('N')
-            #     elif self.AC_DC.currentText() == "AC":
-            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}V60H,')
-            #         Calibrator.fluke5100b.write('N')
-            # elif self.ustawienie_kalibrator.currentText() == "uA":
-            #     if self.AC_DC.currentText() == "DC":
-            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-6A,')
-            #         Calibrator.fluke5100b.write('N')
-            #     elif self.AC_DC.currentText() == "AC":
-            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-6A60H,')
-            #         Calibrator.fluke5100b.write('N')
-            # elif self.ustawienie_kalibrator.currentText() == "mA":
-            #     if self.AC_DC.currentText() == "DC":
-            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-3A,')
-            #         Calibrator.fluke5100b.write('N')
-            #     elif self.AC_DC.currentText() == "AC":
-            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}E-3A60H,')
-            #         Calibrator.fluke5100b.write('N')
-            # elif self.ustawienie_kalibrator.currentText() == "A":
-            #     if self.AC_DC.currentText() == "DC":
-            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}A,')
-            #         Calibrator.fluke5100b.write('N')
-            #     elif self.AC_DC.currentText() == "AC":
-            #         Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}V60H,')
-            #         Calibrator.fluke5100b.write('N')
 
 
            # Calibrator.fluke5100b.write(f'{self.wartosc_kalibrator.value()}V,')
@@ -850,6 +772,22 @@ if __name__ == "__main__":
             except ValueError:
                 pass
             except AttributeError:
+                pass
+
+        def update_multimetr(self, item, table):
+            # Obliczanie poprakwi
+            row = item.row()
+            col = item.column()
+            try:
+                response = Multimetr.multimetr.query('READ?')
+                print(f"Odpowiedz: {response}")
+                result = np.around(float(response), decimals=4)
+                table.item(row, col + 3).setText(str(result))
+            except ValueError as e:
+                print(e)
+                pass
+            except AttributeError as e:
+                print(e)
                 pass
 
 

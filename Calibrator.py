@@ -27,7 +27,7 @@ if __name__ == "__main__":
     fluke5100b.write('J')
     fluke5100b.write('1V60H,')
     fluke5100b.write('S')
-    # fluke5100b.write('CC')
+    fluke5100b.write('CC')
 
     # fluke5100b.write('G')
     #fluke5100b.write("1V,")
