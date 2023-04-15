@@ -749,11 +749,11 @@ if __name__ == "__main__":
             row = item.row()
             col = item.column()
             try:
-                if col == 2 or col == 3:
-                    value1 = float(table2.item(row, 2).text())
-                    value2 = float(table2.item(row, 3).text())
+                if col == 3 or col == 4:
+                    value1 = float(table2.item(row, 3).text())
+                    value2 = float(table2.item(row, 4).text())
                     result = np.around(value1 - value2, decimals=8)
-                    table2.item(row, 4).setText(str(result))
+                    table2.item(row, 5).setText(str(result))
             except ValueError:
                 pass
             except AttributeError:
@@ -782,7 +782,7 @@ if __name__ == "__main__":
                 response = Multimetr.multimetr.query('READ?')
                 print(f"Odpowiedz: {response}")
                 result = np.around(float(response), decimals=4)
-                table.item(row, col + 3).setText(str(result))
+                table.item(row, col + 1).setText(str(result))
             except ValueError as e:
                 print(e)
                 pass
@@ -884,6 +884,7 @@ if __name__ == "__main__":
 
             x = 10 #zmienic tez w innych przy mzianie tego
 
+
             for row in range(table.rowCount()):
                 for col in range(table.columnCount()):
                     item = table.item(row, col)
@@ -892,6 +893,7 @@ if __name__ == "__main__":
                             ws.cell(row=row+2+x, column=col+1, value=item.text())
                     except AttributeError:
                         pass
+
 
             try:
                 wb.save(path)
@@ -962,13 +964,13 @@ if __name__ == "__main__":
                         temp = row - 3
                         access += 1
                     elif ile == 5 and access < 4:
-                        ws.cell(row=row + 2 - temp, column=col, value="")
+                        ws.cell(row=row + 2 + x - temp, column=col, value="")
                         ws = wb[str(wb.sheetnames[4])]
                         temp = row - 3
                         access += 1
                     try:
                         if item is not None:
-                            ws.cell(row=row+2 - temp, column=col+1, value=item.text())
+                            ws.cell(row=row+2 + x - temp, column=col+1, value=item.text())
                             if col == 1 and item.text() == "Zakres":
                                 ile += 1
 
@@ -1029,7 +1031,7 @@ if __name__ == "__main__":
 
         def creat_excel(self, ws, checked, ile, zakres1, zakres2):
 
-            col_headers = ['Zakres', 'Wartość napięcia odniesienia',
+            col_headers = ['Zakres', 'Punkt Pomiarowy', 'Wartość napięcia odniesienia',
                            'Zmierzona wartość napięcia', 'Poprawka', 'Niepewność pomiaru']
 
             # ustawianie stylu obramowania dla komórek
@@ -1276,7 +1278,7 @@ if __name__ == "__main__":
                                 ws.cell(row + 6, 2, zakres1)
                         except AttributeError:
                             pass
-                        for col in range(2, 7):
+                        for col in range(2, 8):
                             cell = ws.cell(row=row+6, column=col)
                             cell.border = border
                             cell.alignment = alignmentCC
@@ -1392,7 +1394,7 @@ if __name__ == "__main__":
                             ws.cell(row + 6, 2, zakres2/10000000)
                         elif row < row_range + x:
                             ws.cell(row + 6, 2, zakres1/10**6)
-                        for col in range(2, 7):
+                        for col in range(2, 8):
                             cell = ws.cell(row=row+6, column=col)
                             cell.border = border
                             cell.alignment = alignmentCC
@@ -1656,6 +1658,7 @@ if __name__ == "__main__":
                 if sheet != "Swiadectwo":
                     if sheet != "Sheet":
                         ws = wb[sheet]
+                        ws.delete_cols(3)
                         self.naglowek(ws)
                         ws['G4'] = f"Strona {i+1}/{len(worksheets)-1}"
                         ws.oddFooter.center.text = "Niniejsze świadectwo może być okazywane lub kopiowane tylko w całości."
