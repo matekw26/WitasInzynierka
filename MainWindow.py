@@ -200,6 +200,12 @@ if __name__ == "__main__":
                 if self.count == 1:
                     self.zakres = table.item(4, 1).text()
 
+                for i in range(table.rowCount()):
+                    for j in range(table.columnCount()):
+                        item = table.item(i, j)
+                        if item is not None:
+                            item.setFlags(item.flags() | QtCore.Qt.ItemIsEditable)
+
                 try:
                     move = table.currentRow()
                     table.selectRow(move + 1)
@@ -292,16 +298,34 @@ if __name__ == "__main__":
                         else:
                             itemp = table.item(table.currentRow() - i, 1)
 
-                   # if self.displayed_warning is True and self.displayed_warningmA is True:
+                    # if self.displayed_warning is True and self.displayed_warningmA is True:
                     item = table.item(table.currentRow(), 2)
                     print(f"Teraz mamy wartosc: {item.text()} {self.zakres}")
 
                     # Calibrator.fluke5100b.write(f'{item.text()}')
 
-                    self.calibrator_nastawa(item, self.zakres, None)
+                    # self.calibrator_nastawa(item, self.zakres, None)
 
+                    # ustawienie atrybutu ItemIsEditable na False dla wszystkich komórek
+                    for i in range(table.rowCount()):
+                        for j in range(table.columnCount()):
+                            if i != table.currentRow() or j != 4:
+                                # print(f"{i}{j}")
+                                # print(table.currentRow())
+                                item = table.item(i, j)
+                                if item is not None:
+                                    item.setFlags(item.flags() & ~QtCore.Qt.ItemIsEditable)
+                            else:
+                                table.setCurrentCell(i, j)
+                                table.editItem(table.item(i, j))
 
-                except AttributeError:
+                     # ustawienie atrybutu ItemIsEditable na True dla wybranej komórki
+                    # it = QtWidgets.QTableWidgetItem("not editable")
+                    # it.setFlags(it.flags() & ~QtCore.Qt.ItemIsEditable)
+                    # table.setItem(1, 1, it)
+
+                except AttributeError as e:
+                    print(e)
                     pass
 
         def calibrator_nastawa(self, item, zakres, sender):
@@ -519,6 +543,7 @@ if __name__ == "__main__":
             Calibrator.fluke5100b.write('CC')
             self.wartosc_kalibrator.setValue(0)
 
+
         # funkcja do otwierania folderu
         def open_folder(self, file_path):
             folder_path = os.path.dirname(file_path)  # uzyskanie ścieżki do folderu
@@ -718,15 +743,28 @@ if __name__ == "__main__":
 
             sender = self.sender()
             if sender.objectName() == "KasujDCV":
-                self.wynikiDCV.clear()
+                self.odblokuj(self.wynikiDCV)
+                #self.wynikiDCV.clear()
             elif sender.objectName() == "KasujACV":
-                self.wynikiACV.clear()
+                self.odblokuj(self.wynikiACV)
+                #self.wynikiACV.clear()
             elif sender.objectName() == "KasujDCI":
-                self.wynikiDCI.clear()
+                self.odblokuj(self.wynikiDCI)
+                #s elf.wynikiDCI.clear()
             elif sender.objectName() == "KasujACI":
-                self.wynikiACI.clear()
+                self.odblokuj(self.wynikiACI)
+                # self.wynikiACI.clear()
             elif sender.objectName() == "KasujR":
-                self.wynikiR.clear()
+                self.odblokuj(self.wynikiR)
+                # self.wynikiR.clear()
+
+        def odblokuj(self, table):
+
+            for i in range(table.rowCount()):
+                for j in range(table.columnCount()):
+                    item = table.item(i, j)
+                    if item is not None:
+                        item.setFlags(item.flags() | QtCore.Qt.ItemIsEditable)
 
         def reset(self):
 
