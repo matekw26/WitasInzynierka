@@ -301,6 +301,7 @@ if __name__ == "__main__":
                     # if self.displayed_warning is True and self.displayed_warningmA is True:
                     item = table.item(table.currentRow(), 2)
                     print(f"Teraz mamy wartosc: {item.text()} {self.zakres}")
+                    self.odczyt_kalibrator.setText(f"{item.text()} {self.zakres}")
 
                     # Calibrator.fluke5100b.write(f'{item.text()}')
 
