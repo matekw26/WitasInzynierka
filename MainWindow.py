@@ -354,6 +354,8 @@ if __name__ == "__main__":
 
         def calibrator_nastawa(self, item, zakres, sender):
 
+            Calibrator.fluke5100b.write('CC')
+
             if zakres == "uV":
                 if sender == "PomiarDCV" or sender == "NextDCV":
                     Calibrator.fluke5100b.write(f'{item.text()}E-6V,')
@@ -573,7 +575,7 @@ if __name__ == "__main__":
 
             try:
                 Multimetr.multimetr.timeout = 5000
-                time.sleep(3)
+                time.sleep(5)
                 if self.AC_DC.currentText() == "AC" and "V" in va:
                     response = Multimetr.multimetr.query('MEASure:VOLTage:AC?')
                 elif self.AC_DC.currentText() == "DC" and "V" in va:
