@@ -6,10 +6,10 @@ try:
     rm = pyvisa.ResourceManager()
 
     # Znajdź adres GPIB kalibratora i przypisz go do zmiennej.
-    multimetr_address = 'GPIB0::25::INSTR' # adres GPIB kalibratora
-
-    # Następnie otwórz połączenie z kalibratorem za pomocą metody "open_resource" obiektu ResourceManager,
-    # podając jako argument adres GPIB kalibratora.
+    multimetr_address = 'GPIB0::1::INSTR' # adres GPIB kalibratora
+    #
+    # # Następnie otwórz połączenie z kalibratorem za pomocą metody "open_resource" obiektu ResourceManager,
+    # # podając jako argument adres GPIB kalibratora.
     multimetr = rm.open_resource(multimetr_address)
 
 except:
@@ -22,15 +22,26 @@ if __name__ == "__main__":
     devices = rm.list_resources()
     print(devices)
 
-    #multimetr.write('FUNC:FREQ')
 
-    # fluke5100b.write('G')
-    #fluke5100b.write("1V,")
-    # response = fluke5100b.query('V?')
-    # response = multimetr.query('?')
-    # print(response)
+    # Sprawdź status połączenia
+    try:
+        multimetr.timeout = 5000
+        print(multimetr.timeout)
+        ident = multimetr.query("*IDN?")
+        print(f"Połączenie z urządzeniem {ident.strip()} zostało nawiązane.")
+    except Exception as e:
+        print(f"Wystąpił błąd podczas nawiązywania połączenia: {str(e)}")
 
-    #response = multimetr.query('SYSTem:ERRor?')
+    # multimetr.write('MEASure:VOLTage:DC')
+    # # # # # # multimetr.write('MEASure:FREQuency')
+    # # # # # # #
+    # # # # # #
+    # # # # # # #
+    # # # # #
     response = multimetr.query('READ?')
+    # response = multimetr.query('MEASure:VOLTage:AC?')
+    ## response = multimetr.query('FETCH?')
     print(response)
 
+    # response2 = multimetr.query('SYSTem:ERRor?')
+    # print(response2)
