@@ -8,7 +8,7 @@ try:
     rm = pyvisa.ResourceManager()
 
     # Znajdź adres GPIB kalibratora i przypisz go do zmiennej.
-    fluke5100b_address = 'GPIB0::7::INSTR' # adres GPIB kalibratora
+    fluke5100b_address = 'GPIB0::7::INSTR'  # adres GPIB kalibratora
 
     # Następnie otwórz połączenie z kalibratorem za pomocą metody "open_resource" obiektu ResourceManager,
     # podając jako argument adres GPIB kalibratora.

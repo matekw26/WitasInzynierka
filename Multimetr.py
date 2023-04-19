@@ -6,7 +6,7 @@ try:
     rm = pyvisa.ResourceManager()
 
     # Znajdź adres GPIB kalibratora i przypisz go do zmiennej.
-    multimetr_address = 'GPIB0::1::INSTR' # adres GPIB kalibratora
+    multimetr_address = 'GPIB0::1::INSTR'  # adres GPIB dmm
     #
     # # Następnie otwórz połączenie z kalibratorem za pomocą metody "open_resource" obiektu ResourceManager,
     # # podając jako argument adres GPIB kalibratora.
@@ -31,6 +31,7 @@ if __name__ == "__main__":
         print(f"Połączenie z urządzeniem {ident.strip()} zostało nawiązane.")
     except Exception as e:
         print(f"Wystąpił błąd podczas nawiązywania połączenia: {str(e)}")
+
 
     # multimetr.write('MEASure:VOLTage:DC')
     # # # # # # multimetr.write('MEASure:FREQuency')

@@ -22,7 +22,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="Pomiary">
        <attribute name="title">
@@ -78,7 +78,7 @@
         <item row="5" column="0" colspan="32">
          <widget class="QTabWidget" name="Tabwybor">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="DCV">
            <attribute name="title">
@@ -125,7 +125,7 @@
             <item row="7" column="5">
              <widget class="QPushButton" name="KasujDCV">
               <property name="text">
-               <string>Kasuj Wyniki</string>
+               <string>Odblokuj</string>
               </property>
              </widget>
             </item>
@@ -139,7 +139,7 @@
             <item row="7" column="5">
              <widget class="QPushButton" name="KasujACV">
               <property name="text">
-               <string>Kasuj Wyniki</string>
+               <string>Odblokuj</string>
               </property>
              </widget>
             </item>
@@ -227,7 +227,7 @@
             <item row="4" column="2" colspan="2">
              <widget class="QPushButton" name="KasujDCI">
               <property name="text">
-               <string>Kasuj Wyniki</string>
+               <string>Odblokuj</string>
               </property>
              </widget>
             </item>
@@ -278,7 +278,7 @@
             <item row="4" column="2" colspan="2">
              <widget class="QPushButton" name="KasujACI">
               <property name="text">
-               <string>Kasuj Wyniki</string>
+               <string>Odblokuj</string>
               </property>
              </widget>
             </item>
@@ -863,7 +863,7 @@
          <widget class="QDateEdit" name="data_wzorcowania">
           <property name="dateTime">
            <datetime>
-            <hour>12</hour>
+            <hour>11</hour>
             <minute>0</minute>
             <second>0</second>
             <year>2023</year>
@@ -1155,6 +1155,214 @@ li.checked::marker { content: &quot;\2612&quot;; }
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QWidget" name="Komunikacja">
+       <attribute name="title">
+        <string>Komunikacja</string>
+       </attribute>
+       <widget class="QLabel" name="label_3">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>1488</width>
+          <height>110</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap>image/tlo_poloficial.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_4">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>140</y>
+          <width>91</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Kalibrator adres</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_5">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>190</y>
+          <width>91</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Multimetr adres</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="kalibrator_adres">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>160</y>
+          <width>161</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>GPIB0::7::INSTR</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QComboBox" name="multimetr_adres">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>210</y>
+          <width>161</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>GPIB0::1::INSTR</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QLineEdit" name="status_kal">
+        <property name="geometry">
+         <rect>
+          <x>340</x>
+          <y>160</y>
+          <width>571</width>
+          <height>24</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_16">
+        <property name="geometry">
+         <rect>
+          <x>340</x>
+          <y>140</y>
+          <width>81</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Status</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="status_dmm">
+        <property name="geometry">
+         <rect>
+          <x>340</x>
+          <y>210</y>
+          <width>571</width>
+          <height>24</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_18">
+        <property name="geometry">
+         <rect>
+          <x>340</x>
+          <y>190</y>
+          <width>81</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Status</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="polacz_kal">
+        <property name="geometry">
+         <rect>
+          <x>250</x>
+          <y>160</y>
+          <width>80</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Połącz</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="polacz_dmm">
+        <property name="geometry">
+         <rect>
+          <x>250</x>
+          <y>210</y>
+          <width>80</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Połącz</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="odswiez">
+        <property name="geometry">
+         <rect>
+          <x>190</x>
+          <y>160</y>
+          <width>51</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Odśwież</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_19">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>250</y>
+          <width>81</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Komunikaty:</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="error1">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>280</y>
+          <width>461</width>
+          <height>24</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="error2">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>310</y>
+          <width>461</width>
+          <height>24</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="error3">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>340</y>
+          <width>461</width>
+          <height>24</height>
+         </rect>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="Informacje">
        <attribute name="title">
