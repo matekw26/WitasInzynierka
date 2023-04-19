@@ -94,7 +94,9 @@ if __name__ == "__main__":
             self.zamkniecie_aplikacji.clicked.connect(QApplication.instance().quit)
 
             # wybor zglaszajacego
-            self.Wybor_zglaszajacy.currentTextChanged.connect(self.zglaszajacy)
+            # self.Wybor_zglaszajacy.currentTextChanged.connect(self.zglaszajacy)
+            self.filled = False
+            self.zglaszajacy()
 
             # generowanie swiadectwa
             self.generuj_swiadectwo.clicked.connect(self.swiadectwo_final)
@@ -555,16 +557,43 @@ if __name__ == "__main__":
                         table.editItem(table.item(i, j))
 
         def zglaszajacy(self):
+
             # print(self.Wybor_zglaszajacy.currentText())
-            if self.Wybor_zglaszajacy.currentText() == "Linetech":
-                lt = "LINETECH S.A. \nul. Warecka 11A \n00-034 Warszawa"
-                self.Zglaszajacy.setText(lt)
-            elif self.Wybor_zglaszajacy.currentText() == "Hitachi":
-                hitachi = "Hitachi Energy Poland Sp. z o.o. \nul. Leszno 59 \n06-300 Przasnysz"
-                self.Zglaszajacy.setText(hitachi)
-            elif self.Wybor_zglaszajacy.currentText() == "Hanza":
-                hanza = "HANZA POLAND SP.Z O.O. \nAL.JEROZOLIMSKIE 38 \n56 - 120 BRZEG DOLNY"
-                self.Zglaszajacy.setText(hanza)
+            # if self.Wybor_zglaszajacy.currentText() == "Linetech":
+            #     lt = "LINETECH S.A. \nul. Warecka 11A \n00-034 Warszawa"
+            #     self.Zglaszajacy.setText(lt)
+            # elif self.Wybor_zglaszajacy.currentText() == "Hitachi":
+            #     hitachi = "Hitachi Energy Poland Sp. z o.o. \nul. Leszno 59 \n06-300 Przasnysz"
+            #     self.Zglaszajacy.setText(hitachi)
+            # elif self.Wybor_zglaszajacy.currentText() == "Hanza":
+            #     hanza = "HANZA POLAND SP.Z O.O. \nAL.JEROZOLIMSKIE 38 \n56 - 120 BRZEG DOLNY"
+            #     self.Zglaszajacy.setText(hanza)
+
+            try:
+                if self.filled is False:
+                    df = pd.read_excel("Klienci/Baza_klientow.xlsx")
+                    if df.size == 0:
+                        return
+
+                    # pobranie kolumny z nazwami klientów i zapisanie do listy
+                    nazwy_klientow = df.iloc[:, 1].tolist()
+
+                    # pobranie kolumny z danymi klientów i zapisanie do listy
+                    dane_klientow = df.iloc[:, 2].tolist()
+
+                    self.Wybor_zglaszajacy.addItems(nazwy_klientow)
+                    self.Zglaszajacy.setText(dane_klientow[0])
+
+                    self.filled = True
+
+                # po wybraniu pozycji w comboboxie wyświetlanie danych klienta w textedit
+                self.Wybor_zglaszajacy.currentIndexChanged.connect(lambda index:
+                                                                   self.Zglaszajacy.setText(dane_klientow[index]))
+
+            except Exception as e:
+                self.error2.setText(str(e))
+                print(e)
+                pass
 
         def fil_modele(self):
 
@@ -954,8 +983,14 @@ if __name__ == "__main__":
 
         def reset(self):
 
-            # Reset -go to local
-            Calibrator.fluke5100b.write('*')
+
+            try:
+                # Reset -go to local
+                Calibrator.fluke5100b.write('*')
+            except Exception as e:
+                self.error2.setText(str(e))
+                print(e)
+                pass
 
             self.wynikiDCV.clear()
             self.wynikiACV.clear()

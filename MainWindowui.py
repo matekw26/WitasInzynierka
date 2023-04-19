@@ -507,9 +507,6 @@ class Ui_MainWindow(object):
         self.gridLayout_7 = QGridLayout(self.Swiadectwo)
         self.gridLayout_7.setObjectName(u"gridLayout_7")
         self.Wybor_zglaszajacy = QComboBox(self.Swiadectwo)
-        self.Wybor_zglaszajacy.addItem("")
-        self.Wybor_zglaszajacy.addItem("")
-        self.Wybor_zglaszajacy.addItem("")
         self.Wybor_zglaszajacy.setObjectName(u"Wybor_zglaszajacy")
 
         self.gridLayout_7.addWidget(self.Wybor_zglaszajacy, 5, 2, 1, 1)
@@ -528,7 +525,7 @@ class Ui_MainWindow(object):
 
         self.data_wzorcowania = QDateEdit(self.Swiadectwo)
         self.data_wzorcowania.setObjectName(u"data_wzorcowania")
-        self.data_wzorcowania.setDateTime(QDateTime(QDate(2023, 2, 9), QTime(11, 0, 0)))
+        self.data_wzorcowania.setDateTime(QDateTime(QDate(2023, 2, 9), QTime(10, 0, 0)))
         self.data_wzorcowania.setCalendarPopup(True)
 
         self.gridLayout_7.addWidget(self.data_wzorcowania, 2, 0, 2, 1)
@@ -769,7 +766,7 @@ class Ui_MainWindow(object):
         self.zamkniecie_aplikacji.clicked.connect(MainWindow.close)
         self.Wyczysc.clicked.connect(self.wartosc_kalibrator.clear)
 
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(1)
         self.Tabwybor.setCurrentIndex(0)
 
 
@@ -841,10 +838,6 @@ class Ui_MainWindow(object):
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"A", None))
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Podaj zakresy:", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Pomiary), QCoreApplication.translate("MainWindow", u"Pomiary", None))
-        self.Wybor_zglaszajacy.setItemText(0, QCoreApplication.translate("MainWindow", u"Linetech", None))
-        self.Wybor_zglaszajacy.setItemText(1, QCoreApplication.translate("MainWindow", u"Hanza", None))
-        self.Wybor_zglaszajacy.setItemText(2, QCoreApplication.translate("MainWindow", u"Hitachi", None))
-
         self.label_35.setText(QCoreApplication.translate("MainWindow", u"\u015acie\u017cka zapisu wynik\u00f3w:", None))
         self.label_7.setText("")
         self.label_25.setText(QCoreApplication.translate("MainWindow", u"Nr. \u015awiadectwa:", None))
