@@ -501,7 +501,7 @@ if __name__ == "__main__":
                 itemp = self.wynikiDCV.item(4, 1)
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
                 self.calibrator_nastawa(item, itemp.text(), sender.objectName())
-                time.sleep(3)
+                time.sleep(self.timesleep.value())
                 self.update_multimetr(item, self.wynikiDCV)
                 self.blokuj(self.wynikiDCV)
             elif sender.objectName() == "PomiarACV":
@@ -511,7 +511,7 @@ if __name__ == "__main__":
                 itemp = self.wynikiACV.item(4, 1)
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
                 self.calibrator_nastawa(item, itemp.text(), sender.objectName())
-                time.sleep(3)
+                time.sleep(self.timesleep.value())
                 self.update_multimetr(item, self.wynikiACV)
                 self.blokuj(self.wynikiACV)
             elif sender.objectName() == "PomiarDCI":
@@ -521,7 +521,7 @@ if __name__ == "__main__":
                 itemp = self.wynikiDCI.item(4, 1)
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
                 self.calibrator_nastawa(item, itemp.text(), sender.objectName())
-                time.sleep(3)
+                time.sleep(self.timesleep.value())
                 self.update_multimetr(item, self.wynikiDCI)
                 self.blokuj(self.wynikiDCI)
             elif sender.objectName() == "PomiarACI":
@@ -531,7 +531,7 @@ if __name__ == "__main__":
                 itemp = self.wynikiACI.item(4, 1)
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
                 self.calibrator_nastawa(item, itemp.text(), sender.objectName())
-                time.sleep(3)
+                time.sleep(self.timesleep.value())
                 self.update_multimetr(item, self.wynikiACI)
                 self.blokuj(self.wynikiACI)
             elif sender.objectName() == "PomiarR":
@@ -704,7 +704,7 @@ if __name__ == "__main__":
 
                 try:
                     self.multimetr.timeout = 5000
-                    time.sleep(5)
+                    time.sleep(self.timesleep.value())
                     if self.AC_DC.currentText() == "AC" and "V" in va:
                         response = self.multimetr.query('MEASure:VOLTage:AC?')
                     elif self.AC_DC.currentText() == "DC" and "V" in va:
@@ -1045,7 +1045,7 @@ if __name__ == "__main__":
             row = item.row()
             col = item.column()
             try:
-                time.sleep(2)
+                time.sleep(self.timesleep.value())
                 if table == self.wynikiDCV:
                     response = self.multimetr.query('MEASure:VOLTage:DC?')
                 elif table == self.wynikiACV:

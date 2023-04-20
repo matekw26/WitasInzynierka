@@ -22,7 +22,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="Pomiary">
        <attribute name="title">
@@ -402,8 +402,14 @@
         </item>
         <item row="6" column="1">
          <widget class="QDoubleSpinBox" name="wartosc_kalibrator">
+          <property name="minimum">
+           <double>-1000.000000000000000</double>
+          </property>
           <property name="maximum">
            <double>1001.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
           </property>
          </widget>
         </item>
@@ -847,7 +853,7 @@
          <widget class="QDateEdit" name="data_wzorcowania">
           <property name="dateTime">
            <datetime>
-            <hour>10</hour>
+            <hour>9</hour>
             <minute>0</minute>
             <second>0</second>
             <year>2023</year>
@@ -1308,7 +1314,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>250</y>
+          <y>300</y>
           <width>81</width>
           <height>16</height>
          </rect>
@@ -1321,7 +1327,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>280</y>
+          <y>330</y>
           <width>461</width>
           <height>24</height>
          </rect>
@@ -1331,7 +1337,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>310</y>
+          <y>360</y>
           <width>461</width>
           <height>24</height>
          </rect>
@@ -1341,10 +1347,36 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>340</y>
+          <y>390</y>
           <width>461</width>
           <height>24</height>
          </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_20">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>250</y>
+          <width>91</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Czas pomiaru</string>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="timesleep">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>250</y>
+          <width>42</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="value">
+         <number>3</number>
         </property>
        </widget>
       </widget>

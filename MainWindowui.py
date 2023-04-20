@@ -286,7 +286,9 @@ class Ui_MainWindow(object):
 
         self.wartosc_kalibrator = QDoubleSpinBox(self.Pomiary)
         self.wartosc_kalibrator.setObjectName(u"wartosc_kalibrator")
+        self.wartosc_kalibrator.setMinimum(-1000.000000000000000)
         self.wartosc_kalibrator.setMaximum(1001.000000000000000)
+        self.wartosc_kalibrator.setSingleStep(0.100000000000000)
 
         self.gridLayout.addWidget(self.wartosc_kalibrator, 6, 1, 1, 1)
 
@@ -525,7 +527,7 @@ class Ui_MainWindow(object):
 
         self.data_wzorcowania = QDateEdit(self.Swiadectwo)
         self.data_wzorcowania.setObjectName(u"data_wzorcowania")
-        self.data_wzorcowania.setDateTime(QDateTime(QDate(2023, 2, 9), QTime(10, 0, 0)))
+        self.data_wzorcowania.setDateTime(QDateTime(QDate(2023, 2, 9), QTime(9, 0, 0)))
         self.data_wzorcowania.setCalendarPopup(True)
 
         self.gridLayout_7.addWidget(self.data_wzorcowania, 2, 0, 2, 1)
@@ -716,16 +718,23 @@ class Ui_MainWindow(object):
         self.odswiez.setGeometry(QRect(190, 160, 51, 21))
         self.label_19 = QLabel(self.Komunikacja)
         self.label_19.setObjectName(u"label_19")
-        self.label_19.setGeometry(QRect(20, 250, 81, 16))
+        self.label_19.setGeometry(QRect(20, 300, 81, 16))
         self.error1 = QLineEdit(self.Komunikacja)
         self.error1.setObjectName(u"error1")
-        self.error1.setGeometry(QRect(20, 280, 461, 24))
+        self.error1.setGeometry(QRect(20, 330, 461, 24))
         self.error2 = QLineEdit(self.Komunikacja)
         self.error2.setObjectName(u"error2")
-        self.error2.setGeometry(QRect(20, 310, 461, 24))
+        self.error2.setGeometry(QRect(20, 360, 461, 24))
         self.error3 = QLineEdit(self.Komunikacja)
         self.error3.setObjectName(u"error3")
-        self.error3.setGeometry(QRect(20, 340, 461, 24))
+        self.error3.setGeometry(QRect(20, 390, 461, 24))
+        self.label_20 = QLabel(self.Komunikacja)
+        self.label_20.setObjectName(u"label_20")
+        self.label_20.setGeometry(QRect(20, 250, 91, 16))
+        self.timesleep = QSpinBox(self.Komunikacja)
+        self.timesleep.setObjectName(u"timesleep")
+        self.timesleep.setGeometry(QRect(130, 250, 42, 25))
+        self.timesleep.setValue(3)
         self.tabWidget.addTab(self.Komunikacja, "")
         self.Informacje = QWidget()
         self.Informacje.setObjectName(u"Informacje")
@@ -766,7 +775,7 @@ class Ui_MainWindow(object):
         self.zamkniecie_aplikacji.clicked.connect(MainWindow.close)
         self.Wyczysc.clicked.connect(self.wartosc_kalibrator.clear)
 
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(2)
         self.Tabwybor.setCurrentIndex(0)
 
 
@@ -920,6 +929,7 @@ class Ui_MainWindow(object):
         self.polacz_dmm.setText(QCoreApplication.translate("MainWindow", u"Po\u0142\u0105cz", None))
         self.odswiez.setText(QCoreApplication.translate("MainWindow", u"Od\u015bwie\u017c", None))
         self.label_19.setText(QCoreApplication.translate("MainWindow", u"Komunikaty:", None))
+        self.label_20.setText(QCoreApplication.translate("MainWindow", u"Czas pomiaru", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Komunikacja), QCoreApplication.translate("MainWindow", u"Komunikacja", None))
         self.label_8.setText("")
         self.textEdit.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
