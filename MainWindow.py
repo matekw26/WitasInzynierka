@@ -175,10 +175,13 @@ if __name__ == "__main__":
 
             # uzupelnianie comboboxow
             self.fil_modele()
+            self.fill_adress()
             self.odswiez.clicked.connect(self.fill_adress)
 
             #komunikacja
+            self.connect_kal()
             self.polacz_kal.clicked.connect(self.connect_kal)
+            self.connect_dmm()
             self.polacz_dmm.clicked.connect(self.connect_dmm)
 
 
@@ -287,7 +290,7 @@ if __name__ == "__main__":
                         elif itemp.text() == 'A':
                             self.zakres = "A"
                             if self.displayed_warningmA is False:
-                                Calibrator.fluke5100b.write('S')
+                                self.fluke5100b.write('S')
                                 reply = QMessageBox.question(self, 'Zmień przewody',
                                                              'Przekroczyłeś wartość 400mA. Czy zmieniłeś przewody?',
                                                              QMessageBox.Yes | QMessageBox.No)
@@ -317,7 +320,7 @@ if __name__ == "__main__":
                             try:
                                 if float(item.text()) > 2:
                                     if self.displayed_warning is False:
-                                        Calibrator.fluke5100b.write('S')
+                                        self.fluke5100b.write('S')
                                         reply = QMessageBox.question(self, 'Zmień przewody',
                                                                      'Przekroczyłeś wartość 2. Czy zmieniłeś przewody?',
                                                                      QMessageBox.Yes | QMessageBox.No)
@@ -345,7 +348,7 @@ if __name__ == "__main__":
                     print(f"Teraz mamy wartosc: {item.text()} {self.zakres}")
                     self.odczyt_kalibrator.setText(f"{item.text()} {self.zakres}")
 
-                    # Calibrator.fluke5100b.write(f'{item.text()}')
+                    # self.fluke5100b.write(f'{item.text()}')
 
                     # self.calibrator_nastawa(item, self.zakres, None)
 
@@ -375,50 +378,50 @@ if __name__ == "__main__":
         def calibrator_nastawa(self, item, zakres, sender):
 
             try:
-                Calibrator.fluke5100b.write('CC')
+                self.fluke5100b.write('CC')
 
                 if zakres == "uV":
                     if sender == "PomiarDCV" or sender == "NextDCV":
-                        Calibrator.fluke5100b.write(f'{item.text()}E-6V,')
-                        Calibrator.fluke5100b.write('N')
+                        self.fluke5100b.write(f'{item.text()}E-6V,')
+                        self.fluke5100b.write('N')
                     elif sender == "PomiarACV" or sender == "NextACV":
-                        Calibrator.fluke5100b.write(f'{item.text()}E-6V60H,')
-                        Calibrator.fluke5100b.write('N')
+                        self.fluke5100b.write(f'{item.text()}E-6V60H,')
+                        self.fluke5100b.write('N')
                 elif zakres == "mV":
                     if sender == "PomiarDCV" or sender == "NextDCV":
-                        Calibrator.fluke5100b.write(f'{item.text()}E-3V,')
-                        Calibrator.fluke5100b.write('N')
+                        self.fluke5100b.write(f'{item.text()}E-3V,')
+                        self.fluke5100b.write('N')
                     elif sender == "PomiarACV" or sender == "NextACV":
-                        Calibrator.fluke5100b.write(f'{item.text()}E-3V60H,')
-                        Calibrator.fluke5100b.write('N')
+                        self.fluke5100b.write(f'{item.text()}E-3V60H,')
+                        self.fluke5100b.write('N')
                 elif zakres == "V":
                     if sender == "PomiarDCV" or sender == "NextDCV":
-                        Calibrator.fluke5100b.write(f'{item.text()}V,')
-                        Calibrator.fluke5100b.write('N')
+                        self.fluke5100b.write(f'{item.text()}V,')
+                        self.fluke5100b.write('N')
                     elif sender == "PomiarACV" or sender == "NextACV":
-                        Calibrator.fluke5100b.write(f'{item.text()}V60H,')
-                        Calibrator.fluke5100b.write('N')
+                        self.fluke5100b.write(f'{item.text()}V60H,')
+                        self.fluke5100b.write('N')
                 elif zakres == "uA":
                     if sender == "PomiarDCI" or sender == "NextDCI":
-                        Calibrator.fluke5100b.write(f'{item.text()}E-6A,')
-                        Calibrator.fluke5100b.write('N')
+                        self.fluke5100b.write(f'{item.text()}E-6A,')
+                        self.fluke5100b.write('N')
                     elif sender == "PomiarACI" or sender == "NextACI":
-                        Calibrator.fluke5100b.write(f'{item.text()}E-6A60H,')
-                        Calibrator.fluke5100b.write('N')
+                        self.fluke5100b.write(f'{item.text()}E-6A60H,')
+                        self.fluke5100b.write('N')
                 elif zakres == "mA":
                     if sender == "PomiarDCI" or sender == "NextDCI":
-                        Calibrator.fluke5100b.write(f'{item.text()}E-3A,')
-                        Calibrator.fluke5100b.write('N')
+                        self.fluke5100b.write(f'{item.text()}E-3A,')
+                        self.fluke5100b.write('N')
                     elif sender == "PomiarACI" or sender == "NextACI":
-                        Calibrator.fluke5100b.write(f'{item.text()}E-3A60H,')
-                        Calibrator.fluke5100b.write('N')
+                        self.fluke5100b.write(f'{item.text()}E-3A60H,')
+                        self.fluke5100b.write('N')
                 elif zakres == "A":
                     if sender == "PomiarDCI" or sender == "NextDCI":
-                        Calibrator.fluke5100b.write(f'{item.text()}A,')
-                        Calibrator.fluke5100b.write('N')
+                        self.fluke5100b.write(f'{item.text()}A,')
+                        self.fluke5100b.write('N')
                     elif sender == "PomiarACI" or sender == "NextACI":
-                        Calibrator.fluke5100b.write(f'{item.text()}V60H,')
-                        Calibrator.fluke5100b.write('N')
+                        self.fluke5100b.write(f'{item.text()}V60H,')
+                        self.fluke5100b.write('N')
             except Exception as e:
                 self.error3.setText(str(e))
                 print(e)
@@ -429,46 +432,46 @@ if __name__ == "__main__":
             try:
                 if zakres == "uV":
                     if self.AC_DC.currentText() == "DC" or sender == "PomiarDCV":
-                        Calibrator.fluke5100b.write(f'{item.value()}E-6V,')
-                        Calibrator.fluke5100b.write('N')
+                        self.fluke5100b.write(f'{item.value()}E-6V,')
+                        self.fluke5100b.write('N')
                     elif self.AC_DC.currentText() == "AC" or sender == "PomiarACV":
-                        Calibrator.fluke5100b.write(f'{item.value()}E-6V60H,')
-                        Calibrator.fluke5100b.write('N')
+                        self.fluke5100b.write(f'{item.value()}E-6V60H,')
+                        self.fluke5100b.write('N')
                 elif zakres == "mV":
                     if self.AC_DC.currentText() == "DC" or sender == "PomiarDCV":
-                        Calibrator.fluke5100b.write(f'{item.value()}E-3V,')
-                        Calibrator.fluke5100b.write('N')
+                        self.fluke5100b.write(f'{item.value()}E-3V,')
+                        self.fluke5100b.write('N')
                     elif self.AC_DC.currentText() == "AC" or sender == "PomiarACV":
-                        Calibrator.fluke5100b.write(f'{item.value()}E-3V60H,')
-                        Calibrator.fluke5100b.write('N')
+                        self.fluke5100b.write(f'{item.value()}E-3V60H,')
+                        self.fluke5100b.write('N')
                 elif zakres == "V":
                     if self.AC_DC.currentText() == "DC" or sender == "PomiarDCV":
-                        Calibrator.fluke5100b.write(f'{item.value()}V,')
-                        Calibrator.fluke5100b.write('N')
+                        self.fluke5100b.write(f'{item.value()}V,')
+                        self.fluke5100b.write('N')
                     elif self.AC_DC.currentText() == "AC" or sender == "PomiarACV":
-                        Calibrator.fluke5100b.write(f'{item.value()}V60H,')
-                        Calibrator.fluke5100b.write('N')
+                        self.fluke5100b.write(f'{item.value()}V60H,')
+                        self.fluke5100b.write('N')
                 elif zakres == "uA":
                     if self.AC_DC.currentText() == "DC" or sender == "PomiarDCI":
-                        Calibrator.fluke5100b.write(f'{item.value()}E-6A,')
-                        Calibrator.fluke5100b.write('S')
+                        self.fluke5100b.write(f'{item.value()}E-6A,')
+                        self.fluke5100b.write('S')
                     elif self.AC_DC.currentText() == "AC" or sender == "PomiarACI":
-                        Calibrator.fluke5100b.write(f'{item.value()}E-6A60H,')
-                        Calibrator.fluke5100b.write('S')
+                        self.fluke5100b.write(f'{item.value()}E-6A60H,')
+                        self.fluke5100b.write('S')
                 elif zakres == "mA":
                     if self.AC_DC.currentText() == "DC" or sender == "PomiarDCI":
-                        Calibrator.fluke5100b.write(f'{item.value()}E-3A,')
-                        Calibrator.fluke5100b.write('S')
+                        self.fluke5100b.write(f'{item.value()}E-3A,')
+                        self.fluke5100b.write('S')
                     elif self.AC_DC.currentText() == "AC" or sender == "PomiarACI":
-                        Calibrator.fluke5100b.write(f'{item.value()}E-3A60H,')
-                        Calibrator.fluke5100b.write('S')
+                        self.fluke5100b.write(f'{item.value()}E-3A60H,')
+                        self.fluke5100b.write('S')
                 elif zakres == "A":
                     if self.AC_DC.currentText() == "DC" or sender == "PomiarDCI":
-                        Calibrator.fluke5100b.write(f'{item.value()}A,')
-                        Calibrator.fluke5100b.write('S')
+                        self.fluke5100b.write(f'{item.value()}A,')
+                        self.fluke5100b.write('S')
                     elif self.AC_DC.currentText() == "AC" or sender == "PomiarACI":
-                        Calibrator.fluke5100b.write(f'{item.value()}V60H,')
-                        Calibrator.fluke5100b.write('S')
+                        self.fluke5100b.write(f'{item.value()}V60H,')
+                        self.fluke5100b.write('S')
             except Exception as e:
                 self.error3.setText(str(e))
                 print(e)
@@ -483,8 +486,8 @@ if __name__ == "__main__":
 
             try:
                 # Reset -go to remote
-                Calibrator.fluke5100b.write('J')
-                Calibrator.fluke5100b.write('CC')
+                self.fluke5100b.write('J')
+                self.fluke5100b.write('CC')
             except Exception as e:
                 self.error1.setText(str(e))
                 print(e)
@@ -539,7 +542,7 @@ if __name__ == "__main__":
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
                 self.calibrator_nastawa(item, itemp.text(), sender.objectName())
 
-            # Calibrator.fluke5100b.write(f'{item.text()}')
+            # self.fluke5100b.write(f'{item.text()}')
 
         def blokuj(self, table):
 
@@ -618,7 +621,10 @@ if __name__ == "__main__":
                 rm = pyvisa.ResourceManager()
                 devices = rm.list_resources()
                 print(devices)
+                self.kalibrator_adres.clear()
                 self.kalibrator_adres.addItems(devices)
+                self.multimetr_adres.clear()
+                self.multimetr_adres.addItems(devices)
             except Exception as e:
                 self.status_dmm.setText(str(e))
                 self.status_kal.setText(str(e))
@@ -651,7 +657,7 @@ if __name__ == "__main__":
                 rm = pyvisa.ResourceManager()
 
                 # adres GPIB kalibratora
-                multimetr_address = self.kalibrator_adres.currentText()
+                multimetr_address = self.multimetr_adres.currentText()
 
                 # Następnie otwórz połączenie z kalibratorem za pomocą metody "open_resource" obiektu ResourceManager,
                 # podając jako argument adres GPIB kalibratora.
@@ -674,7 +680,7 @@ if __name__ == "__main__":
         def nastawa(self):
 
             try:
-                Calibrator.fluke5100b.write('CC')
+                self.fluke5100b.write('CC')
             except Exception as e:
                 self.error1.setText(str(e))
                 print(e)
@@ -697,16 +703,16 @@ if __name__ == "__main__":
                 va = self.ustawienie_kalibrator.currentText()
 
                 try:
-                    Multimetr.multimetr.timeout = 5000
+                    self.multimetr.timeout = 5000
                     time.sleep(5)
                     if self.AC_DC.currentText() == "AC" and "V" in va:
-                        response = Multimetr.multimetr.query('MEASure:VOLTage:AC?')
+                        response = self.multimetr.query('MEASure:VOLTage:AC?')
                     elif self.AC_DC.currentText() == "DC" and "V" in va:
-                        response = Multimetr.multimetr.query('MEASure:VOLTage:DC?')
+                        response = self.multimetr.query('MEASure:VOLTage:DC?')
                     elif self.AC_DC.currentText() == "AC" and "A" in va:
-                        response = Multimetr.multimetr.query('MEASure:CURRent:AC?')
+                        response = self.multimetr.query('MEASure:CURRent:AC?')
                     elif self.AC_DC.currentText() == "DC" and "A" in va:
-                        response = Multimetr.multimetr.query('MEASure:CURRent:DC?')
+                        response = self.multimetr.query('MEASure:CURRent:DC?')
                     else:
                         print("Coś nie tak :/")
                         response = "Coś nie tak :/"
@@ -737,7 +743,7 @@ if __name__ == "__main__":
         def wyczysc(self):
 
             try:
-                Calibrator.fluke5100b.write('CC')
+                self.fluke5100b.write('CC')
                 self.wartosc_kalibrator.setValue(0)
             except Exception as e:
                 self.error1.setText(str(e))
@@ -895,7 +901,7 @@ if __name__ == "__main__":
                 self.sciezkaWynik_zapis.setText(filename_without_ext)
 
             try:
-                Calibrator.fluke5100b.write('S')
+                self.fluke5100b.write('S')
             except Exception as e:
                 self.error1.setText(str(e))
                 print(e)
@@ -917,7 +923,7 @@ if __name__ == "__main__":
                 QMessageBox.information(self, "Uwaga", "Sprawdź podłączenie przewodów")
 
             try:
-                Calibrator.fluke5100b.write('S')
+                self.fluke5100b.write('S')
             except Exception as e:
                 self.error1.setText(str(e))
                 print(e)
@@ -986,7 +992,7 @@ if __name__ == "__main__":
 
             try:
                 # Reset -go to local
-                Calibrator.fluke5100b.write('*')
+                self.fluke5100b.write('*')
             except Exception as e:
                 self.error2.setText(str(e))
                 print(e)
@@ -1041,13 +1047,13 @@ if __name__ == "__main__":
             try:
                 time.sleep(2)
                 if table == self.wynikiDCV:
-                    response = Multimetr.multimetr.query('MEASure:VOLTage:DC?')
+                    response = self.multimetr.query('MEASure:VOLTage:DC?')
                 elif table == self.wynikiACV:
-                    response = Multimetr.multimetr.query('MEASure:VOLTage:AC?')
+                    response = self.multimetr.query('MEASure:VOLTage:AC?')
                 elif table == self.wynikiDCI:
-                    response = Multimetr.multimetr.query('MEASure:CURRent:DC?')
+                    response = self.multimetr.query('MEASure:CURRent:DC?')
                 elif table == self.wynikiACI:
-                    response = Multimetr.multimetr.query('MEASure:CURRent:AC?')
+                    response = self.multimetr.query('MEASure:CURRent:AC?')
                 else:
                     print("Coś nie tak :/")
                     response = 0
