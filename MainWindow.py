@@ -286,11 +286,17 @@ if __name__ == "__main__":
                                     print(f"Ustawiam wartosc na: {itemp.text()}")
                                     self.calibrator_nastawa(item, self.zakres, sender.objectName())
                                     self.update_multimetr(item, table, itemp.text())
+                            else:
+                                self.calibrator_nastawa(item, self.zakres, sender.objectName())
+                                self.update_multimetr(item, table, itemp.text())
                             break
                         elif itemp.text() == 'A':
                             self.zakres = "A"
                             if self.displayed_warningmA is False:
-                                self.fluke5100b.write('S')
+                                try:
+                                    self.fluke5100b.write('S')
+                                except Exception as e:
+                                    self.error3.setText(str(e))
                                 reply = QMessageBox.question(self, 'Zmień przewody',
                                                              'Przekroczyłeś wartość 400mA. Czy zmieniłeś przewody?',
                                                              QMessageBox.Yes | QMessageBox.No)
@@ -320,7 +326,10 @@ if __name__ == "__main__":
                             try:
                                 if float(item.text()) > 2:
                                     if self.displayed_warning is False:
-                                        self.fluke5100b.write('S')
+                                        try:
+                                            self.fluke5100b.write('S')
+                                        except Exception as e:
+                                            self.error3.setText(str(e))
                                         reply = QMessageBox.question(self, 'Zmień przewody',
                                                                      'Przekroczyłeś wartość 2. Czy zmieniłeś przewody?',
                                                                      QMessageBox.Yes | QMessageBox.No)
@@ -704,7 +713,7 @@ if __name__ == "__main__":
                 va = self.ustawienie_kalibrator.currentText()
 
                 try:
-                    self.multimetr.timeout = 5000
+                    # self.multimetr.timeout = 5000
                     time.sleep(self.timesleep.value())
                     if self.AC_DC.currentText() == "AC" and "V" in va:
                         response = self.multimetr.query('MEASure:VOLTage:AC?')
@@ -1061,12 +1070,14 @@ if __name__ == "__main__":
                 print(f"Odpowiedz: {response}")
                 result = float(response)
                 print(f"To po konwercji: {result}")
-                if 0 < result < 1 and itemp != 'V':
-                    result = result * 1000
+                if 0 < result < 0.001 and itemp != 'V':
+                    result = result * 10**6
+                    print(f"Po *10^6 {result}")
                     result = np.around(float(result), decimals=4)
                     table.item(row, col + 1).setText(str(result))
-                elif 0 < result < 0.001:
-                    result = result * 1000000
+                elif 0 < result < 1:
+                    result = result * 10**3
+                    print(f"Po *10^3 {result}")
                     result = np.around(float(result), decimals=4)
                     table.item(row, col + 1).setText(str(result))
                 else:
@@ -1076,6 +1087,10 @@ if __name__ == "__main__":
                 print(e)
                 pass
             except AttributeError as e:
+                print(e)
+                pass
+            except Exception as e:
+                self.error1.setText(str(e))
                 print(e)
                 pass
 
