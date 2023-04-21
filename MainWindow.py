@@ -248,25 +248,25 @@ if __name__ == "__main__":
                             self.zakres = "uV"
                             print(f"Ustawiam wartosc na: {itemp.text()}")
                             self.calibrator_nastawa(item, self.zakres, sender.objectName())
-                            self.update_multimetr(item, table)
+                            self.update_multimetr(item, table, itemp.text())
                             break
                         elif itemp.text() == 'mV':
                             self.zakres = "mV"
                             print(f"Ustawiam wartosc na: {itemp.text()}")
                             self.calibrator_nastawa(item, self.zakres, sender.objectName())
-                            self.update_multimetr(item, table)
+                            self.update_multimetr(item, table, itemp.text())
                             break
                         elif itemp.text() == 'V':
                             self.zakres = "V"
                             print(f"Ustawiam wartosc na: {itemp.text()}")
                             self.calibrator_nastawa(item, self.zakres, sender.objectName())
-                            self.update_multimetr(item, table)
+                            self.update_multimetr(item, table, itemp.text())
                             break
                         elif itemp.text() == 'uA':
                             self.zakres = "uA"
                             print(f"Ustawiam wartosc na: {itemp.text()}")
                             self.calibrator_nastawa(item, self.zakres, sender.objectName())
-                            self.update_multimetr(item, table)
+                            self.update_multimetr(item, table, itemp.text())
                             break
                         elif itemp.text() == 'mA':
                             self.zakres = "mA"
@@ -278,14 +278,14 @@ if __name__ == "__main__":
                                     if reply == QMessageBox.Yes:
                                         self.displayed_warningmA = True
                                         self.calibrator_nastawa(item, self.zakres, sender.objectName())
-                                        self.update_multimetr(item, table)
+                                        self.update_multimetr(item, table, itemp.text())
                                     else:
                                         self.displayed_warningmA = False
                                         table.setCurrentCell(table.currentRow() - 1, 2)
                                 else:
                                     print(f"Ustawiam wartosc na: {itemp.text()}")
                                     self.calibrator_nastawa(item, self.zakres, sender.objectName())
-                                    self.update_multimetr(item, table)
+                                    self.update_multimetr(item, table, itemp.text())
                             break
                         elif itemp.text() == 'A':
                             self.zakres = "A"
@@ -297,7 +297,7 @@ if __name__ == "__main__":
                                 if reply == QMessageBox.Yes:
                                     self.displayed_warningmA = True
                                     self.calibrator_nastawa(item, self.zakres, sender.objectName())
-                                    self.update_multimetr(item, table)
+                                    self.update_multimetr(item, table, itemp.text())
                                 else:
                                     self.displayed_warningmA = False
                                     table.setCurrentCell(table.currentRow() - 1, 2)
@@ -311,12 +311,12 @@ if __name__ == "__main__":
                                             elif itemp.text() == 'mA':
                                                 self.zakres = "mA"
                                                 self.calibrator_nastawa(item, self.zakres, sender.objectName())
-                                                self.update_multimetr(item, table)
+                                                self.update_multimetr(item, table, itemp.text())
                                                 break
                             else:
                                 print(f"Ustawiam wartosc na: {itemp.text()}")
                                 self.calibrator_nastawa(item, self.zakres, sender.objectName())
-                                self.update_multimetr(item, table)
+                                self.update_multimetr(item, table, itemp.text())
                             try:
                                 if float(item.text()) > 2:
                                     if self.displayed_warning is False:
@@ -336,7 +336,7 @@ if __name__ == "__main__":
                                     else:
                                         print(f"Ustawiam wartosc na: {itemp.text()}")
                                         self.calibrator_nastawa(item, self.zakres, sender.objectName())
-                                        self.update_multimetr(item, table)
+                                        self.update_multimetr(item, table, itemp.text())
                             except ValueError:
                                 pass
                             break
@@ -502,7 +502,7 @@ if __name__ == "__main__":
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
                 self.calibrator_nastawa(item, itemp.text(), sender.objectName())
                 time.sleep(self.timesleep.value())
-                self.update_multimetr(item, self.wynikiDCV)
+                self.update_multimetr(item, self.wynikiDCV, None)
                 self.blokuj(self.wynikiDCV)
             elif sender.objectName() == "PomiarACV":
                 print("Teraz mierzymy ACV: ")
@@ -512,7 +512,7 @@ if __name__ == "__main__":
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
                 self.calibrator_nastawa(item, itemp.text(), sender.objectName())
                 time.sleep(self.timesleep.value())
-                self.update_multimetr(item, self.wynikiACV)
+                self.update_multimetr(item, self.wynikiACV, None)
                 self.blokuj(self.wynikiACV)
             elif sender.objectName() == "PomiarDCI":
                 print("Teraz mierzymy DCI: ")
@@ -522,7 +522,7 @@ if __name__ == "__main__":
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
                 self.calibrator_nastawa(item, itemp.text(), sender.objectName())
                 time.sleep(self.timesleep.value())
-                self.update_multimetr(item, self.wynikiDCI)
+                self.update_multimetr(item, self.wynikiDCI, None)
                 self.blokuj(self.wynikiDCI)
             elif sender.objectName() == "PomiarACI":
                 print("Teraz mierzymy ACI: ")
@@ -532,7 +532,7 @@ if __name__ == "__main__":
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
                 self.calibrator_nastawa(item, itemp.text(), sender.objectName())
                 time.sleep(self.timesleep.value())
-                self.update_multimetr(item, self.wynikiACI)
+                self.update_multimetr(item, self.wynikiACI, None)
                 self.blokuj(self.wynikiACI)
             elif sender.objectName() == "PomiarR":
                 print("Teraz mierzymy R: ")
@@ -718,10 +718,10 @@ if __name__ == "__main__":
                         print("Coś nie tak :/")
                         response = "Coś nie tak :/"
                     result = float(response)
-                    if result < 1:
+                    if 0 < result < 1 and self.ustawienie_kalibrator.currentText() != "V":
                         result = result * 1000
                         result = np.around(float(result), decimals=4)
-                    elif result < 0.001:
+                    elif 0 < result < 0.001:
                         result = result * 1000000
                         result = np.around(float(result), decimals=4)
                     else:
@@ -1040,7 +1040,7 @@ if __name__ == "__main__":
             except AttributeError:
                 pass
 
-        def update_multimetr(self, item, table):
+        def update_multimetr(self, item, table, itemp):
 
             # Obliczanie poprakwi
             row = item.row()
@@ -1061,11 +1061,11 @@ if __name__ == "__main__":
                 print(f"Odpowiedz: {response}")
                 result = float(response)
                 print(f"To po konwercji: {result}")
-                if result < 1:
+                if 0 < result < 1 and itemp != 'V':
                     result = result * 1000
                     result = np.around(float(result), decimals=4)
                     table.item(row, col + 1).setText(str(result))
-                elif result < 0.001:
+                elif 0 < result < 0.001:
                     result = result * 1000000
                     result = np.around(float(result), decimals=4)
                     table.item(row, col + 1).setText(str(result))
