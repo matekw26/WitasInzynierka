@@ -625,6 +625,7 @@ if __name__ == "__main__":
                 self.kalibrator_adres.addItems(devices)
                 self.multimetr_adres.clear()
                 self.multimetr_adres.addItems(devices)
+                self.multimetr_adres.setCurrentIndex(1)
             except Exception as e:
                 self.status_dmm.setText(str(e))
                 self.status_kal.setText(str(e))
