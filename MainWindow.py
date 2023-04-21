@@ -454,24 +454,24 @@ if __name__ == "__main__":
                 elif zakres == "uA":
                     if self.AC_DC.currentText() == "DC" or sender == "PomiarDCI":
                         self.fluke5100b.write(f'{item.value()}E-6A,')
-                        self.fluke5100b.write('S')
+                        self.fluke5100b.write('N')
                     elif self.AC_DC.currentText() == "AC" or sender == "PomiarACI":
                         self.fluke5100b.write(f'{item.value()}E-6A60H,')
-                        self.fluke5100b.write('S')
+                        self.fluke5100b.write('N')
                 elif zakres == "mA":
                     if self.AC_DC.currentText() == "DC" or sender == "PomiarDCI":
                         self.fluke5100b.write(f'{item.value()}E-3A,')
-                        self.fluke5100b.write('S')
+                        self.fluke5100b.write('N')
                     elif self.AC_DC.currentText() == "AC" or sender == "PomiarACI":
                         self.fluke5100b.write(f'{item.value()}E-3A60H,')
-                        self.fluke5100b.write('S')
+                        self.fluke5100b.write('N')
                 elif zakres == "A":
                     if self.AC_DC.currentText() == "DC" or sender == "PomiarDCI":
                         self.fluke5100b.write(f'{item.value()}A,')
-                        self.fluke5100b.write('S')
+                        self.fluke5100b.write('N')
                     elif self.AC_DC.currentText() == "AC" or sender == "PomiarACI":
                         self.fluke5100b.write(f'{item.value()}V60H,')
-                        self.fluke5100b.write('S')
+                        self.fluke5100b.write('N')
             except Exception as e:
                 self.error3.setText(str(e))
                 print(e)
@@ -1711,6 +1711,12 @@ if __name__ == "__main__":
         def calculate(self, zakres, row, ws):
 
             ws.cell(row + 3, 3, zakres * (-0.9))
+            ws.cell(row + 2, 3, zakres * 0.9)
+            ws.cell(row + 1, 3, zakres * 0.5)
+            ws.cell(row, 3, zakres * 0.1)
+
+        def calculateAC(self, zakres, row, ws):
+
             ws.cell(row + 2, 3, zakres * 0.9)
             ws.cell(row + 1, 3, zakres * 0.5)
             ws.cell(row, 3, zakres * 0.1)
