@@ -1335,6 +1335,7 @@ if __name__ == "__main__":
             ws.column_dimensions['D'].width = 12
             ws.column_dimensions['E'].width = 10
             ws.column_dimensions['F'].width = 12
+            ws.column_dimensions['G'].width = 11
 
             if checked.isChecked():
                 x = 10 # 0, tutaj zmienie chyba na wiecej zmienic TEZ W 398, 366
@@ -1364,175 +1365,175 @@ if __name__ == "__main__":
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{6 + x}:F{6 + x}")
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
                             elif (row == 0 + x) and (5 <= ile <= 7) and (zakres2 / 100 >= 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'mV')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'mA')
-                                ws.merge_cells(f"B{6 + x}:F{6 + x}")
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
                             elif (row == 5 + x) and (ile == 5) and (zakres2 / 100 >= 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{11 + x}:F{11 + x}")
+                                ws.merge_cells(f"B{11 + x}:G{11 + x}")
                             elif (row == 9 + x) and (ile == 6) and (zakres2 / 100 >= 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{15 + x}:F{15 + x}")
+                                ws.merge_cells(f"B{15 + x}:G{15 + x}")
                             elif (row == 13 + x) and (ile == 7) and (zakres2 / 100 >= 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{19 + x}:F{19 + x}")
+                                ws.merge_cells(f"B{19 + x}:G{19 + x}")
                             elif (row == 0 + x) and (ile <= 3) and (zakres2 / 10 >= 1) and (zakres2 / 100 < 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{6 + x}:F{6 + x}")
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
                             elif (row == 0 + x) and (4 <= ile <= 6) and (zakres2 / 10 >= 1) and (zakres2 / 100 < 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'mV')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'mA')
-                                ws.merge_cells(f"B{6 + x}:F{6 + x}")
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
                             elif (row == 5 + x) and (ile == 4) and (zakres2 / 10 >= 1) and (zakres2 / 100 < 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{11 + x}:F{11 + x}")
+                                ws.merge_cells(f"B{11 + x}:G{11 + x}")
                             elif (row == 9 + x) and (ile == 5) and (zakres2 / 10 >= 1) and (zakres2 / 100 < 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{15 + x}:F{15 + x}")
+                                ws.merge_cells(f"B{15 + x}:G{15 + x}")
                             elif (row == 13 + x) and (ile == 6) and (zakres2 / 10 >= 1) and (zakres2 / 100 < 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{19 + x}:F{19 + x}")
+                                ws.merge_cells(f"B{19 + x}:G{19 + x}")
                             elif (row == 0 + x) and (ile <= 2) and (zakres2 / 10 < 1) and (zakres2 > 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{6 + x}:F{6 + x}")
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
                             elif (row == 0 + x) and (3 <= ile <= 5) and (zakres2 / 10 < 1) and (zakres2 > 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'mV')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'mA')
-                                ws.merge_cells(f"B{6 + x}:F{6 + x}")
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
                             elif (row == 5 + x) and (ile == 3) and (zakres2 / 10 < 1) and (zakres2 > 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{11 + x}:F{11 + x}")
+                                ws.merge_cells(f"B{11 + x}:G{11 + x}")
                             elif (row == 9 + x) and (ile == 4) and (zakres2 / 10 < 1) and (zakres2 > 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{15 + x}:F{15 + x}")
+                                ws.merge_cells(f"B{15 + x}:G{15 + x}")
                             elif (row == 13 + x) and (ile == 5) and (zakres2 / 10 < 1) and (zakres2 > 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{19 + x}:F{19 + x}")
+                                ws.merge_cells(f"B{19 + x}:G{19 + x}")
                             elif (row == 0 + x) and (ile == 6) and (zakres2 / 10 < 1) and (zakres2 > 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'uV')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'uA')
-                                ws.merge_cells(f"B{6 + x}:F{6 + x}")
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
                             elif (row == 5 + x) and (ile == 6) and (zakres2 / 10 < 1) and (zakres2 > 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'mV')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'mA')
-                                ws.merge_cells(f"B{11 + x}:F{11 + x}")
+                                ws.merge_cells(f"B{11 + x}:G{11 + x}")
                             elif (row == 18 + x) and (ile == 6) and (zakres2 / 10 < 1) and (zakres2 > 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{24 + x}:F{24 + x}")
+                                ws.merge_cells(f"B{24 + x}:G{24 + x}")
                             elif (row == 0 + x) and (ile <= 2) and (zakres2 / 10 < 1) and (zakres2 > 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{6 + x}:F{6 + x}")
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
                             elif (row == 0 + x) and (ile <= 1) and (zakres2 < 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{6 + x}:F{6 + x}")
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
                             elif (row == 0 + x) and (2 <= ile <= 4) and (zakres2 < 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'mV')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'mA')
-                                ws.merge_cells(f"B{6 + x}:F{6 + x}")
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
                             elif (row == 5 + x) and (ile == 2) and (zakres2 < 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{11 + x}:F{11 + x}")
+                                ws.merge_cells(f"B{11 + x}:G{11 + x}")
                             elif (row == 9 + x) and (ile == 3) and (zakres2 < 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{15 + x}:F{15 + x}")
+                                ws.merge_cells(f"B{15 + x}:G{15 + x}")
                             elif (row == 13 + x) and (ile == 4) and (zakres2 < 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{19 + x}:F{19 + x}")
+                                ws.merge_cells(f"B{19 + x}:G{19 + x}")
                             elif (row == 0 + x) and (5 <= ile <= 6) and (zakres2 < 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'uV')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'uA')
-                                ws.merge_cells(f"B{6 + x}:F{6 + x}")
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
                             elif (row == 5 + x) and (ile == 5) and (zakres2 < 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'mV')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'mA')
-                                ws.merge_cells(f"B{11 + x}:F{11 + x}")
+                                ws.merge_cells(f"B{11 + x}:G{11 + x}")
                             elif (row == 9 + x) and (ile == 6) and (zakres2 < 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'mV')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'mA')
-                                ws.merge_cells(f"B{15 + x}:F{15 + x}")
+                                ws.merge_cells(f"B{15 + x}:G{15 + x}")
                             elif (row == 18 + x) and (ile == 5) and (zakres2 < 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{24 + x}:F{24 + x}")
+                                ws.merge_cells(f"B{24 + x}:G{24 + x}")
                             elif (row == 22 + x) and (ile == 6) and (zakres2 < 1):
                                 if checked == self.check_dcv or checked == self.check_acv:
                                     ws.cell(row + 6, 2, 'V')
                                 elif checked == self.check_dci or checked == self.check_aci:
                                     ws.cell(row + 6, 2, 'A')
-                                ws.merge_cells(f"B{28 + x}:F{28 + x}")
+                                ws.merge_cells(f"B{28 + x}:G{28 + x}")
                             elif row < row_range - 22 + x:
                                 if zakres2 / 10 < 1 < zakres2:
                                     ws.cell(row + 6, 2, zakres2 * 100)
@@ -1707,6 +1708,345 @@ if __name__ == "__main__":
                                     ws.cell(row, 3, cell.value * 0.1)
                             except TypeError:
                                 pass
+
+        def creat_excelAC(self, ws, checked, ile, zakres1, zakres2):
+
+            col_headers = ['Zakres', 'Punkt Pomiarowy', 'Wartość napięcia odniesienia',
+                           'Zmierzona wartość napięcia', 'Poprawka', 'Niepewność pomiaru']
+
+            # ustawianie stylu obramowania dla komórek
+            border_style = Side(border_style='thin', color='000000')
+            border = Border(left=border_style, right=border_style, top=border_style, bottom=border_style)
+
+            # ustawianie czcionki i pozycji tekstu
+            alignmentCC = Alignment(wrap_text=True, horizontal='center', vertical='center')
+            fontA10 = Font(name='Arial', size=10)
+
+            ws.column_dimensions['B'].width = 8
+            ws.column_dimensions['C'].width = 13
+            ws.column_dimensions['D'].width = 12
+            ws.column_dimensions['E'].width = 10
+            ws.column_dimensions['F'].width = 12
+            ws.column_dimensions['G'].width = 11
+
+            if checked.isChecked():
+                x = 10 # 0, tutaj zmienie chyba na wiecej zmienic TEZ W 398, 366
+
+                for i, col in enumerate(col_headers):
+                    ws.cell(5 + x, i + 2, col)
+                    cell = ws.cell(row=5 + x, column=i+2)
+                    cell.border = border
+                    cell.font = fontA10
+                    cell.alignment = alignmentCC
+
+                if (ile <= 4) and (zakres2 / 100 >= 1) or \
+                   (ile == 3) and (zakres2 / 10 >= 1) or \
+                   (ile <= 2) and (zakres2 > 1) and (zakres2 < 10):
+                    row_range = ile * 3 + 1
+                elif (5 <= ile <= 7) and (zakres2 < 1) or \
+                     (ile == 6) and (zakres2 / 10 < 1) and (zakres2 > 1):
+                    row_range = ile * 3 + 3
+                else:
+                    row_range = ile * 3 + 2
+                if checked != self.check_r:
+                    for row in range(row_range):
+                        row = row + x
+                        try:
+                            if (row == 0 + x) and (ile <= 4) and (zakres2 / 100 >= 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
+                            elif (row == 0 + x) and (5 <= ile <= 7) and (zakres2 / 100 >= 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'mV')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'mA')
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
+                            elif (row == 4 + x) and (ile == 5) and (zakres2 / 100 >= 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{11 + x}:G{11 + x}")
+                            elif (row == 7 + x) and (ile == 6) and (zakres2 / 100 >= 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{15 + x}:G{15 + x}")
+                            elif (row == 10 + x) and (ile == 7) and (zakres2 / 100 >= 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{19 + x}:G{19 + x}")
+                            elif (row == 0 + x) and (ile <= 3) and (zakres2 / 10 >= 1) and (zakres2 / 100 < 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
+                            elif (row == 0 + x) and (4 <= ile <= 6) and (zakres2 / 10 >= 1) and (zakres2 / 100 < 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'mV')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'mA')
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
+                            elif (row == 4 + x) and (ile == 4) and (zakres2 / 10 >= 1) and (zakres2 / 100 < 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{11 + x}:G{11 + x}")
+                            elif (row == 7 + x) and (ile == 5) and (zakres2 / 10 >= 1) and (zakres2 / 100 < 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{15 + x}:G{15 + x}")
+                            elif (row == 10 + x) and (ile == 6) and (zakres2 / 10 >= 1) and (zakres2 / 100 < 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{16 + x}:G{16 + x}")
+                            elif (row == 0 + x) and (ile <= 2) and (zakres2 / 10 < 1) and (zakres2 > 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
+                            elif (row == 0 + x) and (3 <= ile <= 5) and (zakres2 / 10 < 1) and (zakres2 > 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'mV')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'mA')
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
+                            elif (row == 4 + x) and (ile == 3) and (zakres2 / 10 < 1) and (zakres2 > 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{11 + x}:G{11 + x}")
+                            elif (row == 7 + x) and (ile == 4) and (zakres2 / 10 < 1) and (zakres2 > 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{15 + x}:G{15 + x}")
+                            elif (row == 10 + x) and (ile == 5) and (zakres2 / 10 < 1) and (zakres2 > 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{19 + x}:G{19 + x}")
+                            elif (row == 0 + x) and (ile == 6) and (zakres2 / 10 < 1) and (zakres2 > 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'uV')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'uA')
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
+                            elif (row == 4 + x) and (ile == 6) and (zakres2 / 10 < 1) and (zakres2 > 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'mV')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'mA')
+                                ws.merge_cells(f"B{11 + x}:G{11 + x}")
+                            elif (row == 14 + x) and (ile == 6) and (zakres2 / 10 < 1) and (zakres2 > 1): #bylo 18 chyba 14
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{24 + x}:G{24 + x}")
+                            elif (row == 0 + x) and (ile <= 2) and (zakres2 / 10 < 1) and (zakres2 > 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
+                            elif (row == 0 + x) and (ile <= 1) and (zakres2 < 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
+                            elif (row == 0 + x) and (2 <= ile <= 4) and (zakres2 < 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'mV')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'mA')
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
+                            elif (row == 4 + x) and (ile == 2) and (zakres2 < 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{11 + x}:G{11 + x}")
+                            elif (row == 7 + x) and (ile == 3) and (zakres2 < 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{15 + x}:G{15 + x}")
+                            elif (row == 10 + x) and (ile == 4) and (zakres2 < 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{19 + x}:G{19 + x}")
+                            elif (row == 0 + x) and (5 <= ile <= 6) and (zakres2 < 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'uV')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'uA')
+                                ws.merge_cells(f"B{6 + x}:G{6 + x}")
+                            elif (row == 4 + x) and (ile == 5) and (zakres2 < 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'mV')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'mA')
+                                ws.merge_cells(f"B{11 + x}:G{11 + x}")
+                            elif (row == 7 + x) and (ile == 6) and (zakres2 < 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'mV')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'mA')
+                                ws.merge_cells(f"B{15 + x}:G{15 + x}")
+                            elif (row == 14 + x) and (ile == 5) and (zakres2 < 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{24 + x}:G{24 + x}")
+                            elif (row == 17 + x) and (ile == 6) and (zakres2 < 1):
+                                if checked == self.check_dcv or checked == self.check_acv:
+                                    ws.cell(row + 6, 2, 'V')
+                                elif checked == self.check_dci or checked == self.check_aci:
+                                    ws.cell(row + 6, 2, 'A')
+                                ws.merge_cells(f"B{28 + x}:G{28 + x}") #git?
+                            elif row < row_range - 18 + x:
+                                if zakres2 / 10 < 1 < zakres2:
+                                    ws.cell(row + 6, 2, zakres2 * 100)
+                                elif zakres2 / 10 < 1:
+                                    ws.cell(row + 6, 2, zakres2 * 100)
+                                else:
+                                    ws.cell(row + 6, 2, zakres2 / 10)
+                            elif row < row_range - 15 + x:
+                                if zakres2 < 1:
+                                    ws.cell(row + 6, 2, zakres2 * 1000)
+                                else:
+                                    ws.cell(row + 6, 2, zakres2)
+                            elif row < row_range - 9 + x:
+                                if zakres2 / 100 < 1:
+                                    ws.cell(row + 6, 2, zakres2 * 10)
+                                elif zakres2 < 1:
+                                    ws.cell(row + 6, 2, zakres2 * 100)
+                                else:
+                                    ws.cell(row + 6, 2, zakres2 / 100)
+                            elif row < row_range - 6 + x:
+                                if zakres2 / 10 < 1:
+                                    ws.cell(row + 6, 2, zakres2 * 100)
+                                else:
+                                    ws.cell(row + 6, 2, zakres2 / 10)
+                            elif row < row_range - 3 + x:
+                                if zakres2 < 1:
+                                    ws.cell(row + 6, 2, zakres2 * 1000)
+                                else:
+                                    ws.cell(row + 6, 2, zakres2)
+                            elif row < row_range + 1 + x:
+                                ws.cell(row + 6, 2, zakres1)
+                        except AttributeError:
+                            pass
+                        for col in range(2, 8):
+                            cell = ws.cell(row=row+6, column=col)
+                            cell.border = border
+                            cell.alignment = alignmentCC
+                    if ile == 6 and zakres2 / 100 >= 1:
+                        end = 1
+                    elif ile == 5 and zakres2 / 100 >= 1:
+                        end = 2
+                    elif ile <= 4 and zakres2 / 100 >= 1:
+                        end = 0
+                    elif ile == 6 and zakres2 / 10 >= 1:
+                        end = 0
+                    elif ile == 5 and zakres2 / 10 >= 1:
+                        end = 1
+                    elif ile == 4 and zakres2 / 10 >= 1:
+                        end = 2
+                    elif ile == 3 and zakres2 / 10 >= 1:
+                        end = 0
+                    elif ile <= 4 and zakres2 / 10 >= 1:
+                        end = 3
+                    elif ile == 3 and zakres2 < 1:
+                        end = 1
+                    elif ile == 2 and zakres2 < 1:
+                        end = 2
+                    elif ile == 4 and zakres2 / 10 < 1 < zakres2:
+                        end = 1
+                    elif ile == 6 and zakres2 < 1:
+                        end = 1
+                    elif ile == 5 and zakres2 < 1:
+                        end = 2
+                    elif ile == 6 and zakres2 / 10 < 1 < zakres2:
+                        end = 2
+                    else:
+                        end = 0
+
+                    endy = 0
+                    y = 4 * (3 - end)
+
+                    if (ile <= 4) and (zakres2 / 100 >= 1) or \
+                            (ile == 3) and (zakres2 / 10 >= 1) or \
+                            (ile <= 2) and (zakres2 > 1) and (zakres2 < 10):
+                        row_range = ile * 4 + 1
+                        for row in range(row_range + 3):
+                            row = row + x
+                            if (row - (x + 7) >= 0) and (row - (x + 7)) % 3 == 0 and end < 3 or \
+                                    (row - (x + 7) >= 0) and (row - (x + 7)) % 3 == 0 and ile == 4 and end <= 3:
+                                end += 1
+                                ws.merge_cells(f"B{row}:B{row + 2}")
+                    elif (5 <= ile <= 7) and (zakres2 < 1) or \
+                            (ile == 6) and (zakres2 / 10 < 1) and (zakres2 > 1):
+                        row_range = ile * 4 + 3
+                        for row in range(row_range + 3):
+                            row = row + x
+                            if (row - (x + 7) >= 0) and (row - (x + 7)) % 3 == 0 and end < 3 or \
+                                    (row - (x + 11) >= 0) and (row - (x + 11)) % 3 == 0 and end < 3:
+                                end += 1
+                                ws.merge_cells(f"B{row}:B{row + 2}")
+                            elif ((100 > row > 60 and row > (6 + x + y)) or 45 > row > (6 + x + y)) and \
+                                    (row - x) % 3 == 0 and end >= 3 > endy or \
+                                    row > (6 + x + y) and (row > 101 and (row - 102) % 3 == 0) and end >= 3 > endy or \
+                                    (60 > row > 45 and (row - (42 + x)) % 3 == 0) and end >= 3 > endy:
+                                endy += 1
+                                ws.merge_cells(f"B{row}:B{row + 2}")
+                            elif (row - (25 + x)) % 3 == 0 and row > y + 19 + x and endy >= 3:
+                                ws.merge_cells(f"B{row}:B{row + 2}")
+                    else:
+                        row_range = ile * 4 + 2
+                        for row in range(row_range + 3):
+                            row = row + x
+                            if (row - (x + 7) >= 0) and (row - (x + 7)) % 3 == 0 and end < 3:
+                                end += 1
+                                ws.merge_cells(f"B{row}:B{row + 2}")
+                            elif ((100 > row > 60 and row > (6 + x + y)) or 45 > row > (6 + x + y)) and \
+                                    (row - x) % 3 == 0 and end >= 3 or \
+                                    row > (6 + x + y) and (row > 101 and (row-102) % 3 == 0) and end >= 3 or \
+                                    (60 > row > 45 and (row - (42 + x)) % 3 == 0) and end >= 3:
+                                ws.merge_cells(f"B{row}:B{row + 2}")
+
+                    # for row in range(row_range):
+                    #     row += 6 + x
+                    #     cell = ws.cell(row=row, column=2)
+                    #     if cell.value is not None:
+                    #         try:
+                    #             if 0 < cell.value < 10 ** 15:
+                    #                 self.calculateAC(cell.value, row, ws) # row + x
+                    #         except TypeError:
+                    #             pass
+
 
         def calculate(self, zakres, row, ws):
 
