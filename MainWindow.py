@@ -4,8 +4,13 @@ from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QFileDialog, QMessageBox, QTableWidgetItem, \
     QPushButton
-from PySide6.QtCore import QDate, Qt
+from PySide6.QtCore import QDate, Qt, QThread
 from PySide6.QtGui import QCloseEvent, QPen, QColor, QStandardItem, QStandardItemModel
+from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QMainWindow, QApplication
+from PySide6.QtCore import QTimer, QRunnable, Slot, Signal, QObject, QThreadPool
+
+import traceback
+
 from MainWindowui import Ui_MainWindow
 # from docx import Document
 # from docx.shared import Inches
@@ -47,10 +52,67 @@ import Multimetr
 
 
 if __name__ == "__main__":
+
+    # class Worker(QRunnable):
+    #     def __init__(self):
+    #         super().__init__()
+    #
+    #     @Slot()  # QtCore.Slot
+    #     def run(self):
+    #         '''
+    #         Your code goes in this function
+    #         '''
+    #         print("Thread start")
+    #         a = MainWindow()
+    #         a.update_multimetr()
+    #         print("Thread complete")
+    # class WorkerSignals(QObject):
+    #
+    #     finished = Signal()
+    #     error = Signal(tuple)
+    #     result = Signal(object)
+    #     progress = Signal(int)
+    #
+    # class Worker(QRunnable):
+    #
+    #     def __init__(self, fn, *args, **kwargs):
+    #         super(Worker, self).__init__()
+    #
+    #         # Store constructor arguments (re-used for processing)
+    #         self.fn = fn
+    #         self.args = args
+    #         self.kwargs = kwargs
+    #         self.signals = WorkerSignals()
+    #
+    #         # # Add the callback to our kwargs
+    #         # self.kwargs['progress_callback'] = self.signals.progress
+    #
+    #     @Slot()
+    #     def run(self):
+    #
+    #         # Retrieve args/kwargs here; and fire processing using them
+    #         try:
+    #             result = None
+    #             a = MainWindow()
+    #             b = a.timesleep.value()
+    #             print(b)
+    #         except:
+    #             traceback.print_exc()
+    #             exctype, value = sys.exc_info()[:2]
+    #             self.signals.error.emit((exctype, value, traceback.format_exc()))
+    #         else:
+    #             self.signals.result.emit(result)  # Return the result of the processing
+    #         finally:
+    #             self.signals.finished.emit()  # Done
+
     class MainWindow(QMainWindow, Ui_MainWindow):
-        def __init__(self):
-            super(MainWindow, self).__init__()
+        def __init__(self, *args, **kwargs):
+            super(MainWindow, self).__init__(*args, **kwargs)
+
             self.setupUi(self)
+
+            # do timesleep
+            self.threadpool = QThreadPool()
 
             # cos do zapisu
             self.initUI()
@@ -193,6 +255,7 @@ if __name__ == "__main__":
             self.saveFileDialog.setFileMode(QFileDialog.AnyFile)
             self.saveFileDialog.setNameFilter("Excel Files (*.xlsx)")
 
+
         # zamkniecie aplikacji
         def closeEvent(self, event: QCloseEvent):
             czy_zamknac = QMessageBox.question(self, "Zamknąć aplikacje?", "Czy na pewno chcesz wyjśc z programu?",
@@ -248,24 +311,28 @@ if __name__ == "__main__":
                             self.zakres = "uV"
                             print(f"Ustawiam wartosc na: {itemp.text()}")
                             self.calibrator_nastawa(item, self.zakres, sender.objectName())
+                            self.blokuj(table)
                             self.update_multimetr(item, table, itemp.text())
                             break
                         elif itemp.text() == 'mV':
                             self.zakres = "mV"
                             print(f"Ustawiam wartosc na: {itemp.text()}")
                             self.calibrator_nastawa(item, self.zakres, sender.objectName())
+                            self.blokuj(table)
                             self.update_multimetr(item, table, itemp.text())
                             break
                         elif itemp.text() == 'V':
                             self.zakres = "V"
                             print(f"Ustawiam wartosc na: {itemp.text()}")
                             self.calibrator_nastawa(item, self.zakres, sender.objectName())
+                            self.blokuj(table)
                             self.update_multimetr(item, table, itemp.text())
                             break
                         elif itemp.text() == 'uA':
                             self.zakres = "uA"
                             print(f"Ustawiam wartosc na: {itemp.text()}")
                             self.calibrator_nastawa(item, self.zakres, sender.objectName())
+                            self.blokuj(table)
                             self.update_multimetr(item, table, itemp.text())
                             break
                         elif itemp.text() == 'mA':
@@ -278,6 +345,7 @@ if __name__ == "__main__":
                                     if reply == QMessageBox.Yes:
                                         self.displayed_warningmA = True
                                         self.calibrator_nastawa(item, self.zakres, sender.objectName())
+                                        self.blokuj(table)
                                         self.update_multimetr(item, table, itemp.text())
                                     else:
                                         self.displayed_warningmA = False
@@ -285,9 +353,11 @@ if __name__ == "__main__":
                                 else:
                                     print(f"Ustawiam wartosc na: {itemp.text()}")
                                     self.calibrator_nastawa(item, self.zakres, sender.objectName())
+                                    self.blokuj(table)
                                     self.update_multimetr(item, table, itemp.text())
                             else:
                                 self.calibrator_nastawa(item, self.zakres, sender.objectName())
+                                self.blokuj(table)
                                 self.update_multimetr(item, table, itemp.text())
                             break
                         elif itemp.text() == 'A':
@@ -303,6 +373,7 @@ if __name__ == "__main__":
                                 if reply == QMessageBox.Yes:
                                     self.displayed_warningmA = True
                                     self.calibrator_nastawa(item, self.zakres, sender.objectName())
+                                    self.blokuj(table)
                                     self.update_multimetr(item, table, itemp.text())
                                 else:
                                     self.displayed_warningmA = False
@@ -317,11 +388,13 @@ if __name__ == "__main__":
                                             elif itemp.text() == 'mA':
                                                 self.zakres = "mA"
                                                 self.calibrator_nastawa(item, self.zakres, sender.objectName())
+                                                self.blokuj(table)
                                                 self.update_multimetr(item, table, itemp.text())
                                                 break
                             else:
                                 print(f"Ustawiam wartosc na: {itemp.text()}")
                                 self.calibrator_nastawa(item, self.zakres, sender.objectName())
+                                self.blokuj(table)
                                 self.update_multimetr(item, table, itemp.text())
                             try:
                                 if float(item.text()) > 2:
@@ -345,6 +418,7 @@ if __name__ == "__main__":
                                     else:
                                         print(f"Ustawiam wartosc na: {itemp.text()}")
                                         self.calibrator_nastawa(item, self.zakres, sender.objectName())
+                                        self.blokuj(table)
                                         self.update_multimetr(item, table, itemp.text())
                             except ValueError:
                                 pass
@@ -361,18 +435,19 @@ if __name__ == "__main__":
 
                     # self.calibrator_nastawa(item, self.zakres, None)
 
-                    # ustawienie atrybutu ItemIsEditable na False dla wszystkich komórek
-                    for i in range(table.rowCount()):
-                        for j in range(table.columnCount()):
-                            if i != table.currentRow() or j != 4:
-                                # print(f"{i}{j}")
-                                # print(table.currentRow())
-                                item = table.item(i, j)
-                                if item is not None:
-                                    item.setFlags(item.flags() & ~QtCore.Qt.ItemIsEditable)
-                            else:
-                                table.setCurrentCell(i, j)
-                                table.editItem(table.item(i, j))
+                    # To było dobre ostatnie (tylko to)
+                    # # ustawienie atrybutu ItemIsEditable na False dla wszystkich komórek
+                    # for i in range(table.rowCount()):
+                    #     for j in range(table.columnCount()):
+                    #         if i != table.currentRow() or j != 4:
+                    #             # print(f"{i}{j}")
+                    #             # print(table.currentRow())
+                    #             item = table.item(i, j)
+                    #             if item is not None:
+                    #                 item.setFlags(item.flags() & ~QtCore.Qt.ItemIsEditable)
+                    #         else:
+                    #             table.setCurrentCell(i, j)
+                    #             table.editItem(table.item(i, j))
 
                      # ustawienie atrybutu ItemIsEditable na True dla wybranej komórki
                     # it = QtWidgets.QTableWidgetItem("not editable")
@@ -486,6 +561,16 @@ if __name__ == "__main__":
                 print(e)
                 pass
 
+        def thread_complete(self):
+            print("THREAD COMPLETE!")
+
+        def print_output(self, s):
+            print(s)
+
+        def wait(self):
+            print(self.timesleep.value())
+            time.sleep(self.timesleep.value())
+
         def pomiary(self):
 
             self.initialize = True
@@ -510,9 +595,15 @@ if __name__ == "__main__":
                 itemp = self.wynikiDCV.item(4, 1)
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
                 self.calibrator_nastawa(item, itemp.text(), sender.objectName())
-                time.sleep(self.timesleep.value())
-                self.update_multimetr(item, self.wynikiDCV, None)
+
+                #time.sleep(self.timesleep.value())
+
+                # worker = Worker(self.wait)
+                # self.threadpool.start(worker)
+                # worker.signals.finished.connect(self.update_multimetr(item, self.wynikiDCV, None))
                 self.blokuj(self.wynikiDCV)
+                self.update_multimetr(item, self.wynikiDCV, None)
+
             elif sender.objectName() == "PomiarACV":
                 print("Teraz mierzymy ACV: ")
                 self.wynikiACV.setCurrentCell(5, 2)
@@ -520,9 +611,11 @@ if __name__ == "__main__":
                 itemp = self.wynikiACV.item(4, 1)
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
                 self.calibrator_nastawa(item, itemp.text(), sender.objectName())
-                time.sleep(self.timesleep.value())
-                self.update_multimetr(item, self.wynikiACV, None)
+
+                #time.sleep(self.timesleep.value())
+
                 self.blokuj(self.wynikiACV)
+                self.update_multimetr(item, self.wynikiACV, None)
             elif sender.objectName() == "PomiarDCI":
                 print("Teraz mierzymy DCI: ")
                 self.wynikiDCI.setCurrentCell(5, 2)
@@ -530,9 +623,11 @@ if __name__ == "__main__":
                 itemp = self.wynikiDCI.item(4, 1)
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
                 self.calibrator_nastawa(item, itemp.text(), sender.objectName())
-                time.sleep(self.timesleep.value())
-                self.update_multimetr(item, self.wynikiDCI, None)
+
+                #time.sleep(self.timesleep.value())
+
                 self.blokuj(self.wynikiDCI)
+                self.update_multimetr(item, self.wynikiDCI, None)
             elif sender.objectName() == "PomiarACI":
                 print("Teraz mierzymy ACI: ")
                 self.wynikiACI.setCurrentCell(5, 2)
@@ -540,9 +635,11 @@ if __name__ == "__main__":
                 itemp = self.wynikiACI.item(4, 1)
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
                 self.calibrator_nastawa(item, itemp.text(), sender.objectName())
-                time.sleep(self.timesleep.value())
-                self.update_multimetr(item, self.wynikiACI, None)
+
+                #time.sleep(self.timesleep.value())
+
                 self.blokuj(self.wynikiACI)
+                self.update_multimetr(item, self.wynikiACI, None)
             elif sender.objectName() == "PomiarR":
                 print("Teraz mierzymy R: ")
                 self.wynikiR.setCurrentCell(5, 2)
@@ -714,7 +811,10 @@ if __name__ == "__main__":
 
                 try:
                     # self.multimetr.timeout = 5000
-                    time.sleep(self.timesleep.value())
+                    #time.sleep(self.timesleep.value())
+                    for n in range(0, self.timesleep.value() * 100):
+                        time.sleep(0.01)
+                        QApplication.processEvents()
                     if self.AC_DC.currentText() == "AC" and "V" in va:
                         response = self.multimetr.query('MEASure:VOLTage:AC?')
                     elif self.AC_DC.currentText() == "DC" and "V" in va:
@@ -1055,7 +1155,10 @@ if __name__ == "__main__":
             row = item.row()
             col = item.column()
             try:
-                time.sleep(self.timesleep.value())
+                #time.sleep(self.timesleep.value())
+                for n in range(0, self.timesleep.value()*100):
+                    time.sleep(0.01)
+                    QApplication.processEvents()
                 if table == self.wynikiDCV:
                     response = self.multimetr.query('MEASure:VOLTage:DC?')
                 elif table == self.wynikiACV:
@@ -1069,6 +1172,7 @@ if __name__ == "__main__":
                     response = 0
                 print(f"Odpowiedz: {response}")
                 result = float(response)
+                # result = 10
                 print(f"To po konwercji: {result}")
                 if 0 < result < 0.001 and itemp != 'V':
                     result = result * 10**6
@@ -1081,7 +1185,7 @@ if __name__ == "__main__":
                     result = np.around(float(result), decimals=4)
                     table.item(row, col + 1).setText(str(result))
                 else:
-                    result = np.around(float(response), decimals=4)
+                    #result = np.around(float(response), decimals=4)
                     table.item(row, col + 1).setText(str(result))
             except ValueError as e:
                 print(e)
@@ -1093,7 +1197,6 @@ if __name__ == "__main__":
                 self.error1.setText(str(e))
                 print(e)
                 pass
-
 
         def save_to_excel(self):
 
