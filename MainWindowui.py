@@ -40,6 +40,266 @@ class Ui_MainWindow(object):
         self.Pomiary.setObjectName(u"Pomiary")
         self.gridLayout = QGridLayout(self.Pomiary)
         self.gridLayout.setObjectName(u"gridLayout")
+        self.check_dci = QCheckBox(self.Pomiary)
+        self.check_dci.setObjectName(u"check_dci")
+        self.check_dci.setChecked(True)
+
+        self.gridLayout.addWidget(self.check_dci, 1, 10, 1, 3)
+
+        self.ilR = QSpinBox(self.Pomiary)
+        self.ilR.setObjectName(u"ilR")
+        self.ilR.setMaximumSize(QSize(30, 16777215))
+        self.ilR.setMaximum(10)
+        self.ilR.setValue(6)
+
+        self.gridLayout.addWidget(self.ilR, 1, 23, 1, 1)
+
+        self.wybierz_model = QComboBox(self.Pomiary)
+        self.wybierz_model.setObjectName(u"wybierz_model")
+
+        self.gridLayout.addWidget(self.wybierz_model, 1, 1, 1, 2)
+
+        self.zakresACI_2 = QDoubleSpinBox(self.Pomiary)
+        self.zakresACI_2.setObjectName(u"zakresACI_2")
+        self.zakresACI_2.setMaximumSize(QSize(50, 16777215))
+        self.zakresACI_2.setMaximum(1000.000000000000000)
+        self.zakresACI_2.setValue(0.400000000000000)
+
+        self.gridLayout.addWidget(self.zakresACI_2, 2, 20, 1, 1)
+
+        self.SzukajModelu = QPushButton(self.Pomiary)
+        self.SzukajModelu.setObjectName(u"SzukajModelu")
+
+        self.gridLayout.addWidget(self.SzukajModelu, 1, 30, 3, 2)
+
+        self.pushButton_19 = QPushButton(self.Pomiary)
+        self.pushButton_19.setObjectName(u"pushButton_19")
+
+        self.gridLayout.addWidget(self.pushButton_19, 6, 29, 1, 2)
+
+        self.ilDCI = QSpinBox(self.Pomiary)
+        self.ilDCI.setObjectName(u"ilDCI")
+        self.ilDCI.setMaximumSize(QSize(30, 16777215))
+        self.ilDCI.setMaximum(10)
+        self.ilDCI.setValue(4)
+
+        self.gridLayout.addWidget(self.ilDCI, 1, 14, 1, 1)
+
+        self.zakresR = QSpinBox(self.Pomiary)
+        self.zakresR.setObjectName(u"zakresR")
+        self.zakresR.setMinimumSize(QSize(60, 0))
+        self.zakresR.setMaximum(500000000)
+        self.zakresR.setValue(200000000)
+        self.zakresR.setDisplayIntegerBase(10)
+
+        self.gridLayout.addWidget(self.zakresR, 2, 22, 1, 2)
+
+        self.label_12 = QLabel(self.Pomiary)
+        self.label_12.setObjectName(u"label_12")
+
+        self.gridLayout.addWidget(self.label_12, 1, 3, 1, 2)
+
+        self.zakresDCI = QSpinBox(self.Pomiary)
+        self.zakresDCI.setObjectName(u"zakresDCI")
+        self.zakresDCI.setMinimumSize(QSize(50, 0))
+        self.zakresDCI.setMaximum(1000)
+        self.zakresDCI.setValue(10)
+
+        self.gridLayout.addWidget(self.zakresDCI, 2, 10, 1, 3)
+
+        self.zakresDCV_2 = QDoubleSpinBox(self.Pomiary)
+        self.zakresDCV_2.setObjectName(u"zakresDCV_2")
+        self.zakresDCV_2.setMaximumSize(QSize(60, 16777215))
+        self.zakresDCV_2.setMaximum(1000.000000000000000)
+        self.zakresDCV_2.setValue(400.000000000000000)
+
+        self.gridLayout.addWidget(self.zakresDCV_2, 2, 7, 1, 1)
+
+        self.ustawienie_kalibrator = QComboBox(self.Pomiary)
+        self.ustawienie_kalibrator.addItem("")
+        self.ustawienie_kalibrator.addItem("")
+        self.ustawienie_kalibrator.addItem("")
+        self.ustawienie_kalibrator.addItem("")
+        self.ustawienie_kalibrator.addItem("")
+        self.ustawienie_kalibrator.addItem("")
+        self.ustawienie_kalibrator.setObjectName(u"ustawienie_kalibrator")
+
+        self.gridLayout.addWidget(self.ustawienie_kalibrator, 6, 2, 1, 2)
+
+        self.zakresACV_2 = QDoubleSpinBox(self.Pomiary)
+        self.zakresACV_2.setObjectName(u"zakresACV_2")
+        self.zakresACV_2.setMaximumSize(QSize(60, 16777210))
+        self.zakresACV_2.setMaximum(1000.000000000000000)
+        self.zakresACV_2.setValue(400.000000000000000)
+
+        self.gridLayout.addWidget(self.zakresACV_2, 2, 17, 1, 1)
+
+        self.zamkniecie_aplikacji = QPushButton(self.Pomiary)
+        self.zamkniecie_aplikacji.setObjectName(u"zamkniecie_aplikacji")
+        self.zamkniecie_aplikacji.setToolTipDuration(8)
+
+        self.gridLayout.addWidget(self.zamkniecie_aplikacji, 6, 31, 1, 1)
+
+        self.zakresDCV = QSpinBox(self.Pomiary)
+        self.zakresDCV.setObjectName(u"zakresDCV")
+        self.zakresDCV.setMinimumSize(QSize(0, 0))
+        self.zakresDCV.setMaximumSize(QSize(50, 16777215))
+        self.zakresDCV.setMaximum(1000)
+        self.zakresDCV.setValue(1000)
+
+        self.gridLayout.addWidget(self.zakresDCV, 2, 5, 1, 1)
+
+        self.label_13 = QLabel(self.Pomiary)
+        self.label_13.setObjectName(u"label_13")
+
+        self.gridLayout.addWidget(self.label_13, 2, 3, 1, 2)
+
+        self.wartosc_kalibrator = QDoubleSpinBox(self.Pomiary)
+        self.wartosc_kalibrator.setObjectName(u"wartosc_kalibrator")
+        self.wartosc_kalibrator.setMinimum(-1000.000000000000000)
+        self.wartosc_kalibrator.setMaximum(1001.000000000000000)
+        self.wartosc_kalibrator.setSingleStep(0.100000000000000)
+
+        self.gridLayout.addWidget(self.wartosc_kalibrator, 6, 1, 1, 1)
+
+        self.label_53 = QLabel(self.Pomiary)
+        self.label_53.setObjectName(u"label_53")
+
+        self.gridLayout.addWidget(self.label_53, 2, 18, 2, 1)
+
+        self.Nastaw = QPushButton(self.Pomiary)
+        self.Nastaw.setObjectName(u"Nastaw")
+        self.Nastaw.setMaximumSize(QSize(60, 16777215))
+
+        self.gridLayout.addWidget(self.Nastaw, 6, 5, 1, 1)
+
+        self.label_9 = QLabel(self.Pomiary)
+        self.label_9.setObjectName(u"label_9")
+        self.label_9.setMinimumSize(QSize(90, 0))
+
+        self.gridLayout.addWidget(self.label_9, 6, 0, 1, 1)
+
+        self.ilDCV = QSpinBox(self.Pomiary)
+        self.ilDCV.setObjectName(u"ilDCV")
+        self.ilDCV.setMinimumSize(QSize(0, 0))
+        self.ilDCV.setMaximumSize(QSize(30, 16777215))
+        self.ilDCV.setMaximum(10)
+        self.ilDCV.setValue(5)
+
+        self.gridLayout.addWidget(self.ilDCV, 1, 7, 1, 1)
+
+        self.check_dcv = QCheckBox(self.Pomiary)
+        self.check_dcv.setObjectName(u"check_dcv")
+        self.check_dcv.setChecked(True)
+
+        self.gridLayout.addWidget(self.check_dcv, 1, 5, 1, 1)
+
+        self.check_r = QCheckBox(self.Pomiary)
+        self.check_r.setObjectName(u"check_r")
+        self.check_r.setChecked(True)
+
+        self.gridLayout.addWidget(self.check_r, 1, 22, 1, 1)
+
+        self.Stworz = QPushButton(self.Pomiary)
+        self.Stworz.setObjectName(u"Stworz")
+
+        self.gridLayout.addWidget(self.Stworz, 1, 28, 3, 2)
+
+        self.zakresDCI_2 = QDoubleSpinBox(self.Pomiary)
+        self.zakresDCI_2.setObjectName(u"zakresDCI_2")
+        self.zakresDCI_2.setMaximumSize(QSize(50, 16777215))
+        self.zakresDCI_2.setMaximum(1000.000000000000000)
+        self.zakresDCI_2.setValue(0.400000000000000)
+
+        self.gridLayout.addWidget(self.zakresDCI_2, 2, 14, 1, 1)
+
+        self.check_acv = QCheckBox(self.Pomiary)
+        self.check_acv.setObjectName(u"check_acv")
+        self.check_acv.setChecked(True)
+
+        self.gridLayout.addWidget(self.check_acv, 1, 16, 1, 1)
+
+        self.label = QLabel(self.Pomiary)
+        self.label.setObjectName(u"label")
+        self.label.setPixmap(QPixmap(u"image/tlo_poloficial.png"))
+        self.label.setScaledContents(True)
+
+        self.gridLayout.addWidget(self.label, 0, 0, 1, 32)
+
+        self.check_aci = QCheckBox(self.Pomiary)
+        self.check_aci.setObjectName(u"check_aci")
+        self.check_aci.setChecked(True)
+
+        self.gridLayout.addWidget(self.check_aci, 1, 19, 1, 1)
+
+        self.label_6 = QLabel(self.Pomiary)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setMinimumSize(QSize(90, 0))
+        self.label_6.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+
+        self.gridLayout.addWidget(self.label_6, 1, 0, 1, 1)
+
+        self.ilACI = QSpinBox(self.Pomiary)
+        self.ilACI.setObjectName(u"ilACI")
+        self.ilACI.setMaximumSize(QSize(30, 16777215))
+        self.ilACI.setMaximum(10)
+        self.ilACI.setValue(3)
+
+        self.gridLayout.addWidget(self.ilACI, 1, 20, 1, 1)
+
+        self.label_15 = QLabel(self.Pomiary)
+        self.label_15.setObjectName(u"label_15")
+
+        self.gridLayout.addWidget(self.label_15, 2, 15, 2, 1)
+
+        self.label_14 = QLabel(self.Pomiary)
+        self.label_14.setObjectName(u"label_14")
+
+        self.gridLayout.addWidget(self.label_14, 2, 8, 2, 2)
+
+        self.Wyczysc = QPushButton(self.Pomiary)
+        self.Wyczysc.setObjectName(u"Wyczysc")
+        self.Wyczysc.setMaximumSize(QSize(60, 16777215))
+
+        self.gridLayout.addWidget(self.Wyczysc, 6, 7, 1, 2)
+
+        self.label_17 = QLabel(self.Pomiary)
+        self.label_17.setObjectName(u"label_17")
+
+        self.gridLayout.addWidget(self.label_17, 2, 24, 2, 1)
+
+        self.ilACV = QSpinBox(self.Pomiary)
+        self.ilACV.setObjectName(u"ilACV")
+        self.ilACV.setMaximumSize(QSize(30, 16777215))
+        self.ilACV.setMaximum(10)
+        self.ilACV.setValue(2)
+
+        self.gridLayout.addWidget(self.ilACV, 1, 17, 1, 1)
+
+        self.AC_DC = QComboBox(self.Pomiary)
+        self.AC_DC.addItem("")
+        self.AC_DC.addItem("")
+        self.AC_DC.setObjectName(u"AC_DC")
+        self.AC_DC.setMaximumSize(QSize(50, 16777215))
+
+        self.gridLayout.addWidget(self.AC_DC, 6, 4, 1, 1)
+
+        self.zakresACI = QSpinBox(self.Pomiary)
+        self.zakresACI.setObjectName(u"zakresACI")
+        self.zakresACI.setMinimumSize(QSize(50, 0))
+        self.zakresACI.setMaximum(1000)
+        self.zakresACI.setValue(10)
+
+        self.gridLayout.addWidget(self.zakresACI, 2, 19, 1, 1)
+
+        self.zakresACV = QSpinBox(self.Pomiary)
+        self.zakresACV.setObjectName(u"zakresACV")
+        self.zakresACV.setMinimumSize(QSize(50, 0))
+        self.zakresACV.setMaximum(1000)
+        self.zakresACV.setValue(750)
+
+        self.gridLayout.addWidget(self.zakresACV, 2, 16, 1, 1)
+
         self.label_10 = QLabel(self.Pomiary)
         self.label_10.setObjectName(u"label_10")
 
@@ -50,19 +310,18 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.Reset, 6, 27, 1, 2)
 
-        self.ilR = QSpinBox(self.Pomiary)
-        self.ilR.setObjectName(u"ilR")
-        self.ilR.setMaximumSize(QSize(30, 16777215))
-        self.ilR.setMaximum(10)
-        self.ilR.setValue(6)
+        self.odczyt_kalibrator = QLineEdit(self.Pomiary)
+        self.odczyt_kalibrator.setObjectName(u"odczyt_kalibrator")
+        self.odczyt_kalibrator.setEnabled(True)
+        self.odczyt_kalibrator.setDragEnabled(False)
+        self.odczyt_kalibrator.setReadOnly(True)
 
-        self.gridLayout.addWidget(self.ilR, 1, 23, 1, 1)
+        self.gridLayout.addWidget(self.odczyt_kalibrator, 6, 26, 1, 1)
 
-        self.Wyczysc = QPushButton(self.Pomiary)
-        self.Wyczysc.setObjectName(u"Wyczysc")
-        self.Wyczysc.setMaximumSize(QSize(60, 16777215))
+        self.label_54 = QLabel(self.Pomiary)
+        self.label_54.setObjectName(u"label_54")
 
-        self.gridLayout.addWidget(self.Wyczysc, 6, 7, 1, 2)
+        self.gridLayout.addWidget(self.label_54, 2, 21, 1, 1)
 
         self.sciezka_Model = QLineEdit(self.Pomiary)
         self.sciezka_Model.setObjectName(u"sciezka_Model")
@@ -79,13 +338,6 @@ class Ui_MainWindow(object):
         self.ZapiszDCV.setObjectName(u"ZapiszDCV")
 
         self.gridLayout_2.addWidget(self.ZapiszDCV, 6, 5, 1, 1)
-
-        self.podlaczenieDCV = QLabel(self.DCV)
-        self.podlaczenieDCV.setObjectName(u"podlaczenieDCV")
-        self.podlaczenieDCV.setPixmap(QPixmap(u"image/polaczenieUIv444.png"))
-        self.podlaczenieDCV.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
-
-        self.gridLayout_2.addWidget(self.podlaczenieDCV, 2, 5, 1, 1)
 
         self.NextDCV = QPushButton(self.DCV)
         self.NextDCV.setObjectName(u"NextDCV")
@@ -106,6 +358,13 @@ class Ui_MainWindow(object):
         self.KasujDCV.setObjectName(u"KasujDCV")
 
         self.gridLayout_2.addWidget(self.KasujDCV, 7, 5, 1, 1)
+
+        self.podlaczenieDCV = QLabel(self.DCV)
+        self.podlaczenieDCV.setObjectName(u"podlaczenieDCV")
+        self.podlaczenieDCV.setPixmap(QPixmap(u"image/PolaczenieUv2.png"))
+        self.podlaczenieDCV.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.gridLayout_2.addWidget(self.podlaczenieDCV, 2, 5, 1, 1)
 
         self.Tabwybor.addTab(self.DCV, "")
         self.ACV = QWidget()
@@ -139,7 +398,7 @@ class Ui_MainWindow(object):
 
         self.PodlaczenieACV = QLabel(self.ACV)
         self.PodlaczenieACV.setObjectName(u"PodlaczenieACV")
-        self.PodlaczenieACV.setPixmap(QPixmap(u"image/polaczenieUIv444.png"))
+        self.PodlaczenieACV.setPixmap(QPixmap(u"image/PolaczenieUv2.png"))
         self.PodlaczenieACV.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
         self.gridLayout_3.addWidget(self.PodlaczenieACV, 2, 5, 1, 1)
@@ -149,27 +408,27 @@ class Ui_MainWindow(object):
         self.DCI.setObjectName(u"DCI")
         self.gridLayout_4 = QGridLayout(self.DCI)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
-        self.PodlaczenieDCI = QLabel(self.DCI)
-        self.PodlaczenieDCI.setObjectName(u"PodlaczenieDCI")
-        self.PodlaczenieDCI.setPixmap(QPixmap(u"image/polaczenieUIv444.png"))
-        self.PodlaczenieDCI.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
-
-        self.gridLayout_4.addWidget(self.PodlaczenieDCI, 0, 2, 1, 2)
-
-        self.wynikiDCI = QTableWidget(self.DCI)
-        self.wynikiDCI.setObjectName(u"wynikiDCI")
-
-        self.gridLayout_4.addWidget(self.wynikiDCI, 0, 1, 5, 1)
-
         self.PomiarDCI = QPushButton(self.DCI)
         self.PomiarDCI.setObjectName(u"PomiarDCI")
 
         self.gridLayout_4.addWidget(self.PomiarDCI, 1, 2, 1, 2)
 
+        self.PodlaczenieDCI = QLabel(self.DCI)
+        self.PodlaczenieDCI.setObjectName(u"PodlaczenieDCI")
+        self.PodlaczenieDCI.setPixmap(QPixmap(u"image/PolaczenieIv2.png"))
+        self.PodlaczenieDCI.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.gridLayout_4.addWidget(self.PodlaczenieDCI, 0, 2, 1, 2)
+
         self.NextDCI = QPushButton(self.DCI)
         self.NextDCI.setObjectName(u"NextDCI")
 
         self.gridLayout_4.addWidget(self.NextDCI, 2, 2, 1, 2)
+
+        self.wynikiDCI = QTableWidget(self.DCI)
+        self.wynikiDCI.setObjectName(u"wynikiDCI")
+
+        self.gridLayout_4.addWidget(self.wynikiDCI, 0, 1, 5, 1)
 
         self.ZapiszDCI = QPushButton(self.DCI)
         self.ZapiszDCI.setObjectName(u"ZapiszDCI")
@@ -188,7 +447,7 @@ class Ui_MainWindow(object):
         self.gridLayout_5.setObjectName(u"gridLayout_5")
         self.PodlaczenieACI = QLabel(self.ACI)
         self.PodlaczenieACI.setObjectName(u"PodlaczenieACI")
-        self.PodlaczenieACI.setPixmap(QPixmap(u"image/polaczenieUIv444.png"))
+        self.PodlaczenieACI.setPixmap(QPixmap(u"image/PolaczenieIv2.png"))
         self.PodlaczenieACI.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
         self.gridLayout_5.addWidget(self.PodlaczenieACI, 0, 2, 1, 2)
@@ -244,265 +503,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.Tabwybor, 5, 0, 1, 32)
 
-        self.label_9 = QLabel(self.Pomiary)
-        self.label_9.setObjectName(u"label_9")
-        self.label_9.setMinimumSize(QSize(90, 0))
-
-        self.gridLayout.addWidget(self.label_9, 6, 0, 1, 1)
-
-        self.pushButton_19 = QPushButton(self.Pomiary)
-        self.pushButton_19.setObjectName(u"pushButton_19")
-
-        self.gridLayout.addWidget(self.pushButton_19, 6, 29, 1, 2)
-
-        self.ilACV = QSpinBox(self.Pomiary)
-        self.ilACV.setObjectName(u"ilACV")
-        self.ilACV.setMaximumSize(QSize(30, 16777215))
-        self.ilACV.setMaximum(10)
-        self.ilACV.setValue(2)
-
-        self.gridLayout.addWidget(self.ilACV, 1, 17, 1, 1)
-
-        self.check_acv = QCheckBox(self.Pomiary)
-        self.check_acv.setObjectName(u"check_acv")
-        self.check_acv.setChecked(True)
-
-        self.gridLayout.addWidget(self.check_acv, 1, 16, 1, 1)
-
-        self.check_aci = QCheckBox(self.Pomiary)
-        self.check_aci.setObjectName(u"check_aci")
-        self.check_aci.setChecked(True)
-
-        self.gridLayout.addWidget(self.check_aci, 1, 19, 1, 1)
-
-        self.ilDCV = QSpinBox(self.Pomiary)
-        self.ilDCV.setObjectName(u"ilDCV")
-        self.ilDCV.setMinimumSize(QSize(0, 0))
-        self.ilDCV.setMaximumSize(QSize(30, 16777215))
-        self.ilDCV.setMaximum(10)
-        self.ilDCV.setValue(5)
-
-        self.gridLayout.addWidget(self.ilDCV, 1, 7, 1, 1)
-
-        self.wartosc_kalibrator = QDoubleSpinBox(self.Pomiary)
-        self.wartosc_kalibrator.setObjectName(u"wartosc_kalibrator")
-        self.wartosc_kalibrator.setMinimum(-1000.000000000000000)
-        self.wartosc_kalibrator.setMaximum(1001.000000000000000)
-        self.wartosc_kalibrator.setSingleStep(0.100000000000000)
-
-        self.gridLayout.addWidget(self.wartosc_kalibrator, 6, 1, 1, 1)
-
-        self.odczyt_kalibrator = QLineEdit(self.Pomiary)
-        self.odczyt_kalibrator.setObjectName(u"odczyt_kalibrator")
-        self.odczyt_kalibrator.setEnabled(True)
-        self.odczyt_kalibrator.setDragEnabled(False)
-        self.odczyt_kalibrator.setReadOnly(True)
-
-        self.gridLayout.addWidget(self.odczyt_kalibrator, 6, 26, 1, 1)
-
-        self.Stworz = QPushButton(self.Pomiary)
-        self.Stworz.setObjectName(u"Stworz")
-
-        self.gridLayout.addWidget(self.Stworz, 1, 28, 3, 2)
-
-        self.AC_DC = QComboBox(self.Pomiary)
-        self.AC_DC.addItem("")
-        self.AC_DC.addItem("")
-        self.AC_DC.setObjectName(u"AC_DC")
-        self.AC_DC.setMaximumSize(QSize(50, 16777215))
-
-        self.gridLayout.addWidget(self.AC_DC, 6, 4, 1, 1)
-
-        self.zamkniecie_aplikacji = QPushButton(self.Pomiary)
-        self.zamkniecie_aplikacji.setObjectName(u"zamkniecie_aplikacji")
-        self.zamkniecie_aplikacji.setToolTipDuration(8)
-
-        self.gridLayout.addWidget(self.zamkniecie_aplikacji, 6, 31, 1, 1)
-
-        self.Nastaw = QPushButton(self.Pomiary)
-        self.Nastaw.setObjectName(u"Nastaw")
-        self.Nastaw.setMaximumSize(QSize(60, 16777215))
-
-        self.gridLayout.addWidget(self.Nastaw, 6, 5, 1, 1)
-
-        self.check_dci = QCheckBox(self.Pomiary)
-        self.check_dci.setObjectName(u"check_dci")
-        self.check_dci.setChecked(True)
-
-        self.gridLayout.addWidget(self.check_dci, 1, 10, 1, 3)
-
-        self.ilACI = QSpinBox(self.Pomiary)
-        self.ilACI.setObjectName(u"ilACI")
-        self.ilACI.setMaximumSize(QSize(30, 16777215))
-        self.ilACI.setMaximum(10)
-        self.ilACI.setValue(3)
-
-        self.gridLayout.addWidget(self.ilACI, 1, 20, 1, 1)
-
-        self.check_r = QCheckBox(self.Pomiary)
-        self.check_r.setObjectName(u"check_r")
-        self.check_r.setChecked(True)
-
-        self.gridLayout.addWidget(self.check_r, 1, 22, 1, 1)
-
-        self.SzukajModelu = QPushButton(self.Pomiary)
-        self.SzukajModelu.setObjectName(u"SzukajModelu")
-
-        self.gridLayout.addWidget(self.SzukajModelu, 1, 30, 3, 2)
-
-        self.label_12 = QLabel(self.Pomiary)
-        self.label_12.setObjectName(u"label_12")
-
-        self.gridLayout.addWidget(self.label_12, 1, 3, 1, 2)
-
-        self.check_dcv = QCheckBox(self.Pomiary)
-        self.check_dcv.setObjectName(u"check_dcv")
-        self.check_dcv.setChecked(True)
-
-        self.gridLayout.addWidget(self.check_dcv, 1, 5, 1, 1)
-
-        self.label_6 = QLabel(self.Pomiary)
-        self.label_6.setObjectName(u"label_6")
-        self.label_6.setMinimumSize(QSize(90, 0))
-        self.label_6.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
-
-        self.gridLayout.addWidget(self.label_6, 1, 0, 1, 1)
-
-        self.ilDCI = QSpinBox(self.Pomiary)
-        self.ilDCI.setObjectName(u"ilDCI")
-        self.ilDCI.setMaximumSize(QSize(30, 16777215))
-        self.ilDCI.setMaximum(10)
-        self.ilDCI.setValue(4)
-
-        self.gridLayout.addWidget(self.ilDCI, 1, 14, 1, 1)
-
-        self.label = QLabel(self.Pomiary)
-        self.label.setObjectName(u"label")
-        self.label.setPixmap(QPixmap(u"image/tlo_poloficial.png"))
-        self.label.setScaledContents(True)
-
-        self.gridLayout.addWidget(self.label, 0, 0, 1, 32)
-
-        self.ustawienie_kalibrator = QComboBox(self.Pomiary)
-        self.ustawienie_kalibrator.addItem("")
-        self.ustawienie_kalibrator.addItem("")
-        self.ustawienie_kalibrator.addItem("")
-        self.ustawienie_kalibrator.addItem("")
-        self.ustawienie_kalibrator.addItem("")
-        self.ustawienie_kalibrator.addItem("")
-        self.ustawienie_kalibrator.setObjectName(u"ustawienie_kalibrator")
-
-        self.gridLayout.addWidget(self.ustawienie_kalibrator, 6, 2, 1, 2)
-
-        self.wybierz_model = QComboBox(self.Pomiary)
-        self.wybierz_model.setObjectName(u"wybierz_model")
-
-        self.gridLayout.addWidget(self.wybierz_model, 1, 1, 1, 2)
-
-        self.zakresR = QSpinBox(self.Pomiary)
-        self.zakresR.setObjectName(u"zakresR")
-        self.zakresR.setMinimumSize(QSize(60, 0))
-        self.zakresR.setMaximum(500000000)
-        self.zakresR.setValue(200000000)
-        self.zakresR.setDisplayIntegerBase(10)
-
-        self.gridLayout.addWidget(self.zakresR, 2, 22, 1, 2)
-
-        self.zakresACI_2 = QDoubleSpinBox(self.Pomiary)
-        self.zakresACI_2.setObjectName(u"zakresACI_2")
-        self.zakresACI_2.setMaximumSize(QSize(50, 16777215))
-        self.zakresACI_2.setMaximum(1000.000000000000000)
-        self.zakresACI_2.setValue(0.400000000000000)
-
-        self.gridLayout.addWidget(self.zakresACI_2, 2, 20, 1, 1)
-
-        self.zakresACI = QSpinBox(self.Pomiary)
-        self.zakresACI.setObjectName(u"zakresACI")
-        self.zakresACI.setMinimumSize(QSize(50, 0))
-        self.zakresACI.setMaximum(1000)
-        self.zakresACI.setValue(10)
-
-        self.gridLayout.addWidget(self.zakresACI, 2, 19, 1, 1)
-
-        self.label_54 = QLabel(self.Pomiary)
-        self.label_54.setObjectName(u"label_54")
-
-        self.gridLayout.addWidget(self.label_54, 2, 21, 1, 1)
-
-        self.zakresACV_2 = QDoubleSpinBox(self.Pomiary)
-        self.zakresACV_2.setObjectName(u"zakresACV_2")
-        self.zakresACV_2.setMaximumSize(QSize(60, 16777210))
-        self.zakresACV_2.setMaximum(1000.000000000000000)
-        self.zakresACV_2.setValue(400.000000000000000)
-
-        self.gridLayout.addWidget(self.zakresACV_2, 2, 17, 1, 1)
-
-        self.label_53 = QLabel(self.Pomiary)
-        self.label_53.setObjectName(u"label_53")
-
-        self.gridLayout.addWidget(self.label_53, 2, 18, 2, 1)
-
-        self.label_17 = QLabel(self.Pomiary)
-        self.label_17.setObjectName(u"label_17")
-
-        self.gridLayout.addWidget(self.label_17, 2, 24, 2, 1)
-
-        self.zakresACV = QSpinBox(self.Pomiary)
-        self.zakresACV.setObjectName(u"zakresACV")
-        self.zakresACV.setMinimumSize(QSize(50, 0))
-        self.zakresACV.setMaximum(1000)
-        self.zakresACV.setValue(750)
-
-        self.gridLayout.addWidget(self.zakresACV, 2, 16, 1, 1)
-
-        self.zakresDCV = QSpinBox(self.Pomiary)
-        self.zakresDCV.setObjectName(u"zakresDCV")
-        self.zakresDCV.setMinimumSize(QSize(0, 0))
-        self.zakresDCV.setMaximumSize(QSize(50, 16777215))
-        self.zakresDCV.setMaximum(1000)
-        self.zakresDCV.setValue(1000)
-
-        self.gridLayout.addWidget(self.zakresDCV, 2, 5, 1, 1)
-
-        self.zakresDCV_2 = QDoubleSpinBox(self.Pomiary)
-        self.zakresDCV_2.setObjectName(u"zakresDCV_2")
-        self.zakresDCV_2.setMaximumSize(QSize(60, 16777215))
-        self.zakresDCV_2.setMaximum(1000.000000000000000)
-        self.zakresDCV_2.setValue(400.000000000000000)
-
-        self.gridLayout.addWidget(self.zakresDCV_2, 2, 7, 1, 1)
-
-        self.zakresDCI = QSpinBox(self.Pomiary)
-        self.zakresDCI.setObjectName(u"zakresDCI")
-        self.zakresDCI.setMinimumSize(QSize(50, 0))
-        self.zakresDCI.setMaximum(1000)
-        self.zakresDCI.setValue(10)
-
-        self.gridLayout.addWidget(self.zakresDCI, 2, 10, 1, 3)
-
-        self.zakresDCI_2 = QDoubleSpinBox(self.Pomiary)
-        self.zakresDCI_2.setObjectName(u"zakresDCI_2")
-        self.zakresDCI_2.setMaximumSize(QSize(50, 16777215))
-        self.zakresDCI_2.setMaximum(1000.000000000000000)
-        self.zakresDCI_2.setValue(0.400000000000000)
-
-        self.gridLayout.addWidget(self.zakresDCI_2, 2, 14, 1, 1)
-
-        self.label_14 = QLabel(self.Pomiary)
-        self.label_14.setObjectName(u"label_14")
-
-        self.gridLayout.addWidget(self.label_14, 2, 8, 2, 2)
-
-        self.label_15 = QLabel(self.Pomiary)
-        self.label_15.setObjectName(u"label_15")
-
-        self.gridLayout.addWidget(self.label_15, 2, 15, 2, 1)
-
-        self.label_13 = QLabel(self.Pomiary)
-        self.label_13.setObjectName(u"label_13")
-
-        self.gridLayout.addWidget(self.label_13, 2, 3, 1, 2)
-
         self.tabWidget.addTab(self.Pomiary, "")
         self.Swiadectwo = QWidget()
         self.Swiadectwo.setObjectName(u"Swiadectwo")
@@ -527,7 +527,7 @@ class Ui_MainWindow(object):
 
         self.data_wzorcowania = QDateEdit(self.Swiadectwo)
         self.data_wzorcowania.setObjectName(u"data_wzorcowania")
-        self.data_wzorcowania.setDateTime(QDateTime(QDate(2023, 2, 9), QTime(9, 0, 0)))
+        self.data_wzorcowania.setDateTime(QDateTime(QDate(2023, 2, 9), QTime(8, 0, 0)))
         self.data_wzorcowania.setCalendarPopup(True)
 
         self.gridLayout_7.addWidget(self.data_wzorcowania, 2, 0, 2, 1)
@@ -775,8 +775,8 @@ class Ui_MainWindow(object):
         self.zamkniecie_aplikacji.clicked.connect(MainWindow.close)
         self.Wyczysc.clicked.connect(self.wartosc_kalibrator.clear)
 
-        self.tabWidget.setCurrentIndex(2)
-        self.Tabwybor.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(0)
+        self.Tabwybor.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -784,14 +784,46 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MultiMeasure", None))
+        self.check_dci.setText(QCoreApplication.translate("MainWindow", u"DCI", None))
+        self.SzukajModelu.setText(QCoreApplication.translate("MainWindow", u"Szukaj", None))
+        self.pushButton_19.setText(QCoreApplication.translate("MainWindow", u"Help", None))
+        self.label_12.setText(QCoreApplication.translate("MainWindow", u"Lub Wybierz", None))
+        self.ustawienie_kalibrator.setItemText(0, QCoreApplication.translate("MainWindow", u"uV", None))
+        self.ustawienie_kalibrator.setItemText(1, QCoreApplication.translate("MainWindow", u"mV", None))
+        self.ustawienie_kalibrator.setItemText(2, QCoreApplication.translate("MainWindow", u"V", None))
+        self.ustawienie_kalibrator.setItemText(3, QCoreApplication.translate("MainWindow", u"uA", None))
+        self.ustawienie_kalibrator.setItemText(4, QCoreApplication.translate("MainWindow", u"mA", None))
+        self.ustawienie_kalibrator.setItemText(5, QCoreApplication.translate("MainWindow", u"A", None))
+
+        self.zamkniecie_aplikacji.setText(QCoreApplication.translate("MainWindow", u"Wyj\u015bcie", None))
+        self.label_13.setText(QCoreApplication.translate("MainWindow", u"Podaj zakresy:", None))
+        self.label_53.setText(QCoreApplication.translate("MainWindow", u"V", None))
+        self.Nastaw.setText(QCoreApplication.translate("MainWindow", u"Nastaw", None))
+        self.label_9.setText(QCoreApplication.translate("MainWindow", u"Ustaw warto\u015b\u0107:", None))
+        self.check_dcv.setText(QCoreApplication.translate("MainWindow", u"DCV", None))
+        self.check_r.setText(QCoreApplication.translate("MainWindow", u"R", None))
+        self.Stworz.setText(QCoreApplication.translate("MainWindow", u"Stw\u00f3rz", None))
+        self.check_acv.setText(QCoreApplication.translate("MainWindow", u"ACV", None))
+        self.label.setText("")
+        self.check_aci.setText(QCoreApplication.translate("MainWindow", u"ACI", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Wybierz model:", None))
+        self.label_15.setText(QCoreApplication.translate("MainWindow", u"A", None))
+        self.label_14.setText(QCoreApplication.translate("MainWindow", u"V", None))
+        self.Wyczysc.setText(QCoreApplication.translate("MainWindow", u"Wyczy\u015b\u0107", None))
+        self.label_17.setText(QCoreApplication.translate("MainWindow", u"R", None))
+        self.AC_DC.setItemText(0, QCoreApplication.translate("MainWindow", u"DC", None))
+        self.AC_DC.setItemText(1, QCoreApplication.translate("MainWindow", u"AC", None))
+
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Odczytana warto\u015b\u0107:", None))
         self.Reset.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
-        self.Wyczysc.setText(QCoreApplication.translate("MainWindow", u"Wyczy\u015b\u0107", None))
+        self.odczyt_kalibrator.setInputMask("")
+        self.odczyt_kalibrator.setText("")
+        self.label_54.setText(QCoreApplication.translate("MainWindow", u"A", None))
         self.ZapiszDCV.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
-        self.podlaczenieDCV.setText("")
         self.NextDCV.setText(QCoreApplication.translate("MainWindow", u"Next", None))
         self.PomiarDCV.setText(QCoreApplication.translate("MainWindow", u"POMIAR", None))
         self.KasujDCV.setText(QCoreApplication.translate("MainWindow", u"Odblokuj", None))
+        self.podlaczenieDCV.setText("")
         self.Tabwybor.setTabText(self.Tabwybor.indexOf(self.DCV), QCoreApplication.translate("MainWindow", u"DCV", None))
         self.KasujACV.setText(QCoreApplication.translate("MainWindow", u"Odblokuj", None))
         self.ZapiszACV.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
@@ -799,8 +831,8 @@ class Ui_MainWindow(object):
         self.PomiarACV.setText(QCoreApplication.translate("MainWindow", u"POMIAR", None))
         self.PodlaczenieACV.setText("")
         self.Tabwybor.setTabText(self.Tabwybor.indexOf(self.ACV), QCoreApplication.translate("MainWindow", u"ACV", None))
-        self.PodlaczenieDCI.setText("")
         self.PomiarDCI.setText(QCoreApplication.translate("MainWindow", u"POMIAR", None))
+        self.PodlaczenieDCI.setText("")
         self.NextDCI.setText(QCoreApplication.translate("MainWindow", u"Next", None))
         self.ZapiszDCI.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
         self.KasujDCI.setText(QCoreApplication.translate("MainWindow", u"Odblokuj", None))
@@ -814,38 +846,6 @@ class Ui_MainWindow(object):
         self.KasujR.setText(QCoreApplication.translate("MainWindow", u"Kasuj Wyniki", None))
         self.ZapiszR.setText(QCoreApplication.translate("MainWindow", u"Zapisz", None))
         self.Tabwybor.setTabText(self.Tabwybor.indexOf(self.R), QCoreApplication.translate("MainWindow", u"R", None))
-        self.label_9.setText(QCoreApplication.translate("MainWindow", u"Ustaw warto\u015b\u0107:", None))
-        self.pushButton_19.setText(QCoreApplication.translate("MainWindow", u"Help", None))
-        self.check_acv.setText(QCoreApplication.translate("MainWindow", u"ACV", None))
-        self.check_aci.setText(QCoreApplication.translate("MainWindow", u"ACI", None))
-        self.odczyt_kalibrator.setInputMask("")
-        self.odczyt_kalibrator.setText("")
-        self.Stworz.setText(QCoreApplication.translate("MainWindow", u"Stw\u00f3rz", None))
-        self.AC_DC.setItemText(0, QCoreApplication.translate("MainWindow", u"DC", None))
-        self.AC_DC.setItemText(1, QCoreApplication.translate("MainWindow", u"AC", None))
-
-        self.zamkniecie_aplikacji.setText(QCoreApplication.translate("MainWindow", u"Wyj\u015bcie", None))
-        self.Nastaw.setText(QCoreApplication.translate("MainWindow", u"Nastaw", None))
-        self.check_dci.setText(QCoreApplication.translate("MainWindow", u"DCI", None))
-        self.check_r.setText(QCoreApplication.translate("MainWindow", u"R", None))
-        self.SzukajModelu.setText(QCoreApplication.translate("MainWindow", u"Szukaj", None))
-        self.label_12.setText(QCoreApplication.translate("MainWindow", u"Lub Wybierz", None))
-        self.check_dcv.setText(QCoreApplication.translate("MainWindow", u"DCV", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Wybierz model:", None))
-        self.label.setText("")
-        self.ustawienie_kalibrator.setItemText(0, QCoreApplication.translate("MainWindow", u"uV", None))
-        self.ustawienie_kalibrator.setItemText(1, QCoreApplication.translate("MainWindow", u"mV", None))
-        self.ustawienie_kalibrator.setItemText(2, QCoreApplication.translate("MainWindow", u"V", None))
-        self.ustawienie_kalibrator.setItemText(3, QCoreApplication.translate("MainWindow", u"uA", None))
-        self.ustawienie_kalibrator.setItemText(4, QCoreApplication.translate("MainWindow", u"mA", None))
-        self.ustawienie_kalibrator.setItemText(5, QCoreApplication.translate("MainWindow", u"A", None))
-
-        self.label_54.setText(QCoreApplication.translate("MainWindow", u"A", None))
-        self.label_53.setText(QCoreApplication.translate("MainWindow", u"V", None))
-        self.label_17.setText(QCoreApplication.translate("MainWindow", u"R", None))
-        self.label_14.setText(QCoreApplication.translate("MainWindow", u"V", None))
-        self.label_15.setText(QCoreApplication.translate("MainWindow", u"A", None))
-        self.label_13.setText(QCoreApplication.translate("MainWindow", u"Podaj zakresy:", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Pomiary), QCoreApplication.translate("MainWindow", u"Pomiary", None))
         self.label_35.setText(QCoreApplication.translate("MainWindow", u"\u015acie\u017cka zapisu wynik\u00f3w:", None))
         self.label_7.setText("")
