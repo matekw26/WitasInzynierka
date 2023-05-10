@@ -1192,7 +1192,6 @@ if __name__ == "__main__":
 
                     value_bez = int(str(value).replace(".", ""))
                     Ur = float(1/value_bez * value)
-                    print(f"rozd: {Ur}")
 
                     dU = float(math.sqrt(((dokladnosc / 100) * value)**2 + Ur**2))
 
