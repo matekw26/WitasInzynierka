@@ -31,6 +31,7 @@ import xlsxwriter
 import xlwings as xw
 from xlwings.constants import InsertShiftDirection
 from win32com.client import Dispatch
+import math
 
 import pyvisa
 import Calibrator
@@ -53,49 +54,70 @@ import Multimetr
 
 if __name__ == "__main__":
 
-    # class Worker(QRunnable):
-    #     def __init__(self):
-    #         super().__init__()
-    #
-    #     @Slot()  # QtCore.Slot
-    #     def run(self):
-    #         '''
-    #         Your code goes in this function
-    #         '''
-    #         print("Thread start")
-    #         a = MainWindow()
-    #         a.update_multimetr()
-    #         print("Thread complete")
     # class WorkerSignals(QObject):
+    #     '''
+    #     Defines the signals available from a running worker thread.
     #
+    #     Supported signals are:
+    #
+    #     finished
+    #         No data
+    #
+    #     error
+    #         tuple (exctype, value, traceback.format_exc() )
+    #
+    #     result
+    #         object data returned from processing, anything
+    #
+    #     progress
+    #         int indicating % progress
+    #
+    #     '''
     #     finished = Signal()
     #     error = Signal(tuple)
     #     result = Signal(object)
     #     progress = Signal(int)
     #
+    #
     # class Worker(QRunnable):
+    #     '''
+    #     Worker thread
+    #
+    #     Inherits from QRunnable to handler worker thread setup, signals and wrap-up.
+    #
+    #     :param callback: The function callback to run on this worker thread. Supplied args and
+    #                      kwargs will be passed through to the runner.
+    #     :type callback: function
+    #     :param args: Arguments to pass to the callback function
+    #     :param kwargs: Keywords to pass to the callback function
+    #
+    #     '''
     #
     #     def __init__(self, fn, *args, **kwargs):
     #         super(Worker, self).__init__()
     #
     #         # Store constructor arguments (re-used for processing)
     #         self.fn = fn
+    #         print(fn)
     #         self.args = args
+    #         print(args)
     #         self.kwargs = kwargs
+    #         print(kwargs)
     #         self.signals = WorkerSignals()
     #
-    #         # # Add the callback to our kwargs
+    #         # Add the callback to our kwargs
     #         # self.kwargs['progress_callback'] = self.signals.progress
     #
     #     @Slot()
     #     def run(self):
+    #         '''
+    #         Initialise the runner function with passed args, kwargs.
+    #         '''
     #
     #         # Retrieve args/kwargs here; and fire processing using them
     #         try:
-    #             result = None
-    #             a = MainWindow()
-    #             b = a.timesleep.value()
-    #             print(b)
+    #             result = self.fn(*self.args, **self.kwargs)
+    #             print(result)
     #         except:
     #             traceback.print_exc()
     #             exctype, value = sys.exc_info()[:2]
@@ -113,6 +135,8 @@ if __name__ == "__main__":
 
             # do timesleep
             self.threadpool = QThreadPool()
+
+            self.xd = False
 
             # cos do zapisu
             self.initUI()
@@ -222,7 +246,6 @@ if __name__ == "__main__":
             self.PomiarACV.clicked.connect(self.pomiary)
             self.PomiarACI.clicked.connect(self.pomiary)
             # self.PomiarR.clicked.connect(self.pomiary)
-
 
 
             # Kasuj wyniki
@@ -567,9 +590,17 @@ if __name__ == "__main__":
         def print_output(self, s):
             print(s)
 
+
         def wait(self):
             print(self.timesleep.value())
             time.sleep(self.timesleep.value())
+
+        def execute_this_fn(self, progress_callback):
+            for n in range(0, 5):
+                time.sleep(1)
+                progress_callback.emit(n * 100 / 4)
+
+            return "Done."
 
         def pomiary(self):
 
@@ -596,11 +627,16 @@ if __name__ == "__main__":
                 print(f"Mam wartosc: {item.text()} {itemp.text()}")
                 self.calibrator_nastawa(item, itemp.text(), sender.objectName())
 
-                #time.sleep(self.timesleep.value())
+                # self.blokuj(self.wynikiDCV)
 
+                #time.sleep(self.timesleep.value())
                 # worker = Worker(self.wait)
+                # #worker = Worker(self.execute_this_fn)
+                # #worker = Worker(self.update_multimetr(item, self.wynikiDCV, None))
                 # self.threadpool.start(worker)
                 # worker.signals.finished.connect(self.update_multimetr(item, self.wynikiDCV, None))
+                # # worker.signals.finished.connect(self.thread_complete)
+
                 self.blokuj(self.wynikiDCV)
                 self.update_multimetr(item, self.wynikiDCV, None)
 
@@ -1148,6 +1184,30 @@ if __name__ == "__main__":
                 pass
             except AttributeError:
                 pass
+            try:
+                if 0 < col < 8:
+
+                    dokladnosc = 0.5
+                    value = float(table2.item(row, 3).text())
+
+                    value_bez = int(str(value).replace(".", ""))
+                    Ur = float(1/value_bez * value)
+                    print(f"rozd: {Ur}")
+
+                    dU = float(math.sqrt(((dokladnosc / 100) * value)**2 + Ur**2))
+
+                    # dU = np.around(dU, decimals=4)
+
+                    Ub = float(dU/math.sqrt(3))
+
+                    Ub = np.around(Ub, decimals=4)
+
+                    table2.item(row, 6).setText(str(Ub))
+
+            except ValueError:
+                pass
+            except AttributeError:
+                pass
 
         def update_multimetr(self, item, table, itemp):
 
@@ -1155,7 +1215,7 @@ if __name__ == "__main__":
             row = item.row()
             col = item.column()
             try:
-                #time.sleep(self.timesleep.value())
+                # time.sleep(self.timesleep.value())
                 for n in range(0, self.timesleep.value()*100):
                     time.sleep(0.01)
                     QApplication.processEvents()
