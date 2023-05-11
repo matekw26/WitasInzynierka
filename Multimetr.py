@@ -1,4 +1,4 @@
-
+import time
 import pyvisa
 
 try:
@@ -26,7 +26,7 @@ if __name__ == "__main__":
     # Sprawdź status połączenia
     try:
         multimetr.timeout = 5000
-        print(multimetr.timeout)
+        # print(multimetr.timeout)
         ident = multimetr.query("*IDN?")
         print(f"Połączenie z urządzeniem {ident.strip()} zostało nawiązane.")
     except Exception as e:
@@ -39,9 +39,13 @@ if __name__ == "__main__":
     # # # # # #
     # # # # # # #
     # # # # #
+    multimetr.write('CONF:VOLT:DC')
+    time.sleep(5)
     response = multimetr.query('READ?')
     # response = multimetr.query('MEASure:VOLTage:AC?')
     ## response = multimetr.query('FETCH?')
+    # response = multimetr.query('MEASure:VOLTage:DC?')
+    # response = multimetr.query('MEASure:CURRent:DC?')
     print(response)
 
     # response2 = multimetr.query('SYSTem:ERRor?')

@@ -1225,12 +1225,16 @@ if __name__ == "__main__":
             row = item.row()
             col = item.column()
             try:
+                self.multimetr.timeout = 7000
                 # time.sleep(self.timesleep.value())
                 for n in range(0, self.timesleep.value()*100):
                     time.sleep(0.01)
                     QApplication.processEvents()
+                # response = self.multimetr.query('READ?')
                 if table == self.wynikiDCV:
-                    response = self.multimetr.query('MEASure:VOLTage:DC?')
+                    self.multimetr.write('CONF:VOLT:DC')
+                    response = self.multimetr.query('READ?')
+                    # response = self.multimetr.query('MEASure:VOLTage:DC?')
                 elif table == self.wynikiACV:
                     response = self.multimetr.query('MEASure:VOLTage:AC?')
                 elif table == self.wynikiDCI:
@@ -1249,13 +1253,18 @@ if __name__ == "__main__":
                     print(f"Po *10^6 {result}")
                     result = np.around(float(result), decimals=4)
                     table.item(row, col + 1).setText(str(result))
-                elif 0 < result < 1:
+                elif 0 < result < 1 and itemp != 'V':
                     result = result * 10**3
                     print(f"Po *10^3 {result}")
                     result = np.around(float(result), decimals=4)
                     table.item(row, col + 1).setText(str(result))
+                elif 0 > result > -1 and itemp != 'V':
+                    result = result * 10 ** 3
+                    print(f"Po *10^3 {result}")
+                    result = np.around(float(result), decimals=4)
+                    table.item(row, col + 1).setText(str(result))
                 else:
-                    #result = np.around(float(response), decimals=4)
+                    result = np.around(float(response), decimals=4)
                     table.item(row, col + 1).setText(str(result))
             except ValueError as e:
                 print(e)
