@@ -1,5 +1,6 @@
 import sys
 import time
+import datetime
 from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QFileDialog, QMessageBox, QTableWidgetItem, \
@@ -143,6 +144,16 @@ if __name__ == "__main__":
 
             # aktualna data do SW
             self.data_wzorcowania.setDate(QDate.currentDate())
+
+            # aktualna data do SW
+            # uzyskaj aktualną datę
+            today = datetime.date.today()
+             # uzyskaj aktualny miesiąc jako liczba
+            month = today.month
+            year = today.year
+            if month < 10:
+                month = str(f"0{month}")
+            self.numer_swiadectwa.setText(f"9999/{month}/{year}")
 
             # guziki do kalibratora
             self.wartosc_kalibrator.valueChanged.connect(self.odczytaj)
