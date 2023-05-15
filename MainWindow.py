@@ -1233,6 +1233,7 @@ if __name__ == "__main__":
                 # response = self.multimetr.query('READ?')
                 if table == self.wynikiDCV:
                     self.multimetr.write('CONF:VOLT:DC')
+                    # self.multimetr.write('TRIG:DEL 3')
                     response = self.multimetr.query('READ?')
                     # response = self.multimetr.query('MEASure:VOLTage:DC?')
                 elif table == self.wynikiACV:
@@ -1860,26 +1861,63 @@ if __name__ == "__main__":
                         if row == 0 + x:
                             ws.cell(row + 6, 2, '\u03A9')
                             ws.merge_cells(f"B{row + 6}:F{row + 6}")
-                        elif row == 3 + x:
+                        elif row == 5 + x and ile == 7:
                             ws.cell(row + 6, 2, 'k\u03A9')
                             ws.merge_cells(f"B{row + 6}:F{row + 6}")
-                        elif row == 10 + x:
+                        elif row == 3 + x and ile != 7:
+                            ws.cell(row + 6, 2, 'k\u03A9')
+                            ws.merge_cells(f"B{row + 6}:F{row + 6}")
+                        elif row == 12 + x and ile == 7 and zakres1 < 100**6:
+                            ws.cell(row + 6, 2, 'M\u03A9')
+                            ws.merge_cells(f"B{row + 6}:F{row + 6}")
+                        elif row == 10 + x and ile != 7:
                             ws.cell(row + 6, 2, 'M\u03A9')
                             ws.merge_cells(f"B{row + 6}:F{row + 6}")
                         elif row < row_range + x - 14:
-                            ws.cell(row + 6, 2, zakres1 / 10**7)
+                            if zakres1 <= 100**6:
+                                ws.cell(row + 6, 2, zakres1 / 10 ** 6)
+                            else:
+                                ws.cell(row + 6, 2, zakres1 / 10**7)
                         elif row < row_range + x - 11:
-                            ws.cell(row + 6, 2, zakres1 / 10**6)
+                            if zakres1 <= 100**6:
+                                ws.cell(row + 6, 2, zakres1 / 10 ** 5)
+                            else:
+                                ws.cell(row + 6, 2, zakres1 / 10**6)
                         elif row < row_range - 9 + x:
-                            ws.cell(row + 6, 2, zakres2/10**8)
-                        elif row < row_range - 7 + x:
-                            ws.cell(row + 6, 2, zakres2/10**7)
-                        elif row < row_range - 4 + x:
-                            ws.cell(row + 6, 2, zakres2/10**6)
-                        elif row < row_range - 2 + x:
-                            ws.cell(row + 6, 2, zakres2/10000000)
+                            if zakres1 <= 100**6:
+                                ws.cell(row + 6, 2, zakres1 / 10 ** 7)
+                            else:
+                                ws.cell(row + 6, 2, zakres2/10**8)
+                        elif ile != 5 and row < row_range - 7 + x:
+                            if zakres1 <= 100**6:
+                                ws.cell(row + 6, 2, zakres1 / 10 ** 6)
+                            else:
+                                ws.cell(row + 6, 2, zakres2/10**7)
+                        elif ile == 5 and row < row_range - 7 + x:
+                            if zakres1 <= 100**6:
+                                ws.cell(row + 6, 2, zakres1 / 10 ** 7)
+                            else:
+                                ws.cell(row + 6, 2, zakres2/10**8)
+                        elif ile != 5 and row < row_range - 4 + x:
+                            if zakres1 <= 100**6:
+                                ws.cell(row + 6, 2, zakres1 / 10 ** 5)
+                            else:
+                                ws.cell(row + 6, 2, zakres2/10**6)
+                        elif ile == 5 and row < row_range - 5 + x:
+                            if zakres1 <= 100**6:
+                                ws.cell(row + 6, 2, zakres1 / 10 ** 5)
+                            else:
+                                ws.cell(row + 6, 2, zakres2/10**7)
+                        elif ile != 5 and row < row_range - 2 + x:
+                            if zakres1 <= 100**6:
+                                ws.cell(row + 6, 2, zakres1 / 10 ** 7)
+                            else:
+                                ws.cell(row + 6, 2, zakres2/10000000)
                         elif row < row_range + x:
-                            ws.cell(row + 6, 2, zakres1/10**6)
+                            if zakres1 <= 100**6:
+                                ws.cell(row + 6, 2, zakres1 / 10 ** 6)
+                            else:
+                                ws.cell(row + 6, 2, zakres1/10**6)
                         for col in range(2, 8):
                             cell = ws.cell(row=row+6, column=col)
                             cell.border = border
@@ -2214,11 +2252,9 @@ if __name__ == "__main__":
                             if (row - (x + 7) >= 0) and (row - (x + 7)) % 3 == 0 and end < 3 or \
                                     (row - (x + 11) >= 0) and (row - (x + 11)) % 3 == 0 and end < 3:
                                 end += 1
-                                print(f"01Mam row: {row}")
                                 ws.merge_cells(f"B{row}:B{row + 2}")
                             elif row > (6 + x + y) and row % 3 == 0 and end >= 3 > endy:
                                 endy += 1
-                                print(f"02Mam row: {row}")
                                 ws.merge_cells(f"B{row}:B{row + 2}")
                             elif (row - (24 + x)) % 3 == 0 and row > y + 15 + x and endy >= 3:
                                 ws.merge_cells(f"B{row}:B{row + 2}")
@@ -2228,10 +2264,8 @@ if __name__ == "__main__":
                             row = row + x
                             if (row - (x + 7) >= 0) and (row - (x + 7)) % 3 == 0 and end < 3:
                                 end += 1
-                                print(f"1Mam row: {row}")
                                 ws.merge_cells(f"B{row}:B{row + 2}")
                             elif row > (6 + x + y) and row % 3 == 0 and end >= 3:
-                                print(f"2Mam row: {row}")
                                 ws.merge_cells(f"B{row}:B{row + 2}")
 
                     for row in range(row_range):
@@ -2248,13 +2282,13 @@ if __name__ == "__main__":
 
             ws.cell(row + 3, 3, zakres * (-0.9))
             ws.cell(row + 2, 3, zakres * 0.9)
-            ws.cell(row + 1, 3, zakres * 0.5)
+            ws.cell(row + 1, 3, zakres * 0.6)
             ws.cell(row, 3, zakres * 0.1)
 
         def calculateAC(self, zakres, row, ws):
 
             ws.cell(row + 2, 3, zakres * 0.9)
-            ws.cell(row + 1, 3, zakres * 0.5)
+            ws.cell(row + 1, 3, zakres * 0.6)
             ws.cell(row, 3, zakres * 0.1)
 
         # funkcja do zapisu
