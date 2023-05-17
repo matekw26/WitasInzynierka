@@ -1198,21 +1198,90 @@ if __name__ == "__main__":
             try:
                 if 0 < col < 8:
 
-                    dokladnosc = 0.5
+                    # Wzorzec roboczy Vs
                     value = float(table2.item(row, 3).text())
+                    # value_bez = int(str(value).replace(".", ""))
 
-                    value_bez = int(str(value).replace(".", ""))
-                    Ur = float(1/value_bez * value)
+                    # Wskazanie multimetru cyfrowego Vix
+                    value_x = float(table2.item(row, 4).text())
+                    value_bez_x = int(str(value_x).replace(".", ""))
 
-                    dU = float(math.sqrt(((dokladnosc / 100) * value)**2 + Ur**2))
+                    # niepewnosc standardowa rozdielczosci Wzorcowanego multimetru dUr = dVix
+                    Ur = float(1 / value_bez_x * value_x) / 2  # wartosci odchylen +-0,5
+                    dUr = Ur / math.sqrt(3)
+                    dUr = np.around(dUr, decimals=4)
+                    print(f"Niepewnosc rozdzielczosci: {dUr}")
 
+                    # # niepewnosc standardowa rozdielczosci Wzorca dUr = dVix
+                    # Ur = float(1/value_bez * value)/2  # wartosci odchylen +-0,5
+                    # dUr = Ur/math.sqrt(3)
+                    # print(f"Niepewnosc rozdzielczosci: {dUr}")
+
+                    # dVs
+                    # Accuracy is given as ± (% measurement + % of range)
+                    # Range 24        Hour            90 Days          1 Year           Temperature
+                    #              (23 ±1 °C)       (23 ±5 °C)       (23 ±5 °C)         Coefficient/ °C
+                    #                                                                Outside 18 to 28 °C
+                    # 100 mV    0.0025 + 0.003   0.0025 + 0.0035   0.0037 + 0.0035   0.0005 + 0.0005
+                    # 1 V       0.0018 + 0.0006  0.0018 + 0.0007   0.0025 + 0.0007   0.0005 + 0.0001
+                    # 10 V      0.0013 + 0.0004  0.0018 + 0.0005   0.0024 + 0.0005   0.0005 + 0.0001
+                    # 100 V     0.0018 + 0.0006  0.0027 + 0.0006   0.0038 + 0.0006   0.0005 + 0.0001
+                    # 1000 V    0.0018 + 0.0006  0.0031 + 0.001    0.0041 + 0.001    0.0005 + 0.0001
+
+                    if value < 1:
+                        dok_pomiar = 0.0025/100
+                        dok_range = 0.0007/100
+                        range = 1
+                    elif 1 <= value < 10:
+                        dok_pomiar = 0.0024 / 100
+                        dok_range = 0.0005 / 100
+                        range = 10
+                    elif 10 <= value < 100:
+                        dok_pomiar = 0.0038 / 100
+                        dok_range = 0.0006 / 100
+                        range = 100
+                    elif 100 <= value <= 1000:
+                        dok_pomiar = 0.0041 / 100
+                        dok_range = 0.001 / 100
+                        range = 1000
+                    else:
+                        dok_pomiar = 0.0038 / 100
+                        dok_range = 0.0006 / 100
+                        range = 100
+
+                    # poprawka temperatury dT
+                    dok_temp = 0.0005 / 100
+                    T = dok_temp * value + 0.0001/100 * range
+                    dT = T / math.sqrt(3)
+                    dT = np.around(dT, decimals=6)
+                    print(f"Niepewnosc wynikająca z temp: {dT}")
+
+                    # poprawki wynikajace z dokładnosci DMM
+                    dVs = dok_pomiar * value + dok_range * range
+                    dVs= np.around(dVs, decimals=6)
+                    # print(f"Dokladnosc dmm: {dVs}")  # pomiar 100 V i 100V range = +-0.0044
+
+                    dUVs = dVs/math.sqrt(3)
+                    dUVs = np.around(dUVs, decimals=6)
+                    print(f"Niepewnosc dmm: {dUVs}")
+
+                    # poprawka ze Świadectwa DMM
+                    SW = 0.00001
+                    dSW = SW * value
+                    dUSW =dSW / math.sqrt(3)
+                    dUSW = np.around(dUSW, decimals=6)
+                    print(f"Niepewnosc ze Świadectwa dmm: {dUSW}")
+
+                    # dU = float(math.sqrt(((dok_pomiar / 100) * value)**2 + Ur_x**2))
                     # dU = np.around(dU, decimals=4)
+                    # Ub = float(dU/math.sqrt(3))
+                    # Ub = np.around(Ub, decimals=4)
+                    # table2.item(row, 6).setText(str(Ub))
 
-                    Ub = float(dU/math.sqrt(3))
+                    dU = float(dUVs + dUr + dT + dUSW)
+                    dU = np.around(dU, decimals=4)
 
-                    Ub = np.around(Ub, decimals=4)
-
-                    table2.item(row, 6).setText(str(Ub))
+                    table2.item(row, 6).setText(str(dU))
 
             except ValueError:
                 pass
@@ -1232,13 +1301,18 @@ if __name__ == "__main__":
                     QApplication.processEvents()
                 # response = self.multimetr.query('READ?')
                 if table == self.wynikiDCV:
-                    self.multimetr.write('CONF:VOLT:DC')
-                    # self.multimetr.write('TRIG:DEL 3')
-                    response = self.multimetr.query('READ?')
-                    # response = self.multimetr.query('MEASure:VOLTage:DC?')
+                    # if 0 < item.text() <= 100 and itemp == 'mV':
+                    # elif 100 < item.text() and itemp == 'mV':
+                    # elif 1 < item.text() < 10 and itemp == 'V':
+                    # self.multimetr.write('CONF:VOLT:DC 100')
+                    # # self.multimetr.write('TRIG:DEL 3')
+                    # response = self.multimetr.query('READ?')
+                    # self.multimetr.write('CONF:CURR:DC 10')
+                    response = self.multimetr.query('MEASure:VOLTage:DC?')
                 elif table == self.wynikiACV:
                     response = self.multimetr.query('MEASure:VOLTage:AC?')
                 elif table == self.wynikiDCI:
+                    # self.multimetr.write('CONF:CURR:DC 10')
                     response = self.multimetr.query('MEASure:CURRent:DC?')
                 elif table == self.wynikiACI:
                     response = self.multimetr.query('MEASure:CURRent:AC?')
