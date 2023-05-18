@@ -1304,20 +1304,25 @@ if __name__ == "__main__":
                     # if 0 < item.text() <= 100 and itemp == 'mV':
                     # elif 100 < item.text() and itemp == 'mV':
                     # elif 1 < item.text() < 10 and itemp == 'V':
-                    # self.multimetr.write('CONF:VOLT:DC 100')
-                    # # self.multimetr.write('TRIG:DEL 3')
-                    # response = self.multimetr.query('READ?')
+                    self.multimetr.write('CONF:VOLT:DC 100')
+                    # time.sleep(2)
+                    # self.multimetr.write('TRIG:DEL 2')
+                    response = self.multimetr.query('READ?')
                     # self.multimetr.write('CONF:CURR:DC 10')
                     # self.multimetr.write('SENSe:VOLT:RANG?')
-                    response = self.multimetr.query('MEASure:VOLTage:DC?')
+                    # response = self.multimetr.query('MEASure:VOLTage:DC?')
+                    # self.multimetr.write('TRIG:DEL 3')
                 elif table == self.wynikiACV:
                     response = self.multimetr.query('MEASure:VOLTage:AC?')
                 elif table == self.wynikiDCI:
                     # self.multimetr.write('CONF:CURR:DC 10')
+                    # self.multimetr.write('CONF:CURR:DC: 4e-1')
                     # self.multimetr.write('CONF:CURR:DC MIN')
-                    # self.multimetr.write('SENSe:CURR:AC:RANG 1e-3')
+                    # self.multimetr.write('SENSe:CURR:DC:RANG 4e-1')
+                    self.multimetr.write('SENSe:CURR:DC:RANG 10')
                     # self.multimetr.write('SENSe:VOLT:RANG?')
-                    response = self.multimetr.query('MEASure:CURRent:DC?')
+                    response = self.multimetr.query('READ?')
+                    # response = self.multimetr.query('MEASure:CURRent:DC?')
                 elif table == self.wynikiACI:
                     response = self.multimetr.query('MEASure:CURRent:AC?')
                 else:
