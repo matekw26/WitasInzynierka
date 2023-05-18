@@ -1308,11 +1308,15 @@ if __name__ == "__main__":
                     # # self.multimetr.write('TRIG:DEL 3')
                     # response = self.multimetr.query('READ?')
                     # self.multimetr.write('CONF:CURR:DC 10')
+                    # self.multimetr.write('SENSe:VOLT:RANG?')
                     response = self.multimetr.query('MEASure:VOLTage:DC?')
                 elif table == self.wynikiACV:
                     response = self.multimetr.query('MEASure:VOLTage:AC?')
                 elif table == self.wynikiDCI:
                     # self.multimetr.write('CONF:CURR:DC 10')
+                    # self.multimetr.write('CONF:CURR:DC MIN')
+                    # self.multimetr.write('SENSe:CURR:AC:RANG 1e-3')
+                    # self.multimetr.write('SENSe:VOLT:RANG?')
                     response = self.multimetr.query('MEASure:CURRent:DC?')
                 elif table == self.wynikiACI:
                     response = self.multimetr.query('MEASure:CURRent:AC?')
