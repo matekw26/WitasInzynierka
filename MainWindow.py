@@ -1201,10 +1201,25 @@ if __name__ == "__main__":
                     # Wzorzec roboczy Vs
                     value = float(table2.item(row, 3).text())
                     # value_bez = int(str(value).replace(".", ""))
+                    cyfry_po_przecinku = len(str(value).split('.')[1])
+
+                    decimal = cyfry_po_przecinku
+                    if cyfry_po_przecinku == 1:
+                        decimal_part = str(value).split('.')[-1]
+                        if decimal_part == "0":
+                            decimal = 4
+                        else:
+                            decimal = cyfry_po_przecinku
 
                     # Wskazanie multimetru cyfrowego Vix
                     value_x = float(table2.item(row, 4).text())
                     value_bez_x = int(str(value_x).replace(".", ""))
+                    cyfry_po_przecinku_x = len(str(value_x).split('.')[1])
+
+                    if cyfry_po_przecinku_x == 1:
+                        decimal_part = str(value_x).split('.')[-1]
+                        if decimal_part == "0":
+                            value_bez_x = value_bez_x/10
 
                     # niepewnosc standardowa rozdielczosci Wzorcowanego multimetru dUr = dVix
                     Ur = float(1 / value_bez_x * value_x) / 2  # wartosci odchylen +-0,5
@@ -1232,22 +1247,27 @@ if __name__ == "__main__":
                         dok_pomiar = 0.0025/100
                         dok_range = 0.0007/100
                         range = 1
+                        dUSW = 0.000009
                     elif 1 <= value < 10:
                         dok_pomiar = 0.0024 / 100
                         dok_range = 0.0005 / 100
                         range = 10
+                        dUSW = 0.00006
                     elif 10 <= value < 100:
                         dok_pomiar = 0.0038 / 100
                         dok_range = 0.0006 / 100
                         range = 100
+                        dUSW = 0.001
                     elif 100 <= value <= 1000:
                         dok_pomiar = 0.0041 / 100
                         dok_range = 0.001 / 100
                         range = 1000
+                        dUSW = 0.007
                     else:
                         dok_pomiar = 0.0038 / 100
                         dok_range = 0.0006 / 100
                         range = 100
+                        dUSW = 0.001
 
                     # poprawka temperatury dT
                     dok_temp = 0.0005 / 100
@@ -1266,11 +1286,11 @@ if __name__ == "__main__":
                     print(f"Niepewnosc dmm: {dUVs}")
 
                     # poprawka ze Świadectwa DMM
-                    SW = 0.00001
-                    dSW = SW * value
-                    dUSW =dSW / math.sqrt(3)
-                    dUSW = np.around(dUSW, decimals=6)
-                    print(f"Niepewnosc ze Świadectwa dmm: {dUSW}")
+                    # SW = 0.00001
+                    # dSW = SW * value
+                    # dUSW =dSW / math.sqrt(3)
+                    # dUSW = np.around(dUSW, decimals=6)
+                    # print(f"Niepewnosc ze Świadectwa dmm: {dUSW}")
 
                     # dU = float(math.sqrt(((dok_pomiar / 100) * value)**2 + Ur_x**2))
                     # dU = np.around(dU, decimals=4)
@@ -1279,7 +1299,12 @@ if __name__ == "__main__":
                     # table2.item(row, 6).setText(str(Ub))
 
                     dU = float(dUVs + dUr + dT + dUSW)
-                    dU = np.around(dU, decimals=4)
+                    # dU = np.around(dU, decimals=4)
+                    dU = np.around(dU, decimals=decimal)
+
+                    if dU == 0:
+                        dU = float(dUVs + dUr + dT + dUSW)
+                        dU = np.around(dU, decimals=decimal+1)
 
                     table2.item(row, 6).setText(str(dU))
 
@@ -1301,30 +1326,83 @@ if __name__ == "__main__":
                     QApplication.processEvents()
                 # response = self.multimetr.query('READ?')
                 if table == self.wynikiDCV:
-                    # if 0 < item.text() <= 100 and itemp == 'mV':
-                    # elif 100 < item.text() and itemp == 'mV':
-                    # elif 1 < item.text() < 10 and itemp == 'V':
-                    self.multimetr.write('CONF:VOLT:DC 100')
+                    if 0 < item.text() < 100 and itemp == 'mV':
+                        self.multimetr.write('SENSe:VOLT:DC:RANG 1e-1')
+                    elif 100 <= item.text() and itemp == 'mV':
+                        self.multimetr.write('CONF:VOLT:DC 1')
+                    elif 1 <= item.text() < 10 and itemp == 'V':
+                        self.multimetr.write('CONF:VOLT:DC 10')
+                    elif 10 <= item.text() < 100 and itemp == 'V':
+                        self.multimetr.write('CONF:VOLT:DC 100')
+                    elif 100 <= item.text() < 1000 and itemp == 'V':
+                        self.multimetr.write('CONF:VOLT:DC 1000')
+
+                    response = self.multimetr.query('READ?')
                     # time.sleep(2)
                     # self.multimetr.write('TRIG:DEL 2')
-                    response = self.multimetr.query('READ?')
                     # self.multimetr.write('CONF:CURR:DC 10')
                     # self.multimetr.write('SENSe:VOLT:RANG?')
                     # response = self.multimetr.query('MEASure:VOLTage:DC?')
                     # self.multimetr.write('TRIG:DEL 3')
                 elif table == self.wynikiACV:
-                    response = self.multimetr.query('MEASure:VOLTage:AC?')
+                    if 0 < item.text() < 100 and itemp == 'mV':
+                        self.multimetr.write('SENSe:VOLT:AC:RANG 1e-1')
+                    elif 100 <= item.text() and itemp == 'mV':
+                        self.multimetr.write('CONF:VOLT:AC 1')
+                    elif 1 <= item.text() < 10 and itemp == 'V':
+                        self.multimetr.write('CONF:VOLT:AC 10')
+                    elif 10 <= item.text() < 100 and itemp == 'V':
+                        self.multimetr.write('CONF:VOLT:AC 100')
+                    elif 100 <= item.text() < 1000 and itemp == 'V':
+                        self.multimetr.write('CONF:VOLT:AC 1000')
+
+                    response = self.multimetr.query('READ?')
+                    # response = self.multimetr.query('MEASure:VOLTage:AC?')
                 elif table == self.wynikiDCI:
+                    if 0 < item.text() < 100 and itemp == 'uA':
+                        self.multimetr.write('SENSe:CURR:DC:RANG 1e-4')
+                    elif 100 <= item.text() < 999 and itemp == 'uA':
+                        self.multimetr.write('SENSe:CURR:DC:RANG 1e-3')
+                    elif 0 <= item.text() < 10 and itemp == 'mA':
+                        self.multimetr.write('SENSe:CURR:DC:RANG 1e-2')
+                    elif 10 <= item.text() < 100 and itemp == 'mA':
+                        self.multimetr.write('SENSe:CURR:DC:RANG 1e-1')
+                    elif 100 <= item.text() < 400 and itemp == 'mA':
+                        self.multimetr.write('SENSe:CURR:DC:RANG 4e-1')
+                    elif 400 <= item.text() < 999 and itemp == 'mA':
+                        self.multimetr.write('SENSe:CURR:DC:RANG 1')
+                    elif 1 <= item.text() < 3 and itemp == 'A':
+                        self.multimetr.write('SENSe:CURR:DC:RANG 3')
+                    elif 3 <= item.text() < 10 and itemp == 'A':
+                        self.multimetr.write('SENSe:CURR:DC:RANG 10')
                     # self.multimetr.write('CONF:CURR:DC 10')
                     # self.multimetr.write('CONF:CURR:DC: 4e-1')
                     # self.multimetr.write('CONF:CURR:DC MIN')
                     # self.multimetr.write('SENSe:CURR:DC:RANG 4e-1')
-                    self.multimetr.write('SENSe:CURR:DC:RANG 10')
+                    # self.multimetr.write('SENSe:CURR:DC:RANG 10')
                     # self.multimetr.write('SENSe:VOLT:RANG?')
                     response = self.multimetr.query('READ?')
                     # response = self.multimetr.query('MEASure:CURRent:DC?')
                 elif table == self.wynikiACI:
-                    response = self.multimetr.query('MEASure:CURRent:AC?')
+                    if 0 < item.text() < 100 and itemp == 'uA':
+                        self.multimetr.write('SENSe:CURR:AC:RANG 1e-4')
+                    elif 100 <= item.text() < 999 and itemp == 'uA':
+                        self.multimetr.write('SENSe:CURR:AC:RANG 1e-3')
+                    elif 0 <= item.text() < 10 and itemp == 'mA':
+                        self.multimetr.write('SENSe:CURR:AC:RANG 1e-2')
+                    elif 10 <= item.text() < 100 and itemp == 'mA':
+                        self.multimetr.write('SENSe:CURR:AC:RANG 1e-1')
+                    elif 100 <= item.text() < 400 and itemp == 'mA':
+                        self.multimetr.write('SENSe:CURR:AC:RANG 4e-1')
+                    elif 400 <= item.text() < 999 and itemp == 'mA':
+                        self.multimetr.write('SENSe:CURR:AC:RANG 1')
+                    elif 1 <= item.text() < 3 and itemp == 'A':
+                        self.multimetr.write('SENSe:CURR:AC:RANG 3')
+                    elif 3 <= item.text() < 10 and itemp == 'A':
+                        self.multimetr.write('SENSe:CURR:AC:RANG 10')
+
+                    response = self.multimetr.query('READ?')
+                    # response = self.multimetr.query('MEASure:CURRent:AC?')
                 else:
                     print("Coś nie tak :/")
                     response = 0
