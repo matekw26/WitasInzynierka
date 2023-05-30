@@ -246,7 +246,6 @@ if __name__ == "__main__":
             self.ilACI.setToolTip('Ilosc zakresow')
             self.ilR.setToolTip('Ilosc zakresow')
 
-
             # Pomiary
 
             self.initialize = False
@@ -649,7 +648,7 @@ if __name__ == "__main__":
                 # # worker.signals.finished.connect(self.thread_complete)
 
                 self.blokuj(self.wynikiDCV)
-                self.update_multimetr(item, self.wynikiDCV, None)
+                self.update_multimetr(item, self.wynikiDCV, itemp.text())
 
             elif sender.objectName() == "PomiarACV":
                 print("Teraz mierzymy ACV: ")
@@ -662,7 +661,7 @@ if __name__ == "__main__":
                 #time.sleep(self.timesleep.value())
 
                 self.blokuj(self.wynikiACV)
-                self.update_multimetr(item, self.wynikiACV, None)
+                self.update_multimetr(item, self.wynikiACV, itemp.text())
             elif sender.objectName() == "PomiarDCI":
                 print("Teraz mierzymy DCI: ")
                 self.wynikiDCI.setCurrentCell(5, 2)
@@ -674,7 +673,7 @@ if __name__ == "__main__":
                 #time.sleep(self.timesleep.value())
 
                 self.blokuj(self.wynikiDCI)
-                self.update_multimetr(item, self.wynikiDCI, None)
+                self.update_multimetr(item, self.wynikiDCI, itemp.text())
             elif sender.objectName() == "PomiarACI":
                 print("Teraz mierzymy ACI: ")
                 self.wynikiACI.setCurrentCell(5, 2)
@@ -686,7 +685,7 @@ if __name__ == "__main__":
                 #time.sleep(self.timesleep.value())
 
                 self.blokuj(self.wynikiACI)
-                self.update_multimetr(item, self.wynikiACI, None)
+                self.update_multimetr(item, self.wynikiACI, itemp.text())
             elif sender.objectName() == "PomiarR":
                 print("Teraz mierzymy R: ")
                 self.wynikiR.setCurrentCell(5, 2)
@@ -1081,6 +1080,8 @@ if __name__ == "__main__":
 
             try:
                 self.fluke5100b.write('S')
+                # autoZAPIS
+                self.update_excel_click()
             except Exception as e:
                 self.error1.setText(str(e))
                 print(e)
@@ -1185,12 +1186,12 @@ if __name__ == "__main__":
                     value_1 = float(float(table2.item(row, col).text()) * 0.1)
                     value_2 = float(float(table2.item(row, col).text()) * 0.5)
                     value_3 = float(float(table2.item(row, col).text()) * 0.9)
-                    value_4 = float(float(table2.item(row, col).text()) * (-0.9))
+                    # value_4 = float(float(table2.item(row, col).text()) * (-0.9))
 
                     table2.item(row, 2).setText(str(value_1))
                     table2.item(row+1, 2).setText(str(value_2))
                     table2.item(row+2, 2).setText(str(value_3))
-                    table2.item(row+3, 2).setText(str(value_4))
+                    # table2.item(row+3, 2).setText(str(value_4))
             except ValueError:
                 pass
             except AttributeError:
@@ -1298,7 +1299,7 @@ if __name__ == "__main__":
                     # Ub = np.around(Ub, decimals=4)
                     # table2.item(row, 6).setText(str(Ub))
 
-                    dU = float(dUVs + dUr + dT + dUSW)
+                    dU = abs(float(dUVs + dUr + dT + dUSW))
                     # dU = np.around(dU, decimals=4)
                     dU = np.around(dU, decimals=decimal)
 
@@ -1308,10 +1309,16 @@ if __name__ == "__main__":
 
                     table2.item(row, 6).setText(str(dU))
 
+
             except ValueError:
                 pass
             except AttributeError:
                 pass
+            except Exception as e:
+                self.error2.setText(str(e))
+                print(e)
+                pass
+
 
         def update_multimetr(self, item, table, itemp):
 
@@ -1326,15 +1333,17 @@ if __name__ == "__main__":
                     QApplication.processEvents()
                 # response = self.multimetr.query('READ?')
                 if table == self.wynikiDCV:
-                    if 0 < item.text() < 100 and itemp == 'mV':
-                        self.multimetr.write('SENSe:VOLT:DC:RANG 1e-1')
-                    elif 100 <= item.text() and itemp == 'mV':
+                    # self.multimetr.write('CONF:VOLT:DC')
+                    if 0 < float(item.text()) < 100 and itemp == 'mV':
+                        self.multimetr.write('CONF:VOLT:DC 1e-1')
+                        #self.multimetr.write('SENSe:VOLT:DC:RANG 1e-1')
+                    elif 100 <= float(item.text()) and itemp == 'mV':
                         self.multimetr.write('CONF:VOLT:DC 1')
-                    elif 1 <= item.text() < 10 and itemp == 'V':
+                    elif 1 <= float(item.text()) < 10 and itemp == 'V':
                         self.multimetr.write('CONF:VOLT:DC 10')
-                    elif 10 <= item.text() < 100 and itemp == 'V':
+                    elif 10 <= float(item.text()) < 100 and itemp == 'V':
                         self.multimetr.write('CONF:VOLT:DC 100')
-                    elif 100 <= item.text() < 1000 and itemp == 'V':
+                    elif 100 <= float(item.text()) < 1000 and itemp == 'V':
                         self.multimetr.write('CONF:VOLT:DC 1000')
 
                     response = self.multimetr.query('READ?')
@@ -1345,36 +1354,46 @@ if __name__ == "__main__":
                     # response = self.multimetr.query('MEASure:VOLTage:DC?')
                     # self.multimetr.write('TRIG:DEL 3')
                 elif table == self.wynikiACV:
-                    if 0 < item.text() < 100 and itemp == 'mV':
-                        self.multimetr.write('SENSe:VOLT:AC:RANG 1e-1')
-                    elif 100 <= item.text() and itemp == 'mV':
+                    # self.multimetr.write('CONF:VOLT:AC')
+                    if 0 < float(item.text()) < 100 and itemp == 'mV':
+                        self.multimetr.write('CONF:VOLT:AC 1e-1')
+                        # self.multimetr.write('SENSe:VOLT:AC:RANG 1e-1')
+                    elif 100 <= float(item.text()) and itemp == 'mV':
                         self.multimetr.write('CONF:VOLT:AC 1')
-                    elif 1 <= item.text() < 10 and itemp == 'V':
+                    elif 1 <= float(item.text()) < 10 and itemp == 'V':
                         self.multimetr.write('CONF:VOLT:AC 10')
-                    elif 10 <= item.text() < 100 and itemp == 'V':
+                    elif 10 <= float(item.text()) < 100 and itemp == 'V':
                         self.multimetr.write('CONF:VOLT:AC 100')
-                    elif 100 <= item.text() < 1000 and itemp == 'V':
+                    elif 100 <= float(item.text()) < 1000 and itemp == 'V':
                         self.multimetr.write('CONF:VOLT:AC 1000')
 
                     response = self.multimetr.query('READ?')
                     # response = self.multimetr.query('MEASure:VOLTage:AC?')
                 elif table == self.wynikiDCI:
-                    if 0 < item.text() < 100 and itemp == 'uA':
-                        self.multimetr.write('SENSe:CURR:DC:RANG 1e-4')
-                    elif 100 <= item.text() < 999 and itemp == 'uA':
-                        self.multimetr.write('SENSe:CURR:DC:RANG 1e-3')
-                    elif 0 <= item.text() < 10 and itemp == 'mA':
-                        self.multimetr.write('SENSe:CURR:DC:RANG 1e-2')
-                    elif 10 <= item.text() < 100 and itemp == 'mA':
-                        self.multimetr.write('SENSe:CURR:DC:RANG 1e-1')
-                    elif 100 <= item.text() < 400 and itemp == 'mA':
-                        self.multimetr.write('SENSe:CURR:DC:RANG 4e-1')
-                    elif 400 <= item.text() < 999 and itemp == 'mA':
-                        self.multimetr.write('SENSe:CURR:DC:RANG 1')
-                    elif 1 <= item.text() < 3 and itemp == 'A':
-                        self.multimetr.write('SENSe:CURR:DC:RANG 3')
-                    elif 3 <= item.text() < 10 and itemp == 'A':
-                        self.multimetr.write('SENSe:CURR:DC:RANG 10')
+                    if 0 < float(item.text()) < 100 and itemp == 'uA':
+                        self.multimetr.write('CONF:CURR:DC 1e-4')
+                        # self.multimetr.write('SENSe:CURR:DC:RANG 1e-4')
+                    elif 100 <= float(item.text()) < 999 and itemp == 'uA':
+                        self.multimetr.write('CONF:CURR:DC 1e-3')
+                        # self.multimetr.write('SENSe:CURR:DC:RANG 1e-3')
+                    elif 0 <= float(item.text()) < 10 and itemp == 'mA':
+                        self.multimetr.write('CONF:CURR:DC 1e-2')
+                        # self.multimetr.write('SENSe:CURR:DC:RANG 1e-2')
+                    elif 10 <= float(item.text()) < 100 and itemp == 'mA':
+                        self.multimetr.write('CONF:CURR:DC 1e-1')
+                        # self.multimetr.write('SENSe:CURR:DC:RANG 1e-1')
+                    elif 100 <= float(item.text()) < 400 and itemp == 'mA':
+                        self.multimetr.write('CONF:CURR:DC 4e-1')
+                        # self.multimetr.write('SENSe:CURR:DC:RANG 4e-1')
+                    elif 400 <= float(item.text()) < 999 and itemp == 'mA':
+                        self.multimetr.write('CONF:CURR:DC 1')
+                        # self.multimetr.write('SENSe:CURR:DC:RANG 1')
+                    elif 1 <= float(item.text()) < 3 and itemp == 'A':
+                        self.multimetr.write('CONF:CURR:DC 3')
+                        # self.multimetr.write('SENSe:CURR:DC:RANG 3')
+                    elif 3 <= float(item.text()) < 10 and itemp == 'A':
+                        self.multimetr.write('CONF:CURR:DC 10')
+                        # self.multimetr.write('SENSe:CURR:DC:RANG 10')
                     # self.multimetr.write('CONF:CURR:DC 10')
                     # self.multimetr.write('CONF:CURR:DC: 4e-1')
                     # self.multimetr.write('CONF:CURR:DC MIN')
@@ -1384,22 +1403,30 @@ if __name__ == "__main__":
                     response = self.multimetr.query('READ?')
                     # response = self.multimetr.query('MEASure:CURRent:DC?')
                 elif table == self.wynikiACI:
-                    if 0 < item.text() < 100 and itemp == 'uA':
-                        self.multimetr.write('SENSe:CURR:AC:RANG 1e-4')
-                    elif 100 <= item.text() < 999 and itemp == 'uA':
-                        self.multimetr.write('SENSe:CURR:AC:RANG 1e-3')
-                    elif 0 <= item.text() < 10 and itemp == 'mA':
-                        self.multimetr.write('SENSe:CURR:AC:RANG 1e-2')
-                    elif 10 <= item.text() < 100 and itemp == 'mA':
-                        self.multimetr.write('SENSe:CURR:AC:RANG 1e-1')
-                    elif 100 <= item.text() < 400 and itemp == 'mA':
-                        self.multimetr.write('SENSe:CURR:AC:RANG 4e-1')
-                    elif 400 <= item.text() < 999 and itemp == 'mA':
-                        self.multimetr.write('SENSe:CURR:AC:RANG 1')
-                    elif 1 <= item.text() < 3 and itemp == 'A':
-                        self.multimetr.write('SENSe:CURR:AC:RANG 3')
-                    elif 3 <= item.text() < 10 and itemp == 'A':
-                        self.multimetr.write('SENSe:CURR:AC:RANG 10')
+                    if 0 < float(item.text()) < 100 and itemp == 'uA':
+                        self.multimetr.write('CONF:CURR:AC 1e-4')
+                        # self.multimetr.write('SENSe:CURR:AC:RANG 1e-4')
+                    elif 100 <= float(item.text()) < 999 and itemp == 'uA':
+                        self.multimetr.write('CONF:CURR:AC 1e-3')
+                        # self.multimetr.write('SENSe:CURR:AC:RANG 1e-3')
+                    elif 0 <= float(item.text()) < 10 and itemp == 'mA':
+                        self.multimetr.write('CONF:CURR:AC 1e-2')
+                        # self.multimetr.write('SENSe:CURR:AC:RANG 1e-2')
+                    elif 10 <= float(item.text()) < 100 and itemp == 'mA':
+                        self.multimetr.write('CONF:CURR:AC 1e-1')
+                        # self.multimetr.write('SENSe:CURR:AC:RANG 1e-1')
+                    elif 100 <= float(item.text()) < 400 and itemp == 'mA':
+                        self.multimetr.write('CONF:CURR:AC 4e-1')
+                        # self.multimetr.write('SENSe:CURR:AC:RANG 4e-1')
+                    elif 400 <= float(item.text()) < 999 and itemp == 'mA':
+                        self.multimetr.write('CONF:CURR:AC 1')
+                        # self.multimetr.write('SENSe:CURR:AC:RANG 1')
+                    elif 1 <= float(item.text()) < 3 and itemp == 'A':
+                        self.multimetr.write('CONF:CURR:AC 3')
+                        # self.multimetr.write('SENSe:CURR:AC:RANG 3')
+                    elif 3 <= float(item.text()) < 10 and itemp == 'A':
+                        self.multimetr.write('CONF:CURR:AC 10')
+                        # self.multimetr.write('SENSe:CURR:AC:RANG 10')
 
                     response = self.multimetr.query('READ?')
                     # response = self.multimetr.query('MEASure:CURRent:AC?')
@@ -1410,17 +1437,22 @@ if __name__ == "__main__":
                 result = float(response)
                 # result = 10
                 print(f"To po konwercji: {result}")
-                if 0 < result < 0.001 and itemp != 'V':
+                if 0 < result < 0.001 and (itemp != 'V' and itemp != 'mV' and itemp != 'A' and itemp != 'mA'):
                     result = result * 10**6
                     print(f"Po *10^6 {result}")
                     result = np.around(float(result), decimals=4)
                     table.item(row, col + 1).setText(str(result))
-                elif 0 < result < 1 and itemp != 'V':
+                elif 0 < result < 1 and (itemp != 'V' and itemp != 'A'):
                     result = result * 10**3
                     print(f"Po *10^3 {result}")
                     result = np.around(float(result), decimals=4)
                     table.item(row, col + 1).setText(str(result))
-                elif 0 > result > -1 and itemp != 'V':
+                elif 0 > result > -1 and itemp == 'uA':
+                    result = result * 10 ** 6
+                    print(f"Po *10^3 {result}")
+                    result = np.around(float(result), decimals=4)
+                    table.item(row, col + 1).setText(str(result))
+                elif 0 > result > -1 and (itemp != 'V' and itemp != 'A'):
                     result = result * 10 ** 3
                     print(f"Po *10^3 {result}")
                     result = np.around(float(result), decimals=4)
@@ -1508,6 +1540,12 @@ if __name__ == "__main__":
                 elif sender.objectName() == "Zapisz_wynik":
                     path = self.sciezkaWynik_zapis.text() + ".xlsx"
                     self.update_excel2(path, self.wyniki_wzorcowania)
+                else:
+                    self.update_excel(path, "DCV", self.wynikiDCV)
+                    self.update_excel(path, "ACV", self.wynikiACV)
+                    self.update_excel(path, "DCI", self.wynikiDCI)
+                    self.update_excel(path, "ACI", self.wynikiACI)
+                    self.update_excel(path, "R", self.wynikiR)
             except FileNotFoundError:
                 path = u"Modele/" + self.wybierz_model.currentText() + ".xlsx"
                 if sender.objectName() == "ZapiszDCV":
@@ -1523,7 +1561,6 @@ if __name__ == "__main__":
                 elif sender.objectName() == "Zapisz_wynik":
                     self.update_excel2(path, self.wyniki_wzorcowania)
 
-
         def update_excel(self, path, sheet, table):
 
             # Wczytywanie pliku excel
@@ -1531,7 +1568,6 @@ if __name__ == "__main__":
             ws = wb[sheet]
 
             x = 10 #zmienic tez w innych przy mzianie tego
-
 
             for row in range(table.rowCount()):
                 for col in range(table.columnCount()):
@@ -1541,7 +1577,6 @@ if __name__ == "__main__":
                             ws.cell(row=row+2+x, column=col+1, value=item.text())
                     except AttributeError:
                         pass
-
             try:
                 wb.save(path)
             except PermissionError as e:
@@ -1568,7 +1603,6 @@ if __name__ == "__main__":
                             ws.cell(row=row+2+x, column=col+1, value=item.text())
                     except AttributeError:
                         pass
-
             try:
                 path2 = self.sciezka_Model.text() + ".xlsx"
                 wb.save(path2)
