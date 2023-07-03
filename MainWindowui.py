@@ -527,7 +527,7 @@ class Ui_MainWindow(object):
 
         self.data_wzorcowania = QDateEdit(self.Swiadectwo)
         self.data_wzorcowania.setObjectName(u"data_wzorcowania")
-        self.data_wzorcowania.setDateTime(QDateTime(QDate(2023, 2, 9), QTime(8, 0, 0)))
+        self.data_wzorcowania.setDateTime(QDateTime(QDate(2023, 2, 9), QTime(7, 0, 0)))
         self.data_wzorcowania.setCalendarPopup(True)
 
         self.gridLayout_7.addWidget(self.data_wzorcowania, 2, 0, 2, 1)
@@ -734,7 +734,7 @@ class Ui_MainWindow(object):
         self.timesleep = QSpinBox(self.Komunikacja)
         self.timesleep.setObjectName(u"timesleep")
         self.timesleep.setGeometry(QRect(130, 250, 42, 25))
-        self.timesleep.setValue(3)
+        self.timesleep.setValue(5)
         self.tabWidget.addTab(self.Komunikacja, "")
         self.Informacje = QWidget()
         self.Informacje.setObjectName(u"Informacje")
@@ -775,7 +775,7 @@ class Ui_MainWindow(object):
         self.zamkniecie_aplikacji.clicked.connect(MainWindow.close)
         self.Wyczysc.clicked.connect(self.wartosc_kalibrator.clear)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(3)
         self.Tabwybor.setCurrentIndex(3)
 
 
@@ -940,14 +940,12 @@ class Ui_MainWindow(object):
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Program do wzorcowania multimetr\u00f3w.</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Sprz\u0119t: Kalibrator 5100B (GPIB)</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Sprz\u0119t: Kalibrator 5100B (GPIB); DMM: Tektronix DMM4050</p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Autor: Mateusz Witas</p>\n"
-"<p style=\" margin-top:0px; margin-bott"
-                        "om:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">email: matekw26@gmail.com</p>\n"
+"<p style=\" mar"
+                        "gin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">email: matekw26@gmail.com</p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Instrukcja (mo\u017ce jaka\u015b)</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Przycisk reset: Troch\u0119 funkcja STOP, pocz\u0105tkowe ustawienia kalibratora jak i arkuszy...</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Przycisk help: Kalibrator na zdalny, wybierz model lub ustaw zakres, odpowiednie pod\u0142\u0105czenie...</p></body></html>", None))
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Informacje), QCoreApplication.translate("MainWindow", u"Informacje", None))
     # retranslateUi
 
