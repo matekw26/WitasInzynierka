@@ -5,10 +5,9 @@ from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QFileDialog, QMessageBox, QTableWidgetItem, \
     QPushButton
-from PySide6.QtCore import QDate, Qt, QThread
+from PySide6.QtCore import QDate, Qt, QThread, QTimer, QRunnable, Slot, Signal, QObject, QThreadPool
 from PySide6.QtGui import QCloseEvent, QPen, QColor, QStandardItem, QStandardItemModel
 from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QMainWindow, QApplication
-from PySide6.QtCore import QTimer, QRunnable, Slot, Signal, QObject, QThreadPool
 
 import traceback
 
@@ -18,13 +17,12 @@ from MainWindowui import Ui_MainWindow
 import os
 import subprocess
 import openpyxl
+from openpyxl import Workbook, load_workbook
 from openpyxl.drawing.image import Image
 from openpyxl.styles import Border, Side, Font, PatternFill, colors
 from openpyxl.styles.alignment import Alignment
 from openpyxl.styles.differential import DifferentialStyle
 from openpyxl.formatting.rule import Rule, FormulaRule
-from openpyxl import Workbook
-from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter
 import pandas as pd
 import numpy as np
@@ -37,7 +35,6 @@ import math
 import pyvisa
 import Calibrator
 import Multimetr
-
 
 
 # 1 instalacja PySide6 ... pip install PySide6 !
@@ -129,15 +126,14 @@ if __name__ == "__main__":
     #             self.signals.finished.emit()  # Done
 
     class MainWindow(QMainWindow, Ui_MainWindow):
-        def __init__(self, *args, **kwargs):
-            super(MainWindow, self).__init__(*args, **kwargs)
-
+        def __init__(self):
+            super(MainWindow, self).__init__()
             self.setupUi(self)
 
             # do timesleep
             self.threadpool = QThreadPool()
 
-            self.xd = False
+            self.creat = True
 
             # cos do zapisu
             self.initUI()
@@ -148,6 +144,7 @@ if __name__ == "__main__":
             # aktualna data do SW
             # uzyskaj aktualną datę
             today = datetime.date.today()
+
              # uzyskaj aktualny miesiąc jako liczba
             month = today.month
             year = today.year
@@ -372,6 +369,10 @@ if __name__ == "__main__":
                             self.zakres = "mA"
                             if float(item.text()) > 400:
                                 if self.displayed_warningmA == False:
+                                    try:
+                                        self.fluke5100b.write('S')
+                                    except Exception as e:
+                                        self.error3.setText(str(e))
                                     reply = QMessageBox.question(self, 'Zmień przewody',
                                                                  'Przekroczyłeś wartość 400mA. Czy zmieniłeś przewody?',
                                                                  QMessageBox.Yes | QMessageBox.No)
@@ -872,6 +873,7 @@ if __name__ == "__main__":
                     else:
                         print("Coś nie tak :/")
                         response = "Coś nie tak :/"
+                        self.odczyt_kalibrator.setText(str(response))
                     result = float(response)
                     if 0 < result < 1 and self.ustawienie_kalibrator.currentText() != "V":
                         result = result * 1000
@@ -916,7 +918,7 @@ if __name__ == "__main__":
         def open_file_dialog(self):
             options = QFileDialog.Options()
             file_name, _ = QFileDialog.getOpenFileName(None, "Otwórz plik", "",
-                                                       "All Files (*);;Excel Files (*.xlsx)", options=options)
+                                                       "Excel Files (*.xlsx);;All Files (*)", options=options)
             if file_name:
                 sender = self.sender()
                 # tutaj ustawiam ścieżkę na QLineEdit
@@ -1017,7 +1019,7 @@ if __name__ == "__main__":
             if df.size == 0:
                 return
 
-            x = 10 # zmienic to na ta sama wartosc co w generate excel 366, 740
+            x = 10  # zmienic to na ta sama wartosc co w generate excel 366, 740
 
             df.fillna('', inplace=True)
             # table.setRowCount(df.shape[0]+5)
@@ -1147,7 +1149,6 @@ if __name__ == "__main__":
 
         def reset(self):
 
-
             try:
                 # Reset -go to local
                 self.fluke5100b.write('*')
@@ -1168,6 +1169,7 @@ if __name__ == "__main__":
             self.initialize = False
 
         def update_tablewidget(self, item, table2):
+
             # Obliczanie poprakwi
             row = item.row()
             col = item.column()
@@ -1201,13 +1203,14 @@ if __name__ == "__main__":
 
                     # Wzorzec roboczy Vs
                     value = float(table2.item(row, 3).text())
-                    # value_bez = int(str(value).replace(".", ""))
+                    value_bez = int(str(value).replace(".", ""))
                     cyfry_po_przecinku = len(str(value).split('.')[1])
 
                     decimal = cyfry_po_przecinku
                     if cyfry_po_przecinku == 1:
                         decimal_part = str(value).split('.')[-1]
                         if decimal_part == "0":
+                            value_bez = value_bez / 10
                             decimal = 4
                         else:
                             decimal = cyfry_po_przecinku
@@ -1228,10 +1231,11 @@ if __name__ == "__main__":
                     dUr = np.around(dUr, decimals=4)
                     print(f"Niepewnosc rozdzielczosci: {dUr}")
 
-                    # # niepewnosc standardowa rozdielczosci Wzorca dUr = dVix
-                    # Ur = float(1/value_bez * value)/2  # wartosci odchylen +-0,5
-                    # dUr = Ur/math.sqrt(3)
-                    # print(f"Niepewnosc rozdzielczosci: {dUr}")
+                    # niepewnosc standardowa rozdielczosci Wzorca dUr = dVix
+                    Ur_x = float(1/value_bez * value)/2  # wartosci odchylen +-0,5
+                    dUr_x = Ur_x/math.sqrt(3)
+                    dUr_x = np.around(dUr_x, decimals=4)
+                    print(f"Niepewnosc rozdzielczosci: {dUr_x}")
 
                     # dVs
                     # Accuracy is given as ± (% measurement + % of range)
@@ -1293,19 +1297,16 @@ if __name__ == "__main__":
                     # dUSW = np.around(dUSW, decimals=6)
                     # print(f"Niepewnosc ze Świadectwa dmm: {dUSW}")
 
-                    # dU = float(math.sqrt(((dok_pomiar / 100) * value)**2 + Ur_x**2))
-                    # dU = np.around(dU, decimals=4)
-                    # Ub = float(dU/math.sqrt(3))
-                    # Ub = np.around(Ub, decimals=4)
-                    # table2.item(row, 6).setText(str(Ub))
-
-                    dU = abs(float(dUVs + dUr + dT + dUSW))
+                    dU = float(math.sqrt(dUVs**2 + dUr**2 + dUr_x**2 + dT**2 + dUSW**2))
                     # dU = np.around(dU, decimals=4)
                     dU = np.around(dU, decimals=decimal)
 
                     if dU == 0:
-                        dU = float(dUVs + dUr + dT + dUSW)
+                        dU = float(math.sqrt(dUVs**2 + dUr**2 + dUr_x**2 + dT**2 + dUSW**2))
                         dU = np.around(dU, decimals=decimal+1)
+                        if dU == 0:
+                            dU = float(math.sqrt(dUVs ** 2 + dUr ** 2 + dUr_x ** 2 + dT ** 2 + dUSW ** 2))
+                            dU = np.around(dU, decimals=decimal + 2)
 
                     table2.item(row, 6).setText(str(dU))
 
@@ -2045,7 +2046,7 @@ if __name__ == "__main__":
                         if cell.value is not None:
                             try:
                                 if 0 < cell.value < 10 ** 15:
-                                    self.calculate(cell.value, row, ws) # row + x
+                                    self.calculate(cell.value, row, ws)  # row + x
                             except TypeError:
                                 pass
 
@@ -2518,34 +2519,42 @@ if __name__ == "__main__":
                     self.sciezkaWynik_zapis.setText(filename_without_ext)
                     print(fileName)
 
+                    # # Pobierz samą nazwę pliku wraz z rozszerzeniem
+                    # file_name_with_extension = os.path.basename(path)
+                    #
+                    # # Pobierz nazwę pliku bez rozszerzenia
+                    # file_name = os.path.splitext(file_name_with_extension)[0]
+                    # print(file_name)
+
                     # Utwórz nowy plik Excel
                     # workbook = openpyxl.Workbook()
                     # sheet = workbook.active
                     # sheet['A1'] = 'Hello'
                     # sheet['B1'] = 'World'
 
-                    wb = Workbook()
-
-                    if self.check_r.isChecked():
-                        ws5 = wb.create_sheet("R", 0)
-                        self.creat_excel(ws5, self.check_r, self.ilR.value(),
-                                         self.zakresR.value(), self.zakresR.value())
-                    if self.check_aci.isChecked():
-                        ws4 = wb.create_sheet("ACI", 0)
-                        self.creat_excel(ws4, self.check_aci, self.ilACI.value(),
-                                         self.zakresACI.value(), self.zakresACI_2.value())
-                    if self.check_dci.isChecked():
-                        ws3 = wb.create_sheet("DCI", 0)
-                        self.creat_excel(ws3, self.check_dci, self.ilDCI.value(),
-                                         self.zakresDCI.value(), self.zakresDCI_2.value())
-                    if self.check_acv.isChecked():
-                        ws2 = wb.create_sheet("ACV", 0)
-                        self.creat_excel(ws2, self.check_acv, self.ilACV.value(),
-                                         self.zakresACV.value(), self.zakresACV_2.value())
-                    if self.check_dcv.isChecked():
-                        ws1 = wb.create_sheet("DCV", 0)
-                        self.creat_excel(ws1, self.check_dcv, self.ilDCV.value(),
-                                         self.zakresDCV.value(), self.zakresDCV_2.value())
+                    wb = openpyxl.load_workbook(self.sciezka_Model.text() + ".xlsx")
+                    # wb = Workbook()
+                    #
+                    # if self.check_r.isChecked():
+                    #     ws5 = wb.create_sheet("R", 0)
+                    #     self.creat_excel(ws5, self.check_r, self.ilR.value(),
+                    #                      self.zakresR.value(), self.zakresR.value())
+                    # if self.check_aci.isChecked():
+                    #     ws4 = wb.create_sheet("ACI", 0)
+                    #     self.creat_excel(ws4, self.check_aci, self.ilACI.value(),
+                    #                      self.zakresACI.value(), self.zakresACI_2.value())
+                    # if self.check_dci.isChecked():
+                    #     ws3 = wb.create_sheet("DCI", 0)
+                    #     self.creat_excel(ws3, self.check_dci, self.ilDCI.value(),
+                    #                      self.zakresDCI.value(), self.zakresDCI_2.value())
+                    # if self.check_acv.isChecked():
+                    #     ws2 = wb.create_sheet("ACV", 0)
+                    #     self.creat_excel(ws2, self.check_acv, self.ilACV.value(),
+                    #                      self.zakresACV.value(), self.zakresACV_2.value())
+                    # if self.check_dcv.isChecked():
+                    #     ws1 = wb.create_sheet("DCV", 0)
+                    #     self.creat_excel(ws1, self.check_dcv, self.ilDCV.value(),
+                    #                      self.zakresDCV.value(), self.zakresDCV_2.value())
 
                     self.zapis_pliku(self.sciezkaWynik_zapis.text(), wb)
 
@@ -2555,6 +2564,7 @@ if __name__ == "__main__":
 
         def zapis_pliku(self, path, wb):
 
+            self.creat = True
             # Zapisanie pliku
             if os.path.exists(path + ".xlsx"):
                 # Wyświetlenie okna dialogowego z pytaniem o nadpisanie pliku
@@ -2579,6 +2589,8 @@ if __name__ == "__main__":
                         msg.setInformativeText(str(e))
                         msg.setWindowTitle("Błąd")
                         msg.exec()
+                else:
+                    self.creat = False
             else:
                 print("Plik nie istnieje, zapisywanie...")
                 wb.save(path + ".xlsx")
@@ -2680,46 +2692,50 @@ if __name__ == "__main__":
 
                 self.swiadectwo()
 
-                # START czesci do kiopiowania i tworzenia 1 pliku z danymi calymi
+                if self.creat == True:
 
-                # pierwszy plik Excel
-                path1 = self.sciezkaSW_zapis.text() + ".xlsx"
-                # drugi plik Excel
-                path2 = self.sciezkaWynik_zapis.text() + ".xlsx"
+                    # START czesci do kiopiowania i tworzenia 1 pliku z danymi calymi
 
-                wb1 = xw.Book(path2)
-                wb2 = xw.Book(path1)
+                    # pierwszy plik Excel
+                    path1 = self.sciezkaSW_zapis.text() + ".xlsx"
+                    # drugi plik Excel
+                    path2 = self.sciezkaWynik_zapis.text() + ".xlsx"
 
-                for i in range(wb1.sheets.count - 1):
-                    ws1 = wb1.sheets(i+1)
-                    ws1.api.Copy(After=wb2.sheets(i+1).api)
+                    wb1 = xw.Book(path2)
+                    wb2 = xw.Book(path1)
 
-                wb2.save()
-                wb2.app.quit()
+                    for i in range(wb1.sheets.count - 1):
+                        ws1 = wb1.sheets(i+1)
+                        ws1.api.Copy(After=wb2.sheets(i+1).api)
 
-                # KONIEC
+                    # self.zapis_pliku(self.sciezkaSW_zapis.text(), wb2)
+                    wb2.save()
+                    wb2.app.quit()
 
-                # START robienie operacji na głównym swiadectwie
+                    # KONIEC
 
-                path = self.sciezkaSW_zapis.text() + ".xlsx"
-                wb = openpyxl.load_workbook(path)
+                    # START robienie operacji na głównym swiadectwie
 
-                worksheets = wb.sheetnames
+                    path = self.sciezkaSW_zapis.text() + ".xlsx"
+                    wb = openpyxl.load_workbook(path)
 
-                for i, sheet in enumerate(worksheets):
-                    if sheet != "Swiadectwo":
-                        if sheet != "Sheet":
+                    worksheets = wb.sheetnames
+
+                    for i, sheet in enumerate(worksheets):
+                        if sheet != "Swiadectwo":
+                            if sheet != "Sheet":
+                                ws = wb[sheet]
+                                ws.delete_cols(3)
+                                self.naglowek(ws)
+                                ws['G4'] = f"Strona {i+1}/{len(worksheets)-1}"
+                                ws.oddFooter.center.text = "Niniejsze świadectwo może być okazywane lub kopiowane tylko w całości."
+                        elif sheet == "Swiadectwo":
                             ws = wb[sheet]
-                            ws.delete_cols(3)
-                            self.naglowek(ws)
-                            ws['G4'] = f"Strona {i+1}/{len(worksheets)-1}"
-                            ws.oddFooter.center.text = "Niniejsze świadectwo może być okazywane lub kopiowane tylko w całości."
-                    elif sheet == "Swiadectwo":
-                        ws = wb[sheet]
-                        ws['E4'] = f"Strona {i + 1}/{len(worksheets) - 1}"
+                            ws['E4'] = f"Strona {i + 1}/{len(worksheets) - 1}"
 
-                # zapis pliku
-                wb.save(path)
+                    # zapis pliku
+                    # self.zapis_pliku(self.sciezkaSW_zapis.text(), wb)
+                    wb.save(path)
             except Exception as e:
                 self.error2.setText(str(e))
                 print(e)
@@ -2862,9 +2878,6 @@ if __name__ == "__main__":
 
             # zapis pliku
             self.zapis_pliku(self.sciezkaSW_zapis.text(), wb)
-
-
-
 
     app = QApplication(sys.argv)
 
