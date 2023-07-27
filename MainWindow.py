@@ -1524,6 +1524,7 @@ if __name__ == "__main__":
             ws.column_dimensions['F'].width = 14
 
             self.zapis_pliku(self.sciezkaWynik_zapis.text(), wb)
+            wb.close()
 
         def update_excel_click(self):
 
@@ -1582,6 +1583,7 @@ if __name__ == "__main__":
                         pass
             try:
                 wb.save(path)
+                wb.close()
             except PermissionError as e:
                 msg = QMessageBox()
                 msg.setIcon(QMessageBox.Critical)
@@ -1609,6 +1611,7 @@ if __name__ == "__main__":
             try:
                 path2 = self.sciezka_Model.text() + ".xlsx"
                 wb.save(path2)
+                wb.close()
             except PermissionError as e:
                 msg = QMessageBox()
                 msg.setIcon(QMessageBox.Critical)
@@ -1664,6 +1667,7 @@ if __name__ == "__main__":
             try:
                 path = self.sciezkaWynik_zapis.text() + ".xlsx"
                 wb.save(path)
+                wb.close()
             except PermissionError as e:
                 msg = QMessageBox()
                 msg.setIcon(QMessageBox.Critical)
@@ -2560,6 +2564,8 @@ if __name__ == "__main__":
 
                     self.zapis_pliku(self.sciezkaWynik_zapis.text(), wb)
 
+                    wb.close()
+
                     # Zapisz plik Excel
                     # workbook.save(fileName)
 
@@ -2583,6 +2589,7 @@ if __name__ == "__main__":
                         os.remove(path + ".xlsx")
                         print("Plik już istnieje, nadpisywanie...")
                         wb.save(path + ".xlsx")
+                        wb.close()
                         self.open_folder(path)
                     except PermissionError as e:
                         msg = QMessageBox()
@@ -2596,6 +2603,7 @@ if __name__ == "__main__":
             else:
                 print("Plik nie istnieje, zapisywanie...")
                 wb.save(path + ".xlsx")
+                wb.close()
                 self.open_folder(path)
 
         def naglowek(self, ws):
@@ -2712,7 +2720,11 @@ if __name__ == "__main__":
 
                     # self.zapis_pliku(self.sciezkaSW_zapis.text(), wb2)
                     wb2.save()
+                    # wb2.close()
                     wb2.app.quit()
+
+                    # wb1.close()
+                    # wb1.app.quit()
 
                     # KONIEC
 
@@ -2738,6 +2750,8 @@ if __name__ == "__main__":
                     # zapis pliku
                     # self.zapis_pliku(self.sciezkaSW_zapis.text(), wb)
                     wb.save(path)
+                    wb.close()
+                    wb1.app.quit()
             except Exception as e:
                 self.error2.setText(str(e))
                 print(e)
@@ -2880,6 +2894,8 @@ if __name__ == "__main__":
 
             # zapis pliku
             self.zapis_pliku(self.sciezkaSW_zapis.text(), wb)
+
+            wb.close()
 
     app = QApplication(sys.argv)
 
