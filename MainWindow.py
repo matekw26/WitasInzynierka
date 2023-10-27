@@ -828,8 +828,10 @@ if __name__ == "__main__":
             if s == 'A':
                 print(s)
                 self.wartosc_kalibrator.setMaximum(2)
+                self.wartosc_kalibrator.setMinimum(-2)
             else:
                 self.wartosc_kalibrator.setMaximum(1000)
+                self.wartosc_kalibrator.setMinimum(-1000)
 
         def nastawa(self):
 
@@ -2863,7 +2865,7 @@ if __name__ == "__main__":
             ws['B11'] = "DATA WYKONANIA \nWZORCOWANIA"
             ws['B12'] = "SPÓJNOŚĆ \nPOMIAROWA"
             ws['B13'] = "NIEPEWNOŚĆ \nPOMIARU"
-            ws['B14'] = "WYNIKI \nWZOROCWANIA"
+            ws['B14'] = "WYNIKI \nWZORCOWANIA"
 
             ws['C7'] = self.przedmiot_wzorcowania.toPlainText()
             ws['C8'] = self.Zglaszajacy.toPlainText()
