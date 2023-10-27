@@ -1365,7 +1365,7 @@ if __name__ == "__main__":
                         # self.multimetr.write('SENSe:VOLT:AC:RANG 1e-1')
                     elif 100 <= float(item.text()) and itemp == 'mV':
                         self.multimetr.write('CONF:VOLT:AC 1')
-                    elif 1 <= float(item.text()) < 10 and itemp == 'V':
+                    elif 0 <= float(item.text()) < 10 and itemp == 'V':
                         self.multimetr.write('CONF:VOLT:AC 10')
                     elif 10 <= float(item.text()) < 100 and itemp == 'V':
                         self.multimetr.write('CONF:VOLT:AC 100')
