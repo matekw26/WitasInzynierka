@@ -1221,6 +1221,7 @@ if __name__ == "__main__":
                     value_x = float(table2.item(row, 4).text())
                     value_bez_x = int(str(value_x).replace(".", ""))
                     cyfry_po_przecinku_x = len(str(value_x).split('.')[1])
+                    decimal_x = cyfry_po_przecinku_x
 
                     if cyfry_po_przecinku_x == 1:
                         decimal_part = str(value_x).split('.')[-1]
@@ -1304,6 +1305,7 @@ if __name__ == "__main__":
                     # niepewnosc rozszerzona 95% k = 2
                     dU = 2 * dU
                     dU = np.around(dU, decimals=decimal)
+                    dU = "{:.{dec}f}".format(dU, dec=decimal_x)
 
                     if dU == 0:
                         dU = float(math.sqrt(dUVs**2 + dUr**2 + dUr_x**2 + dUSW**2))
