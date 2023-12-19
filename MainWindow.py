@@ -1446,24 +1446,29 @@ if __name__ == "__main__":
                     result = result * 10**6
                     print(f"Po *10^6 {result}")
                     result = np.around(float(result), decimals=4)
+                    result = "{:.4f}".format(result)
                     table.item(row, col + 1).setText(str(result))
                 elif 0 < result < 1 and (itemp != 'V' and itemp != 'A'):
                     result = result * 10**3
                     print(f"Po *10^3 {result}")
                     result = np.around(float(result), decimals=4)
+                    result = "{:.4f}".format(result)
                     table.item(row, col + 1).setText(str(result))
                 elif 0 > result > -1 and itemp == 'uA':
                     result = result * 10 ** 6
                     print(f"Po *10^3 {result}")
                     result = np.around(float(result), decimals=4)
+                    result = "{:.4f}".format(result)
                     table.item(row, col + 1).setText(str(result))
                 elif 0 > result > -1 and (itemp != 'V' and itemp != 'A'):
                     result = result * 10 ** 3
                     print(f"Po *10^3 {result}")
                     result = np.around(float(result), decimals=4)
+                    result = "{:.4f}".format(result)
                     table.item(row, col + 1).setText(str(result))
                 else:
                     result = np.around(float(response), decimals=4)
+                    result = "{:.4f}".format(result)
                     table.item(row, col + 1).setText(str(result))
             except ValueError as e:
                 print(e)
